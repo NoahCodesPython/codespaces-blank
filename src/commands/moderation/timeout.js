@@ -31,7 +31,7 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
   
   // Slash command execution
-  async execute(client, interaction) {
+  async execute(interaction) {
     try {
       // Get options
       const targetUser = interaction.options.getUser('user');

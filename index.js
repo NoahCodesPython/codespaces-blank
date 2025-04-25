@@ -3,6 +3,7 @@ const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js'
 const mongoose = require('mongoose');
 const { loadCommands } = require('./src/handlers/command');
 const { loadEvents } = require('./src/handlers/event');
+const { initReminderHandler } = require('./src/handlers/reminderHandler');
 const logger = require('./src/utils/logger');
 const config = require('./src/config');
 
@@ -71,6 +72,9 @@ const init = async () => {
     // Load commands and events
     await loadCommands(client);
     await loadEvents(client);
+    
+    // Initialize reminder handler
+    initReminderHandler(client);
     
     logger.info(`Aquire is serving ${client.guilds.cache.size} servers with ${client.users.cache.size} users`);
   } catch (error) {

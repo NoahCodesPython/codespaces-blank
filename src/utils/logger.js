@@ -7,42 +7,43 @@ const myFormat = printf(({ level, message, timestamp }) => {
   return `[${timestamp}] ${level}: ${message}`;
 });
 
+// Create logs directory if it doesn't exist
+const fs = require('fs');
+const logsDir = path.join(process.cwd(), 'logs');
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir, { recursive: true });
+}
+
 // Create logger instance
 const logger = createLogger({
-  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+  level: 'debug', // Always use debug level to see all logs
   format: combine(
     timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     myFormat
   ),
   transports: [
-    // Output to console
+    // Output to console with colors
     new transports.Console({
+      level: 'debug',
       format: combine(
         colorize(),
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         myFormat
       ),
     }),
-    // Output to log file
+    // Output to log files
     new transports.File({
-      filename: path.join(process.cwd(), 'logs', 'error.log'),
+      filename: path.join(logsDir, 'error.log'),
       level: 'error',
     }),
     new transports.File({
-      filename: path.join(process.cwd(), 'logs', 'combined.log'),
+      filename: path.join(logsDir, 'debug.log'),
+      level: 'debug',
+    }),
+    new transports.File({
+      filename: path.join(logsDir, 'combined.log'),
     }),
   ],
 });
-
-// If we're not in production, log to the console with colors
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(new transports.Console({
-    format: combine(
-      colorize(),
-      timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-      myFormat
-    ),
-  }));
-}
 
 module.exports = logger;

@@ -1,6 +1,40 @@
 const mongoose = require('mongoose');
 
-const AltSchema = new mongoose.Schema({
+// Alt Detector Config (Per Guild)
+const AltDetectorSchema = new mongoose.Schema({
+  guildID: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  altDays: {
+    type: String, 
+    default: '7'
+  },
+  altModlog: {
+    type: String, 
+    default: null
+  },
+  allowedAlts: {
+    type: Array, 
+    default: []
+  },
+  altAction: {
+    type: String, 
+    default: 'none'
+  },
+  altToggle: {
+    type: Boolean, 
+    default: false
+  },
+  notifier: {
+    type: Boolean, 
+    default: false
+  }
+});
+
+// Alt Accounts (Per User)
+const AltAccountSchema = new mongoose.Schema({
   guildID: {
     type: String,
     required: true
@@ -40,7 +74,13 @@ const AltSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-// Composite unique index on guildID and userID
-AltSchema.index({ guildID: 1, userID: 1 }, { unique: true });
+// Composite unique index on guildID and userID for alt accounts
+AltAccountSchema.index({ guildID: 1, userID: 1 }, { unique: true });
 
-module.exports = mongoose.model('AltDetector', AltSchema);
+const AltDetector = mongoose.model('AltDetector', AltDetectorSchema);
+const AltAccount = mongoose.model('AltAccount', AltAccountSchema);
+
+module.exports = {
+  AltDetector,
+  AltAccount
+};

@@ -1,333 +1,301 @@
-const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, ComponentType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { readdirSync } = require('fs');
 const path = require('path');
+const logger = require('../../utils/logger');
 
 module.exports = {
+  name: 'help',
+  description: 'Display a list of all commands or info about a specific command',
+  category: 'information',
+  aliases: ['commands', 'h', 'cmds'],
+  usage: '[command]',
+  examples: ['help', 'help ban'],
+  userPermissions: [],
+  botPermissions: [],
+  
   data: new SlashCommandBuilder()
     .setName('help')
-    .setDescription('Display help information for commands')
+    .setDescription('Display a list of all commands or info about a specific command')
     .addStringOption(option => 
       option.setName('command')
         .setDescription('Get help for a specific command')
         .setRequired(false)),
   
-  category: 'information',
-  usage: '/help [command]',
-  examples: ['/help', '/help ping', '/help ban'],
-  aliases: ['commands', 'cmds', 'h'],
-  
-  /**
-   * Execute the command - Slash Command
-   * @param {*} interaction - The interaction object
-   */
+  // Slash command execution
   async execute(interaction) {
-    const client = interaction.client;
-    const commandName = interaction.options.getString('command');
-    
-    if (commandName) {
-      return this.displayCommandHelp(interaction, commandName);
-    }
-    
-    // Get categories
-    const categories = this.getCategories();
-    const mainEmbed = this.createMainEmbed(interaction, categories);
-    
-    // Create select menu for categories
-    const row = new ActionRowBuilder()
-      .addComponents(
-        new StringSelectMenuBuilder()
-          .setCustomId('help_category')
-          .setPlaceholder('Select a category')
-          .addOptions(categories.map(category => ({
-            label: this.capitalizeFirstLetter(category),
-            description: `View ${category} commands`,
-            value: category
-          })))
-      );
-    
-    const response = await interaction.reply({ embeds: [mainEmbed], components: [row], fetchReply: true });
-    
-    // Create collector for select menu
-    const collector = response.createMessageComponentCollector({ 
-      componentType: ComponentType.StringSelect, 
-      time: 60000 
-    });
-    
-    collector.on('collect', async i => {
-      if (i.user.id !== interaction.user.id) {
-        return i.reply({ content: 'This help menu is not for you!', ephemeral: true });
+    try {
+      const commandName = interaction.options.getString('command');
+      
+      // If no command specified, show all commands
+      if (!commandName) {
+        return await sendCommandList(interaction);
       }
       
-      const categoryName = i.values[0];
-      const categoryEmbed = this.createCategoryEmbed(interaction, categoryName);
+      // Find the command
+      const command = interaction.client.slashCommands.get(commandName) || 
+                      interaction.client.slashCommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
       
-      await i.update({ embeds: [categoryEmbed], components: [row] });
-    });
-    
-    collector.on('end', async () => {
-      // Disable the select menu when time expires
-      const disabledRow = new ActionRowBuilder()
-        .addComponents(
-          StringSelectMenuBuilder.from(row.components[0]).setDisabled(true)
-        );
-      
-      await response.edit({ components: [disabledRow] }).catch(() => {});
-    });
-  },
-  
-  /**
-   * Execute the command - Legacy Command
-   * @param {*} message - The message object
-   * @param {string[]} args - The message arguments
-   * @param {*} client - The client object
-   */
-  async run(message, args, client) {
-    if (args[0]) {
-      return this.displayCommandHelpLegacy(message, args[0], client);
-    }
-    
-    // Get categories
-    const categories = this.getCategories();
-    const mainEmbed = this.createMainEmbedLegacy(message, categories);
-    
-    // Create select menu for categories
-    const row = new ActionRowBuilder()
-      .addComponents(
-        new StringSelectMenuBuilder()
-          .setCustomId('help_category')
-          .setPlaceholder('Select a category')
-          .addOptions(categories.map(category => ({
-            label: this.capitalizeFirstLetter(category),
-            description: `View ${category} commands`,
-            value: category
-          })))
-      );
-    
-    const response = await message.channel.send({ embeds: [mainEmbed], components: [row] });
-    
-    // Create collector for select menu
-    const collector = response.createMessageComponentCollector({ 
-      componentType: ComponentType.StringSelect, 
-      time: 60000 
-    });
-    
-    collector.on('collect', async i => {
-      if (i.user.id !== message.author.id) {
-        return i.reply({ content: 'This help menu is not for you!', ephemeral: true });
-      }
-      
-      const categoryName = i.values[0];
-      const categoryEmbed = this.createCategoryEmbedLegacy(message, categoryName, client);
-      
-      await i.update({ embeds: [categoryEmbed], components: [row] });
-    });
-    
-    collector.on('end', async () => {
-      // Disable the select menu when time expires
-      const disabledRow = new ActionRowBuilder()
-        .addComponents(
-          StringSelectMenuBuilder.from(row.components[0]).setDisabled(true)
-        );
-      
-      await response.edit({ components: [disabledRow] }).catch(() => {});
-    });
-  },
-  
-  /**
-   * Display help for a specific command (slash command)
-   * @param {*} interaction - The interaction object
-   * @param {string} commandName - The command name
-   */
-  async displayCommandHelp(interaction, commandName) {
-    const command = interaction.client.commands.get(commandName) ||
-                   interaction.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-    
-    if (!command) {
-      return interaction.reply({ 
-        content: `Command \`${commandName}\` not found. Use \`/help\` to see all commands.`, 
-        ephemeral: true 
-      });
-    }
-    
-    const embed = new EmbedBuilder()
-      .setTitle(`Command: ${command.data.name}`)
-      .setDescription(command.data.description)
-      .setColor(interaction.guild.members.me.displayHexColor)
-      .addFields(
-        { name: 'Category', value: this.capitalizeFirstLetter(command.category || 'No category'), inline: true },
-        { name: 'Usage', value: `\`${command.usage || command.data.name}\``, inline: true },
-        { name: 'Aliases', value: command.aliases?.length ? command.aliases.map(a => `\`${a}\``).join(', ') : 'None', inline: true },
-        { name: 'Examples', value: command.examples?.length ? command.examples.map(e => `\`${e}\``).join('\n') : 'No examples provided' }
-      )
-      .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
-      .setTimestamp();
-    
-    return interaction.reply({ embeds: [embed] });
-  },
-  
-  /**
-   * Display help for a specific command (legacy command)
-   * @param {*} message - The message object
-   * @param {string} commandName - The command name
-   * @param {*} client - The client object
-   */
-  async displayCommandHelpLegacy(message, commandName, client) {
-    const command = client.commands.get(commandName) ||
-                    client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-    
-    if (!command) {
-      return message.reply(`Command \`${commandName}\` not found. Use \`help\` to see all commands.`);
-    }
-    
-    const embed = new EmbedBuilder()
-      .setTitle(`Command: ${command.data ? command.data.name : command.name}`)
-      .setDescription(command.data ? command.data.description : command.description)
-      .setColor(message.guild.members.me.displayHexColor)
-      .addFields(
-        { name: 'Category', value: this.capitalizeFirstLetter(command.category || 'No category'), inline: true },
-        { name: 'Usage', value: `\`${command.usage || (command.data ? command.data.name : command.name)}\``, inline: true },
-        { name: 'Aliases', value: command.aliases?.length ? command.aliases.map(a => `\`${a}\``).join(', ') : 'None', inline: true },
-        { name: 'Examples', value: command.examples?.length ? command.examples.map(e => `\`${e}\``).join('\n') : 'No examples provided' }
-      )
-      .setFooter({ text: `Requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-      .setTimestamp();
-    
-    return message.channel.send({ embeds: [embed] });
-  },
-  
-  /**
-   * Create main help embed for slash commands
-   * @param {*} interaction - The interaction object
-   * @param {string[]} categories - The command categories
-   * @returns {EmbedBuilder} The embed
-   */
-  createMainEmbed(interaction, categories) {
-    return new EmbedBuilder()
-      .setTitle('Aquire Bot Help')
-      .setDescription('Use the dropdown menu below to browse command categories, or use `/help [command]` to get help for a specific command.')
-      .setColor(interaction.guild.members.me.displayHexColor)
-      .addFields(
-        { name: 'Categories', value: categories.map(cat => `• ${this.capitalizeFirstLetter(cat)}`).join('\n') }
-      )
-      .setThumbnail(interaction.client.user.displayAvatarURL())
-      .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
-      .setTimestamp();
-  },
-  
-  /**
-   * Create main help embed for legacy commands
-   * @param {*} message - The message object
-   * @param {string[]} categories - The command categories
-   * @returns {EmbedBuilder} The embed
-   */
-  createMainEmbedLegacy(message, categories) {
-    return new EmbedBuilder()
-      .setTitle('Aquire Bot Help')
-      .setDescription('Use the dropdown menu below to browse command categories, or use `help [command]` to get help for a specific command.')
-      .setColor(message.guild.members.me.displayHexColor)
-      .addFields(
-        { name: 'Categories', value: categories.map(cat => `• ${this.capitalizeFirstLetter(cat)}`).join('\n') }
-      )
-      .setThumbnail(message.client.user.displayAvatarURL())
-      .setFooter({ text: `Requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-      .setTimestamp();
-  },
-  
-  /**
-   * Create category embed for slash commands
-   * @param {*} interaction - The interaction object
-   * @param {string} categoryName - The category name
-   * @returns {EmbedBuilder} The embed
-   */
-  createCategoryEmbed(interaction, categoryName) {
-    const commands = this.getCategoryCommands(categoryName);
-    
-    return new EmbedBuilder()
-      .setTitle(`${this.capitalizeFirstLetter(categoryName)} Commands`)
-      .setDescription(`Here are all the ${categoryName} commands.\nUse \`/help [command]\` to get more info on a command.`)
-      .setColor(interaction.guild.members.me.displayHexColor)
-      .addFields(
-        { name: 'Commands', value: commands.map(cmd => `• **${cmd.name}** - ${cmd.description}`).join('\n') || 'No commands in this category.' }
-      )
-      .setThumbnail(interaction.client.user.displayAvatarURL())
-      .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
-      .setTimestamp();
-  },
-  
-  /**
-   * Create category embed for legacy commands
-   * @param {*} message - The message object
-   * @param {string} categoryName - The category name
-   * @param {*} client - The client object
-   * @returns {EmbedBuilder} The embed
-   */
-  createCategoryEmbedLegacy(message, categoryName, client) {
-    const commands = this.getCategoryCommands(categoryName);
-    
-    return new EmbedBuilder()
-      .setTitle(`${this.capitalizeFirstLetter(categoryName)} Commands`)
-      .setDescription(`Here are all the ${categoryName} commands.\nUse \`help [command]\` to get more info on a command.`)
-      .setColor(message.guild.members.me.displayHexColor)
-      .addFields(
-        { name: 'Commands', value: commands.map(cmd => `• **${cmd.name}** - ${cmd.description}`).join('\n') || 'No commands in this category.' }
-      )
-      .setThumbnail(client.user.displayAvatarURL())
-      .setFooter({ text: `Requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-      .setTimestamp();
-  },
-  
-  /**
-   * Get a list of command categories
-   * @returns {string[]} Array of category names
-   */
-  getCategories() {
-    try {
-      const foldersPath = path.join(__dirname, '../');
-      const commandFolders = readdirSync(foldersPath, { withFileTypes: true })
-        .filter(dirent => dirent.isDirectory())
-        .map(dirent => dirent.name);
-        
-      return commandFolders;
-    } catch (error) {
-      console.error('Error getting command categories:', error);
-      return ['information', 'moderation', 'utility', 'fun'];
-    }
-  },
-  
-  /**
-   * Get commands for a specific category
-   * @param {string} categoryName - The category name
-   * @returns {Array} Array of command objects
-   */
-  getCategoryCommands(categoryName) {
-    try {
-      const commands = [];
-      const commandsPath = path.join(__dirname, `../${categoryName}`);
-      const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-      
-      for (const file of commandFiles) {
-        const filePath = path.join(commandsPath, file);
-        const command = require(filePath);
-        
-        commands.push({
-          name: command.data ? command.data.name : file.replace('.js', ''),
-          description: command.data ? command.data.description : command.description || 'No description provided'
+      if (!command) {
+        return interaction.reply({
+          content: `Could not find command \`${commandName}\`.`,
+          ephemeral: true
         });
       }
       
-      return commands;
+      // Send command info
+      await sendCommandInfo(interaction, command);
+      
     } catch (error) {
-      console.error(`Error getting commands for category ${categoryName}:`, error);
-      return [];
+      logger.error(`Error executing help command: ${error}`);
+      await interaction.reply({ 
+        content: 'There was an error executing this command!', 
+        ephemeral: true 
+      });
     }
   },
   
-  /**
-   * Capitalize the first letter of a string
-   * @param {string} string - The string to capitalize
-   * @returns {string} The capitalized string
-   */
-  capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  // Legacy command execution
+  async run(client, message, args) {
+    try {
+      const commandName = args[0];
+      
+      // If no command specified, show all commands
+      if (!commandName) {
+        return await legacySendCommandList(message, client);
+      }
+      
+      // Find the command
+      const command = client.commands.get(commandName) || 
+                      client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+      
+      if (!command) {
+        return message.reply(`Could not find command \`${commandName}\`.`);
+      }
+      
+      // Send command info
+      await legacySendCommandInfo(message, command);
+      
+    } catch (error) {
+      logger.error(`Error executing help command: ${error}`);
+      message.reply('There was an error executing this command!');
+    }
   }
 };
+
+// Function to send command list (slash command)
+async function sendCommandList(interaction) {
+  // Get all command categories
+  const categories = {};
+  const commandsDir = path.join(__dirname, '../..');
+  const commandFolders = readdirSync(path.join(commandsDir, 'commands'));
+  
+  // Organize commands by category
+  for (const folder of commandFolders) {
+    const categoryCommands = [];
+    
+    // Read command files in each category folder
+    const commandFiles = readdirSync(path.join(commandsDir, 'commands', folder)).filter(file => file.endsWith('.js'));
+    
+    for (const file of commandFiles) {
+      const command = require(`../../commands/${folder}/${file}`);
+      if (command.name && command.description) {
+        categoryCommands.push(`\`${command.name}\` - ${command.description}`);
+      }
+    }
+    
+    if (categoryCommands.length) {
+      categories[folder.charAt(0).toUpperCase() + folder.slice(1)] = categoryCommands;
+    }
+  }
+  
+  // Create the main embed
+  const embed = new EmbedBuilder()
+    .setTitle('Aquire Bot Commands')
+    .setDescription('Here\'s a list of all available commands. Use `/help [command]` for more information about a specific command.')
+    .setColor('#3498db')
+    .setFooter({ text: `Total Commands: ${interaction.client.slashCommands.size}` })
+    .setTimestamp();
+  
+  // Add categories to embed
+  for (const [category, commands] of Object.entries(categories)) {
+    embed.addFields({ 
+      name: `${category} Commands`, 
+      value: commands.slice(0, 10).join('\n') + (commands.length > 10 ? `\n...and ${commands.length - 10} more` : '') 
+    });
+  }
+  
+  // Add links and support info
+  const row = new ActionRowBuilder()
+    .addComponents(
+      new ButtonBuilder()
+        .setLabel('Support Server')
+        .setStyle(ButtonStyle.Link)
+        .setURL('https://discord.gg/example'),
+      new ButtonBuilder()
+        .setLabel('Invite Bot')
+        .setStyle(ButtonStyle.Link)
+        .setURL(`https://discord.com/api/oauth2/authorize?client_id=${interaction.client.user.id}&permissions=8&scope=bot%20applications.commands`)
+    );
+  
+  // Send the embed
+  await interaction.reply({ embeds: [embed], components: [row] });
+}
+
+// Function to send command info (slash command)
+async function sendCommandInfo(interaction, command) {
+  const embed = new EmbedBuilder()
+    .setTitle(`Command: ${command.name}`)
+    .setDescription(command.description || 'No description available')
+    .setColor('#3498db')
+    .setFooter({ text: 'Syntax: <> = required, [] = optional' })
+    .setTimestamp();
+  
+  // Add command details
+  if (command.aliases && command.aliases.length) {
+    embed.addFields({ name: 'Aliases', value: command.aliases.map(a => `\`${a}\``).join(', ') });
+  }
+  
+  if (command.usage) {
+    embed.addFields({ name: 'Usage', value: `\`/${command.name} ${command.usage}\`` });
+  }
+  
+  if (command.examples && command.examples.length) {
+    embed.addFields({ 
+      name: 'Examples', 
+      value: command.examples.map(example => `\`/${example}\``).join('\n') 
+    });
+  }
+  
+  if (command.userPermissions && command.userPermissions.length) {
+    const formattedPerms = command.userPermissions.map(perm => {
+      return perm.toString().split(/(?=[A-Z])/).join(' ');
+    }).join(', ');
+    
+    embed.addFields({ name: 'Required Permissions', value: formattedPerms });
+  }
+  
+  // Send the embed
+  await interaction.reply({ embeds: [embed] });
+}
+
+// Function to send command list (legacy command)
+async function legacySendCommandList(message, client) {
+  // Get guild prefix
+  let prefix = '!'; // Default prefix
+  
+  try {
+    const Guild = require('../../models/Guild');
+    const guildSettings = await Guild.findOne({ guildID: message.guild.id });
+    if (guildSettings && guildSettings.prefix) {
+      prefix = guildSettings.prefix;
+    }
+  } catch (error) {
+    logger.error(`Error fetching guild prefix: ${error}`);
+  }
+  
+  // Get all command categories
+  const categories = {};
+  const commandsDir = path.join(__dirname, '../..');
+  const commandFolders = readdirSync(path.join(commandsDir, 'commands'));
+  
+  // Organize commands by category
+  for (const folder of commandFolders) {
+    const categoryCommands = [];
+    
+    // Read command files in each category folder
+    const commandFiles = readdirSync(path.join(commandsDir, 'commands', folder)).filter(file => file.endsWith('.js'));
+    
+    for (const file of commandFiles) {
+      const command = require(`../../commands/${folder}/${file}`);
+      if (command.name && command.description) {
+        categoryCommands.push(`\`${command.name}\` - ${command.description}`);
+      }
+    }
+    
+    if (categoryCommands.length) {
+      categories[folder.charAt(0).toUpperCase() + folder.slice(1)] = categoryCommands;
+    }
+  }
+  
+  // Create the main embed
+  const embed = new EmbedBuilder()
+    .setTitle('Aquire Bot Commands')
+    .setDescription(`Here's a list of all available commands. Use \`${prefix}help [command]\` for more information about a specific command.`)
+    .setColor('#3498db')
+    .setFooter({ text: `Total Commands: ${client.commands.size}` })
+    .setTimestamp();
+  
+  // Add categories to embed
+  for (const [category, commands] of Object.entries(categories)) {
+    embed.addFields({ 
+      name: `${category} Commands`, 
+      value: commands.slice(0, 10).join('\n') + (commands.length > 10 ? `\n...and ${commands.length - 10} more` : '') 
+    });
+  }
+  
+  // Add links and support info
+  const row = new ActionRowBuilder()
+    .addComponents(
+      new ButtonBuilder()
+        .setLabel('Support Server')
+        .setStyle(ButtonStyle.Link)
+        .setURL('https://discord.gg/example'),
+      new ButtonBuilder()
+        .setLabel('Invite Bot')
+        .setStyle(ButtonStyle.Link)
+        .setURL(`https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands`)
+    );
+  
+  // Send the embed
+  await message.reply({ embeds: [embed], components: [row] });
+}
+
+// Function to send command info (legacy command)
+async function legacySendCommandInfo(message, command) {
+  // Get guild prefix
+  let prefix = '!'; // Default prefix
+  
+  try {
+    const Guild = require('../../models/Guild');
+    const guildSettings = await Guild.findOne({ guildID: message.guild.id });
+    if (guildSettings && guildSettings.prefix) {
+      prefix = guildSettings.prefix;
+    }
+  } catch (error) {
+    logger.error(`Error fetching guild prefix: ${error}`);
+  }
+  
+  const embed = new EmbedBuilder()
+    .setTitle(`Command: ${command.name}`)
+    .setDescription(command.description || 'No description available')
+    .setColor('#3498db')
+    .setFooter({ text: 'Syntax: <> = required, [] = optional' })
+    .setTimestamp();
+  
+  // Add command details
+  if (command.aliases && command.aliases.length) {
+    embed.addFields({ name: 'Aliases', value: command.aliases.map(a => `\`${a}\``).join(', ') });
+  }
+  
+  if (command.usage) {
+    embed.addFields({ name: 'Usage', value: `\`${prefix}${command.name} ${command.usage}\`` });
+  }
+  
+  if (command.examples && command.examples.length) {
+    embed.addFields({ 
+      name: 'Examples', 
+      value: command.examples.map(example => `\`${prefix}${example}\``).join('\n') 
+    });
+  }
+  
+  if (command.userPermissions && command.userPermissions.length) {
+    const formattedPerms = command.userPermissions.map(perm => {
+      return perm.toString().split(/(?=[A-Z])/).join(' ');
+    }).join(', ');
+    
+    embed.addFields({ name: 'Required Permissions', value: formattedPerms });
+  }
+  
+  // Send the embed
+  await message.reply({ embeds: [embed] });
+}

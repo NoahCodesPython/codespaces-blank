@@ -1,194 +1,233 @@
-const { SlashCommandBuilder, EmbedBuilder, UserFlags } = require('discord.js');
-const moment = require('moment');
-
-// Constants for user flags/badges
-const FLAGS = {
-  Staff: 'Discord Employee',
-  Partner: 'Discord Partner',
-  Hypesquad: 'HypeSquad Events',
-  BugHunterLevel1: 'Bug Hunter (Level 1)',
-  BugHunterLevel2: 'Bug Hunter (Level 2)',
-  HypeSquadOnlineHouse1: 'House of Bravery',
-  HypeSquadOnlineHouse2: 'House of Brilliance',
-  HypeSquadOnlineHouse3: 'House of Balance',
-  PremiumEarlySupporter: 'Early Supporter',
-  TeamPseudoUser: 'Team User',
-  VerifiedBot: 'Verified Bot',
-  VerifiedDeveloper: 'Early Verified Bot Developer'
-};
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const logger = require('../../utils/logger');
 
 module.exports = {
+  name: 'userinfo',
+  description: 'Display information about a user',
+  category: 'information',
+  aliases: ['user', 'whois', 'ui'],
+  usage: '[user]',
+  examples: ['userinfo', 'userinfo @User', 'userinfo 123456789012345678'],
+  userPermissions: [],
+  botPermissions: [],
+  
   data: new SlashCommandBuilder()
     .setName('userinfo')
-    .setDescription('Displays information about a user')
+    .setDescription('Display information about a user')
     .addUserOption(option => 
       option.setName('user')
         .setDescription('The user to get information about')
         .setRequired(false)),
   
-  category: 'information',
-  usage: '/userinfo [user]',
-  examples: ['/userinfo', '/userinfo @username'],
-  aliases: ['ui', 'user', 'whois'],
-  
-  /**
-   * Execute the command - Slash Command
-   * @param {*} interaction - The interaction object
-   */
+  // Slash command execution
   async execute(interaction) {
-    const targetUser = interaction.options.getUser('user') || interaction.user;
-    const member = await interaction.guild.members.fetch(targetUser.id).catch(() => null);
-    
-    if (!member) {
-      return interaction.reply({ 
-        content: 'Error: I couldn\'t find that user in this server.', 
+    try {
+      // Get the target user, default to the command user if none specified
+      const targetUser = interaction.options.getUser('user') || interaction.user;
+      const member = targetUser.id === interaction.user.id ? 
+        interaction.member : 
+        await interaction.guild.members.fetch(targetUser.id).catch(() => null);
+      
+      // Create the embed
+      const embed = new EmbedBuilder()
+        .setTitle(`User Information - ${targetUser.tag}`)
+        .setColor(member ? member.displayHexColor : '#3498db')
+        .setThumbnail(targetUser.displayAvatarURL({ dynamic: true, size: 512 }))
+        .setFooter({ text: `User ID: ${targetUser.id}` })
+        .setTimestamp();
+      
+      // Add general account info
+      const createdTimestamp = Math.floor(targetUser.createdAt.getTime() / 1000);
+      embed.addFields({ 
+        name: 'Account Created', 
+        value: `<t:${createdTimestamp}:F>\n(<t:${createdTimestamp}:R>)`, 
+        inline: false 
+      });
+      
+      // Add member-specific information if available
+      if (member) {
+        // Get join date
+        const joinedTimestamp = Math.floor(member.joinedAt.getTime() / 1000);
+        embed.addFields({ 
+          name: 'Joined Server', 
+          value: `<t:${joinedTimestamp}:F>\n(<t:${joinedTimestamp}:R>)`,
+          inline: false 
+        });
+        
+        // Get roles
+        let roleString = member.roles.cache
+          .filter(role => role.id !== interaction.guild.id) // Filter out @everyone
+          .sort((a, b) => b.position - a.position) // Sort by position
+          .map(role => `<@&${role.id}>`)
+          .join(', ');
+        
+        if (!roleString) roleString = 'None';
+        
+        if (roleString.length > 1024) {
+          roleString = roleString.substring(0, 1020) + '...';
+        }
+        
+        embed.addFields({ 
+          name: `Roles [${member.roles.cache.size - 1}]`, 
+          value: roleString,
+          inline: false 
+        });
+        
+        // Check for acknowledgements/special permissions
+        const acknowledgements = [];
+        
+        if (member.id === interaction.guild.ownerId) {
+          acknowledgements.push('Server Owner');
+        }
+        
+        if (member.permissions.has('Administrator')) {
+          acknowledgements.push('Administrator');
+        } else {
+          if (member.permissions.has('ManageGuild')) acknowledgements.push('Manage Server');
+          if (member.permissions.has('ManageRoles')) acknowledgements.push('Manage Roles');
+          if (member.permissions.has('ManageChannels')) acknowledgements.push('Manage Channels');
+          if (member.permissions.has('ModerateMembers')) acknowledgements.push('Timeout Members');
+          if (member.permissions.has('BanMembers')) acknowledgements.push('Ban Members');
+          if (member.permissions.has('KickMembers')) acknowledgements.push('Kick Members');
+        }
+        
+        if (acknowledgements.length > 0) {
+          embed.addFields({ 
+            name: 'Acknowledgements', 
+            value: acknowledgements.join(', '),
+            inline: false 
+          });
+        }
+      }
+      
+      // Add bot badge if the user is a bot
+      if (targetUser.bot) {
+        embed.setDescription('**Bot Account**');
+      }
+      
+      // Send the embed
+      await interaction.reply({ embeds: [embed] });
+      
+    } catch (error) {
+      logger.error(`Error executing userinfo command: ${error}`);
+      await interaction.reply({ 
+        content: 'There was an error executing this command!', 
         ephemeral: true 
       });
     }
-    
-    // Format dates
-    const createdAt = moment(targetUser.createdAt).format('MMMM Do YYYY, h:mm:ss a');
-    const joinedAt = moment(member.joinedAt).format('MMMM Do YYYY, h:mm:ss a');
-    
-    // Get user flags
-    const userFlags = targetUser.flags ? targetUser.flags.toArray() : [];
-    const flagsText = userFlags.length ? 
-      userFlags.map(flag => `\`${FLAGS[flag]}\``).join('\n') : 
-      '`None`';
-    
-    // Get roles
-    const roles = member.roles.cache
-      .sort((a, b) => b.position - a.position)
-      .map(role => role)
-      .filter(role => role.name !== '@everyone');
-    
-    const rolesText = roles.length ? 
-      roles.slice(0, 10).join(' ') + (roles.length > 10 ? ` and ${roles.length - 10} more roles` : '') : 
-      '`None`';
-    
-    // Get user status and activity
-    const status = member.presence ? member.presence.status : 'offline';
-    const activity = member.presence && member.presence.activities.length ? 
-      member.presence.activities[0] : null;
-    
-    let activityText = 'None';
-    if (activity) {
-      switch (activity.type) {
-        case 0: activityText = `Playing **${activity.name}**`; break;
-        case 1: activityText = `Streaming **${activity.name}**`; break;
-        case 2: activityText = `Listening to **${activity.name}**`; break;
-        case 3: activityText = `Watching **${activity.name}**`; break;
-        case 4: activityText = activity.state ? `Custom Status: ${activity.state}` : 'Custom Status'; break;
-        case 5: activityText = `Competing in **${activity.name}**`; break;
-      }
-    }
-    
-    const embed = new EmbedBuilder()
-      .setAuthor({ name: targetUser.tag, iconURL: targetUser.displayAvatarURL({ dynamic: true }) })
-      .setThumbnail(targetUser.displayAvatarURL({ dynamic: true }))
-      .setColor(member.displayHexColor === '#000000' ? '#FFFFFF' : member.displayHexColor)
-      .addFields(
-        { name: 'User Information', value: [
-          `**• Username:** \`${targetUser.username}\``,
-          `**• Discriminator:** \`#${targetUser.discriminator}\``,
-          `**• ID:** \`${targetUser.id}\``,
-          `**• Joined Discord:** \`${createdAt}\``,
-          `**• Joined Server:** \`${joinedAt}\``,
-          `**• Status:** \`${status}\``,
-          activity ? `**• Activity:** ${activityText}` : '',
-        ].filter(Boolean).join('\n'), inline: false },
-        { name: `Roles [${roles.length}]`, value: rolesText, inline: false },
-        { name: 'Badges', value: flagsText, inline: false }
-      )
-      .setFooter({ text: `ID: ${targetUser.id}` })
-      .setTimestamp();
-    
-    await interaction.reply({ embeds: [embed] });
   },
   
-  /**
-   * Execute the command - Legacy Command
-   * @param {*} message - The message object
-   * @param {string[]} args - The message arguments
-   * @param {*} client - The client object
-   */
-  async run(message, args, client) {
-    let targetUser;
-    let member;
-    
-    if (message.mentions.members.size > 0) {
-      member = message.mentions.members.first();
-      targetUser = member.user;
-    } else if (args[0]) {
-      try {
-        member = await message.guild.members.fetch(args[0]);
-        targetUser = member.user;
-      } catch (error) {
-        member = message.member;
+  // Legacy command execution
+  async run(client, message, args) {
+    try {
+      // Get the target user
+      let targetUser;
+      let member;
+      
+      // Check if a user was mentioned or ID provided
+      if (!args.length) {
         targetUser = message.author;
+        member = message.member;
+      } else {
+        // Try to get user from mention or ID
+        const mention = message.mentions.users.first();
+        if (mention) {
+          targetUser = mention;
+        } else {
+          try {
+            targetUser = await client.users.fetch(args[0]);
+          } catch (error) {
+            return message.reply('Could not find that user. Please provide a valid user mention or ID.');
+          }
+        }
+        
+        // Try to get member from guild
+        member = await message.guild.members.fetch(targetUser.id).catch(() => null);
       }
-    } else {
-      member = message.member;
-      targetUser = message.author;
-    }
-    
-    // Format dates
-    const createdAt = moment(targetUser.createdAt).format('MMMM Do YYYY, h:mm:ss a');
-    const joinedAt = moment(member.joinedAt).format('MMMM Do YYYY, h:mm:ss a');
-    
-    // Get user flags
-    const userFlags = targetUser.flags ? targetUser.flags.toArray() : [];
-    const flagsText = userFlags.length ? 
-      userFlags.map(flag => `\`${FLAGS[flag]}\``).join('\n') : 
-      '`None`';
-    
-    // Get roles
-    const roles = member.roles.cache
-      .sort((a, b) => b.position - a.position)
-      .map(role => role)
-      .filter(role => role.name !== '@everyone');
-    
-    const rolesText = roles.length ? 
-      roles.slice(0, 10).join(' ') + (roles.length > 10 ? ` and ${roles.length - 10} more roles` : '') : 
-      '`None`';
-    
-    // Get user status and activity
-    const status = member.presence ? member.presence.status : 'offline';
-    const activity = member.presence && member.presence.activities.length ? 
-      member.presence.activities[0] : null;
-    
-    let activityText = 'None';
-    if (activity) {
-      switch (activity.type) {
-        case 0: activityText = `Playing **${activity.name}**`; break;
-        case 1: activityText = `Streaming **${activity.name}**`; break;
-        case 2: activityText = `Listening to **${activity.name}**`; break;
-        case 3: activityText = `Watching **${activity.name}**`; break;
-        case 4: activityText = activity.state ? `Custom Status: ${activity.state}` : 'Custom Status'; break;
-        case 5: activityText = `Competing in **${activity.name}**`; break;
+      
+      // Create the embed
+      const embed = new EmbedBuilder()
+        .setTitle(`User Information - ${targetUser.tag}`)
+        .setColor(member ? member.displayHexColor : '#3498db')
+        .setThumbnail(targetUser.displayAvatarURL({ dynamic: true, size: 512 }))
+        .setFooter({ text: `User ID: ${targetUser.id}` })
+        .setTimestamp();
+      
+      // Add general account info
+      const createdTimestamp = Math.floor(targetUser.createdAt.getTime() / 1000);
+      embed.addFields({ 
+        name: 'Account Created', 
+        value: `<t:${createdTimestamp}:F>\n(<t:${createdTimestamp}:R>)`, 
+        inline: false 
+      });
+      
+      // Add member-specific information if available
+      if (member) {
+        // Get join date
+        const joinedTimestamp = Math.floor(member.joinedAt.getTime() / 1000);
+        embed.addFields({ 
+          name: 'Joined Server', 
+          value: `<t:${joinedTimestamp}:F>\n(<t:${joinedTimestamp}:R>)`,
+          inline: false 
+        });
+        
+        // Get roles
+        let roleString = member.roles.cache
+          .filter(role => role.id !== message.guild.id) // Filter out @everyone
+          .sort((a, b) => b.position - a.position) // Sort by position
+          .map(role => `<@&${role.id}>`)
+          .join(', ');
+        
+        if (!roleString) roleString = 'None';
+        
+        if (roleString.length > 1024) {
+          roleString = roleString.substring(0, 1020) + '...';
+        }
+        
+        embed.addFields({ 
+          name: `Roles [${member.roles.cache.size - 1}]`, 
+          value: roleString,
+          inline: false 
+        });
+        
+        // Check for acknowledgements/special permissions
+        const acknowledgements = [];
+        
+        if (member.id === message.guild.ownerId) {
+          acknowledgements.push('Server Owner');
+        }
+        
+        if (member.permissions.has('Administrator')) {
+          acknowledgements.push('Administrator');
+        } else {
+          if (member.permissions.has('ManageGuild')) acknowledgements.push('Manage Server');
+          if (member.permissions.has('ManageRoles')) acknowledgements.push('Manage Roles');
+          if (member.permissions.has('ManageChannels')) acknowledgements.push('Manage Channels');
+          if (member.permissions.has('ModerateMembers')) acknowledgements.push('Timeout Members');
+          if (member.permissions.has('BanMembers')) acknowledgements.push('Ban Members');
+          if (member.permissions.has('KickMembers')) acknowledgements.push('Kick Members');
+        }
+        
+        if (acknowledgements.length > 0) {
+          embed.addFields({ 
+            name: 'Acknowledgements', 
+            value: acknowledgements.join(', '),
+            inline: false 
+          });
+        }
       }
+      
+      // Add bot badge if the user is a bot
+      if (targetUser.bot) {
+        embed.setDescription('**Bot Account**');
+      }
+      
+      // Send the embed
+      await message.reply({ embeds: [embed] });
+      
+    } catch (error) {
+      logger.error(`Error executing userinfo command: ${error}`);
+      message.reply('There was an error executing this command!');
     }
-    
-    const embed = new EmbedBuilder()
-      .setAuthor({ name: targetUser.tag, iconURL: targetUser.displayAvatarURL({ dynamic: true }) })
-      .setThumbnail(targetUser.displayAvatarURL({ dynamic: true }))
-      .setColor(member.displayHexColor === '#000000' ? '#FFFFFF' : member.displayHexColor)
-      .addFields(
-        { name: 'User Information', value: [
-          `**• Username:** \`${targetUser.username}\``,
-          `**• Discriminator:** \`#${targetUser.discriminator}\``,
-          `**• ID:** \`${targetUser.id}\``,
-          `**• Joined Discord:** \`${createdAt}\``,
-          `**• Joined Server:** \`${joinedAt}\``,
-          `**• Status:** \`${status}\``,
-          activity ? `**• Activity:** ${activityText}` : '',
-        ].filter(Boolean).join('\n'), inline: false },
-        { name: `Roles [${roles.length}]`, value: rolesText, inline: false },
-        { name: 'Badges', value: flagsText, inline: false }
-      )
-      .setFooter({ text: `ID: ${targetUser.id}` })
-      .setTimestamp();
-    
-    await message.channel.send({ embeds: [embed] });
   }
 };

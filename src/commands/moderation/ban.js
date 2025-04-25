@@ -32,7 +32,7 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
   
   // Slash command execution
-  async execute(client, interaction) {
+  async execute(interaction) {
     try {
       // Get options
       const targetUser = interaction.options.getUser('user');
@@ -107,7 +107,7 @@ module.exports = {
   },
   
   // Legacy command execution
-  async run(client, message, args) {
+  async run(message, args, client) {
     try {
       // Get guild data from database
       const guildData = await Guild.findOne({ guildId: message.guild.id });

@@ -37,7 +37,7 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
   
   // Slash command execution
-  async execute(client, interaction) {
+  async execute(interaction) {
     try {
       // Get options
       const amount = interaction.options.getInteger('amount');

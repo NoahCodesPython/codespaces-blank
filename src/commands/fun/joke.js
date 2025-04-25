@@ -1,65 +1,141 @@
-const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
-const fetch = require('node-fetch');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const logger = require('../../utils/logger');
+const axios = require('axios');
 
 module.exports = {
   name: 'joke',
-  description: 'Generate a random joke from jokeAPI',
+  description: 'Get a random joke',
   category: 'fun',
-  cooldown: 3,
+  aliases: ['randomjoke', 'telljoke'],
+  usage: '',
+  examples: ['joke'],
+  userPermissions: [],
+  botPermissions: [],
   
-  // Slash command data
   data: new SlashCommandBuilder()
     .setName('joke')
-    .setDescription('Generate a random joke'),
+    .setDescription('Get a random joke')
+    .addStringOption(option => 
+      option.setName('category')
+        .setDescription('Choose a specific joke category')
+        .setRequired(false)
+        .addChoices(
+          { name: 'Programming', value: 'Programming' },
+          { name: 'Miscellaneous', value: 'Miscellaneous' },
+          { name: 'Dark', value: 'Dark' },
+          { name: 'Pun', value: 'Pun' },
+          { name: 'Spooky', value: 'Spooky' },
+          { name: 'Christmas', value: 'Christmas' }
+        )),
   
-  // Execute slash command
-  async execute(client, interaction) {
+  // Slash command execution
+  async execute(interaction) {
     try {
-      const response = await fetch(`https://v2.jokeapi.dev/joke/Programming,Miscellaneous?blacklistFlags=nsfw,religious,political,racist,sexist`);
+      // Defer the reply to give time to fetch the joke
+      await interaction.deferReply();
       
-      if (!response.ok) {
-        return interaction.reply({ content: 'Sorry, I couldn\'t connect to the Joke API.', ephemeral: true });
+      // Get joke category if provided
+      const category = interaction.options.getString('category');
+      
+      // API URL
+      let url = 'https://v2.jokeapi.dev/joke/Any';
+      if (category) {
+        url = `https://v2.jokeapi.dev/joke/${category}`;
       }
       
-      const data = await response.json();
-      const { type, category, joke, setup, delivery } = data;
+      // Add parameters to exclude NSFW jokes
+      url += '?blacklistFlags=nsfw,religious,political,racist,sexist,explicit';
       
+      // Fetch joke
+      const response = await axios.get(url);
+      
+      if (!response.data || response.data.error) {
+        return interaction.editReply('Failed to fetch a joke. Please try again later.');
+      }
+      
+      // Create embed
       const embed = new EmbedBuilder()
-        .setColor('#5865F2')
-        .setTitle(`${category} joke`)
-        .setDescription(type === 'twopart' ? `${setup}\n\n||${delivery}||` : joke)
-        .setFooter({ text: 'Powered by JokeAPI' });
+        .setTitle('😂 Random Joke')
+        .setColor('#FFA500') // Orange color
+        .setFooter({ text: `Category: ${response.data.category}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
+        .setTimestamp();
       
-      await interaction.reply({ embeds: [embed] });
+      // Format joke depending on type
+      if (response.data.type === 'single') {
+        embed.setDescription(response.data.joke);
+      } else {
+        embed.setDescription(`**${response.data.setup}**\n\n||${response.data.delivery}||`);
+      }
+      
+      await interaction.editReply({ embeds: [embed] });
+      
     } catch (error) {
-      logger.error(`Error in joke command: ${error}`);
-      await interaction.reply({ content: 'There was an error fetching a joke!', ephemeral: true });
+      logger.error(`Error executing joke command: ${error}`);
+      
+      // If already deferred, edit the reply
+      if (interaction.deferred) {
+        await interaction.editReply({ 
+          content: 'There was an error fetching a joke!', 
+        });
+      } else {
+        await interaction.reply({ 
+          content: 'There was an error executing this command!', 
+          ephemeral: true 
+        });
+      }
     }
   },
   
-  // Execute legacy command
+  // Legacy command execution
   async run(client, message, args) {
     try {
-      const response = await fetch(`https://v2.jokeapi.dev/joke/Programming,Miscellaneous?blacklistFlags=nsfw,religious,political,racist,sexist`);
+      // Send loading message
+      const loadingMessage = await message.reply('Fetching a joke...');
       
-      if (!response.ok) {
-        return message.channel.send('Sorry, I couldn\'t connect to the Joke API.');
+      // Get joke category if provided
+      const category = args[0];
+      
+      // API URL
+      let url = 'https://v2.jokeapi.dev/joke/Any';
+      if (category) {
+        // Only use if it's a valid category
+        const validCategories = ['Programming', 'Miscellaneous', 'Dark', 'Pun', 'Spooky', 'Christmas'];
+        const matchedCategory = validCategories.find(c => c.toLowerCase() === category.toLowerCase());
+        
+        if (matchedCategory) {
+          url = `https://v2.jokeapi.dev/joke/${matchedCategory}`;
+        }
       }
       
-      const data = await response.json();
-      const { type, category, joke, setup, delivery } = data;
+      // Add parameters to exclude NSFW jokes
+      url += '?blacklistFlags=nsfw,religious,political,racist,sexist,explicit';
       
+      // Fetch joke
+      const response = await axios.get(url);
+      
+      if (!response.data || response.data.error) {
+        return loadingMessage.edit('Failed to fetch a joke. Please try again later.');
+      }
+      
+      // Create embed
       const embed = new EmbedBuilder()
-        .setColor('#5865F2')
-        .setTitle(`${category} joke`)
-        .setDescription(type === 'twopart' ? `${setup}\n\n||${delivery}||` : joke)
-        .setFooter({ text: 'Powered by JokeAPI' });
+        .setTitle('😂 Random Joke')
+        .setColor('#FFA500') // Orange color
+        .setFooter({ text: `Category: ${response.data.category}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+        .setTimestamp();
       
-      await message.channel.send({ embeds: [embed] });
+      // Format joke depending on type
+      if (response.data.type === 'single') {
+        embed.setDescription(response.data.joke);
+      } else {
+        embed.setDescription(`**${response.data.setup}**\n\n||${response.data.delivery}||`);
+      }
+      
+      await loadingMessage.edit({ content: null, embeds: [embed] });
+      
     } catch (error) {
-      logger.error(`Error in joke command: ${error}`);
-      await message.channel.send('There was an error fetching a joke!');
+      logger.error(`Error executing joke command: ${error}`);
+      message.reply('There was an error fetching a joke!');
     }
   }
 };

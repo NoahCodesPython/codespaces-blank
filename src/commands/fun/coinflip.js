@@ -1,68 +1,66 @@
-const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
-const Guild = require('../../models/Guild');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const logger = require('../../utils/logger');
 
 module.exports = {
   name: 'coinflip',
   description: 'Flip a coin',
   category: 'fun',
-  aliases: ['cointoss'],
-  cooldown: 3,
+  aliases: ['flip', 'coin'],
+  usage: '',
+  examples: ['coinflip'],
+  userPermissions: [],
+  botPermissions: [],
   
-  // Slash command data
   data: new SlashCommandBuilder()
     .setName('coinflip')
     .setDescription('Flip a coin'),
   
-  // Execute slash command
-  async execute(client, interaction) {
+  // Slash command execution
+  async execute(interaction) {
     try {
-      const n = Math.floor(Math.random() * 2);
-      let result = n === 1 ? 'heads' : 'tails';
+      // Get result (50% chance for heads, 50% chance for tails)
+      const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+      const emoji = result === 'Heads' ? '🪙' : '💿';
       
-      const initialEmbed = new EmbedBuilder()
-        .setDescription('`Flipping a coin...`')
-        .setColor('#3498db');
+      // Create embed
+      const embed = new EmbedBuilder()
+        .setTitle('Coin Flip')
+        .setDescription(`${emoji} The coin landed on **${result}**!`)
+        .setColor('#FFD700') // Gold color
+        .setFooter({ text: `Flipped by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
+        .setTimestamp();
       
-      const msg = await interaction.reply({ embeds: [initialEmbed], fetchReply: true });
+      await interaction.reply({ embeds: [embed] });
       
-      // Wait a bit for effect
-      setTimeout(async () => {
-        const resultEmbed = new EmbedBuilder()
-          .setDescription(`I flipped a coin for ${interaction.user}, it was **${result}**`)
-          .setColor('#3498db');
-        
-        await interaction.editReply({ embeds: [resultEmbed] });
-      }, 1000);
     } catch (error) {
-      logger.error(`Error in coinflip command: ${error}`);
-      await interaction.reply({ content: 'There was an error flipping the coin!', ephemeral: true });
+      logger.error(`Error executing coinflip command: ${error}`);
+      await interaction.reply({ 
+        content: 'There was an error executing this command!', 
+        ephemeral: true 
+      });
     }
   },
   
-  // Execute legacy command
+  // Legacy command execution
   async run(client, message, args) {
     try {
-      const n = Math.floor(Math.random() * 2);
-      let result = n === 1 ? 'heads' : 'tails';
+      // Get result (50% chance for heads, 50% chance for tails)
+      const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+      const emoji = result === 'Heads' ? '🪙' : '💿';
       
-      const initialEmbed = new EmbedBuilder()
-        .setDescription('`Flipping a coin...`')
-        .setColor('#3498db');
+      // Create embed
+      const embed = new EmbedBuilder()
+        .setTitle('Coin Flip')
+        .setDescription(`${emoji} The coin landed on **${result}**!`)
+        .setColor('#FFD700') // Gold color
+        .setFooter({ text: `Flipped by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+        .setTimestamp();
       
-      const msg = await message.channel.send({ embeds: [initialEmbed] });
+      await message.reply({ embeds: [embed] });
       
-      // Wait a bit for effect
-      setTimeout(async () => {
-        const resultEmbed = new EmbedBuilder()
-          .setDescription(`I flipped a coin for ${message.member}, it was **${result}**`)
-          .setColor('#3498db');
-        
-        await msg.edit({ embeds: [resultEmbed] }).catch(() => {});
-      }, 1000);
     } catch (error) {
-      logger.error(`Error in coinflip command: ${error}`);
-      await message.channel.send('There was an error flipping the coin!');
+      logger.error(`Error executing coinflip command: ${error}`);
+      message.reply('There was an error executing this command!');
     }
   }
 };

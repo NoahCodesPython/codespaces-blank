@@ -1,111 +1,152 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-
-// Constants for verification and filter levels
-const verificationLevels = {
-  0: 'None',
-  1: 'Low',
-  2: 'Medium',
-  3: 'High',
-  4: 'Highest'
-};
-
-// Helper function to calculate days since creation
-function getDaysAgo(date) {
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
-  const days = Math.floor(diff / 86400000);
-  return days + (days === 1 ? " day" : " days") + " ago";
-}
+const logger = require('../../utils/logger');
 
 module.exports = {
+  name: 'serverinfo',
+  description: 'Display information about the server',
+  category: 'information',
+  aliases: ['server', 'guildinfo', 'guild'],
+  usage: '',
+  examples: ['serverinfo'],
+  userPermissions: [],
+  botPermissions: [],
+  
   data: new SlashCommandBuilder()
     .setName('serverinfo')
-    .setDescription('Display information about the current server'),
+    .setDescription('Display information about the server'),
   
-  category: 'information',
-  usage: '/serverinfo',
-  examples: ['/serverinfo'],
-  aliases: ['server', 'si', 'guildinfo', 'info'],
-  
-  /**
-   * Execute the command - Slash Command
-   * @param {*} interaction - The interaction object
-   */
+  // Slash command execution
   async execute(interaction) {
-    const { guild } = interaction;
-    
-    // Get member counts
-    const totalMembers = guild.memberCount;
-    const humanCount = guild.members.cache.filter(member => !member.user.bot).size;
-    const botCount = guild.members.cache.filter(member => member.user.bot).size;
-    
-    // Get channel counts
-    const totalChannels = guild.channels.cache.size;
-    const textChannels = guild.channels.cache.filter(ch => ch.type === 0).size;
-    const voiceChannels = guild.channels.cache.filter(ch => ch.type === 2).size;
-    const categoryChannels = guild.channels.cache.filter(ch => ch.type === 4).size;
-    
-    const embed = new EmbedBuilder()
-      .setAuthor({ name: guild.name, iconURL: guild.iconURL({ dynamic: true }) })
-      .setThumbnail(guild.iconURL({ dynamic: true }))
-      .setColor(interaction.guild.members.me.displayHexColor)
-      .addFields(
-        { name: 'Name', value: guild.name, inline: true },
-        { name: 'ID', value: guild.id, inline: true },
-        { name: 'Owner', value: `<@${guild.ownerId}>`, inline: true },
-        { name: 'Members', value: `Total: ${totalMembers}\nHumans: ${humanCount}\nBots: ${botCount}`, inline: true },
-        { name: 'Channels', value: `Total: ${totalChannels}\nText: ${textChannels}\nVoice: ${voiceChannels}\nCategories: ${categoryChannels}`, inline: true },
-        { name: 'Verification Level', value: verificationLevels[guild.verificationLevel], inline: true },
-        { name: 'Roles', value: `${guild.roles.cache.size}`, inline: true },
-        { name: 'Emojis', value: `${guild.emojis.cache.size}`, inline: true },
-        { name: 'Boost Level', value: `${guild.premiumTier} (${guild.premiumSubscriptionCount} boosts)`, inline: true },
-        { name: 'Created At', value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>\n(${getDaysAgo(guild.createdAt)})`, inline: false }
-      )
-      .setFooter({ text: `Shard #${guild.shardId || 0}` })
-      .setTimestamp();
-    
-    await interaction.reply({ embeds: [embed] });
+    try {
+      const { guild } = interaction;
+      
+      // Fetch member count information
+      const totalMembers = guild.memberCount;
+      const botCount = guild.members.cache.filter(member => member.user.bot).size;
+      const humanCount = totalMembers - botCount;
+      
+      // Calculate server age
+      const createdTimestamp = Math.floor(guild.createdAt.getTime() / 1000);
+      
+      // Fetch channel information
+      await guild.channels.fetch();
+      const textChannels = guild.channels.cache.filter(channel => channel.type === 0).size;
+      const voiceChannels = guild.channels.cache.filter(channel => channel.type === 2).size;
+      const categoryChannels = guild.channels.cache.filter(channel => channel.type === 4).size;
+      const forumChannels = guild.channels.cache.filter(channel => channel.type === 15).size;
+      const threadChannels = guild.channels.cache.filter(channel => [11, 12].includes(channel.type)).size;
+      
+      // Fetch role information
+      await guild.roles.fetch();
+      const roleCount = guild.roles.cache.size - 1; // Subtract @everyone role
+      
+      // Fetch emoji information
+      await guild.emojis.fetch();
+      const emojiCount = guild.emojis.cache.size;
+      const animatedEmojiCount = guild.emojis.cache.filter(emoji => emoji.animated).size;
+      const staticEmojiCount = emojiCount - animatedEmojiCount;
+      
+      // Get boost information
+      const boostLevel = guild.premiumTier ? `Level ${guild.premiumTier}` : 'Level 0';
+      const boostCount = guild.premiumSubscriptionCount || 0;
+      
+      // Create embed
+      const embed = new EmbedBuilder()
+        .setTitle(`${guild.name} Server Information`)
+        .setDescription(`**ID:** ${guild.id}`)
+        .setColor('#3498db')
+        .setThumbnail(guild.iconURL({ dynamic: true }))
+        .addFields(
+          { name: 'Owner', value: `<@${guild.ownerId}>`, inline: true },
+          { name: 'Created On', value: `<t:${createdTimestamp}:F>\n(<t:${createdTimestamp}:R>)`, inline: true },
+          { name: 'Boost Status', value: `${boostLevel} (${boostCount} boosts)`, inline: true },
+          { name: 'Members', value: `Total: ${totalMembers}\nHumans: ${humanCount}\nBots: ${botCount}`, inline: true },
+          { name: 'Channels', value: `Categories: ${categoryChannels}\nText: ${textChannels}\nVoice: ${voiceChannels}\nForum: ${forumChannels}\nThreads: ${threadChannels}`, inline: true },
+          { name: 'Other', value: `Roles: ${roleCount}\nEmojis: ${emojiCount} (${staticEmojiCount} static, ${animatedEmojiCount} animated)`, inline: true }
+        )
+        .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
+        .setTimestamp();
+      
+      // Add server banner and discovery splash if available
+      if (guild.banner) {
+        embed.setImage(guild.bannerURL({ size: 512 }));
+      }
+      
+      // Send the embed
+      await interaction.reply({ embeds: [embed] });
+      
+    } catch (error) {
+      logger.error(`Error executing serverinfo command: ${error}`);
+      await interaction.reply({ 
+        content: 'There was an error executing this command!', 
+        ephemeral: true 
+      });
+    }
   },
   
-  /**
-   * Execute the command - Legacy Command
-   * @param {*} message - The message object
-   * @param {string[]} args - The message arguments
-   * @param {*} client - The client object
-   */
-  async run(message, args, client) {
-    const { guild } = message;
-    
-    // Get member counts
-    const totalMembers = guild.memberCount;
-    const humanCount = guild.members.cache.filter(member => !member.user.bot).size;
-    const botCount = guild.members.cache.filter(member => member.user.bot).size;
-    
-    // Get channel counts
-    const totalChannels = guild.channels.cache.size;
-    const textChannels = guild.channels.cache.filter(ch => ch.type === 0).size;
-    const voiceChannels = guild.channels.cache.filter(ch => ch.type === 2).size;
-    const categoryChannels = guild.channels.cache.filter(ch => ch.type === 4).size;
-    
-    const embed = new EmbedBuilder()
-      .setAuthor({ name: guild.name, iconURL: guild.iconURL({ dynamic: true }) })
-      .setThumbnail(guild.iconURL({ dynamic: true }))
-      .setColor(message.guild.members.me.displayHexColor)
-      .addFields(
-        { name: 'Name', value: guild.name, inline: true },
-        { name: 'ID', value: guild.id, inline: true },
-        { name: 'Owner', value: `<@${guild.ownerId}>`, inline: true },
-        { name: 'Members', value: `Total: ${totalMembers}\nHumans: ${humanCount}\nBots: ${botCount}`, inline: true },
-        { name: 'Channels', value: `Total: ${totalChannels}\nText: ${textChannels}\nVoice: ${voiceChannels}\nCategories: ${categoryChannels}`, inline: true },
-        { name: 'Verification Level', value: verificationLevels[guild.verificationLevel], inline: true },
-        { name: 'Roles', value: `${guild.roles.cache.size}`, inline: true },
-        { name: 'Emojis', value: `${guild.emojis.cache.size}`, inline: true },
-        { name: 'Boost Level', value: `${guild.premiumTier} (${guild.premiumSubscriptionCount} boosts)`, inline: true },
-        { name: 'Created At', value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>\n(${getDaysAgo(guild.createdAt)})`, inline: false }
-      )
-      .setFooter({ text: `Shard #${guild.shardId || 0}` })
-      .setTimestamp();
-    
-    await message.channel.send({ embeds: [embed] });
+  // Legacy command execution
+  async run(client, message, args) {
+    try {
+      const { guild } = message;
+      
+      // Fetch member count information
+      const totalMembers = guild.memberCount;
+      const botCount = guild.members.cache.filter(member => member.user.bot).size;
+      const humanCount = totalMembers - botCount;
+      
+      // Calculate server age
+      const createdTimestamp = Math.floor(guild.createdAt.getTime() / 1000);
+      
+      // Fetch channel information
+      await guild.channels.fetch();
+      const textChannels = guild.channels.cache.filter(channel => channel.type === 0).size;
+      const voiceChannels = guild.channels.cache.filter(channel => channel.type === 2).size;
+      const categoryChannels = guild.channels.cache.filter(channel => channel.type === 4).size;
+      const forumChannels = guild.channels.cache.filter(channel => channel.type === 15).size;
+      const threadChannels = guild.channels.cache.filter(channel => [11, 12].includes(channel.type)).size;
+      
+      // Fetch role information
+      await guild.roles.fetch();
+      const roleCount = guild.roles.cache.size - 1; // Subtract @everyone role
+      
+      // Fetch emoji information
+      await guild.emojis.fetch();
+      const emojiCount = guild.emojis.cache.size;
+      const animatedEmojiCount = guild.emojis.cache.filter(emoji => emoji.animated).size;
+      const staticEmojiCount = emojiCount - animatedEmojiCount;
+      
+      // Get boost information
+      const boostLevel = guild.premiumTier ? `Level ${guild.premiumTier}` : 'Level 0';
+      const boostCount = guild.premiumSubscriptionCount || 0;
+      
+      // Create embed
+      const embed = new EmbedBuilder()
+        .setTitle(`${guild.name} Server Information`)
+        .setDescription(`**ID:** ${guild.id}`)
+        .setColor('#3498db')
+        .setThumbnail(guild.iconURL({ dynamic: true }))
+        .addFields(
+          { name: 'Owner', value: `<@${guild.ownerId}>`, inline: true },
+          { name: 'Created On', value: `<t:${createdTimestamp}:F>\n(<t:${createdTimestamp}:R>)`, inline: true },
+          { name: 'Boost Status', value: `${boostLevel} (${boostCount} boosts)`, inline: true },
+          { name: 'Members', value: `Total: ${totalMembers}\nHumans: ${humanCount}\nBots: ${botCount}`, inline: true },
+          { name: 'Channels', value: `Categories: ${categoryChannels}\nText: ${textChannels}\nVoice: ${voiceChannels}\nForum: ${forumChannels}\nThreads: ${threadChannels}`, inline: true },
+          { name: 'Other', value: `Roles: ${roleCount}\nEmojis: ${emojiCount} (${staticEmojiCount} static, ${animatedEmojiCount} animated)`, inline: true }
+        )
+        .setFooter({ text: `Requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+        .setTimestamp();
+      
+      // Add server banner and discovery splash if available
+      if (guild.banner) {
+        embed.setImage(guild.bannerURL({ size: 512 }));
+      }
+      
+      // Send the embed
+      await message.reply({ embeds: [embed] });
+      
+    } catch (error) {
+      logger.error(`Error executing serverinfo command: ${error}`);
+      message.reply('There was an error executing this command!');
+    }
   }
 };

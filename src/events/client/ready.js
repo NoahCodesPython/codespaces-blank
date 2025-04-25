@@ -1,35 +1,39 @@
-const { ActivityType } = require('discord.js');
+const { Events, ActivityType } = require('discord.js');
 const logger = require('../../utils/logger');
 
 module.exports = {
-  name: 'ready',
+  name: Events.ClientReady,
   once: true,
-  
   async execute(client) {
     try {
-      // Set bot activity
+      // Log bot information
+      logger.info(`Logged in as ${client.user.tag}`);
+      
+      // Get server and user count
+      const serverCount = client.guilds.cache.size;
+      const userCount = client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
+      logger.info(`Aquire is serving ${serverCount} servers with ${userCount} users`);
+      
+      // Set bot status
       client.user.setPresence({
         activities: [{ 
-          name: `${client.config.prefix}help | ${client.guilds.cache.size} servers`,
+          name: `${serverCount} servers | /help`,
           type: ActivityType.Watching
         }],
         status: 'online'
       });
       
-      // Log client info
-      logger.info(`${client.user.tag} is online!`);
-      logger.info(`Serving ${client.guilds.cache.size} guilds and ${client.users.cache.size} users`);
-      
-      // Update activity every 10 minutes (600000ms)
+      // Set status update interval (every hour)
       setInterval(() => {
+        const newServerCount = client.guilds.cache.size;
         client.user.setPresence({
           activities: [{ 
-            name: `${client.config.prefix}help | ${client.guilds.cache.size} servers`,
+            name: `${newServerCount} servers | /help`,
             type: ActivityType.Watching
           }],
           status: 'online'
         });
-      }, 600000);
+      }, 3600000); // Update every hour
       
     } catch (error) {
       logger.error(`Error in ready event: ${error}`);

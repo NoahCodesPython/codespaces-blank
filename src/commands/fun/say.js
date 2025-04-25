@@ -11,15 +11,15 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('say')
     .setDescription('Make the bot send a message')
+    .addStringOption(option => 
+      option.setName('message')
+        .setDescription('The message to send')
+        .setRequired(true))
     .addChannelOption(option => 
       option.setName('channel')
         .setDescription('The channel to send the message to')
         .setRequired(false)
-        .addChannelTypes(ChannelType.GuildText))
-    .addStringOption(option => 
-      option.setName('message')
-        .setDescription('The message to send')
-        .setRequired(true)),
+        .addChannelTypes(ChannelType.GuildText)),
   
   // Execute slash command
   async execute(client, interaction) {
@@ -53,7 +53,7 @@ module.exports = {
   },
   
   // Execute legacy command
-  async run(client, message, args) {
+  async run(message, args, client) {
     try {
       // Get channel
       let channel = message.mentions.channels.first() || message.guild.channels.cache.get(args[0]);
