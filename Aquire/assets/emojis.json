@@ -1,0 +1,64 @@
+{
+  "image":"🎴",
+  "currency":"💰",
+
+  "games":"🎮",
+  "admin":"🚫",
+  "configs":" 🛠",
+  "utils":":gear:", 
+  "success": "<:success:1364886094142771220>",
+
+  "green":"🟩",
+  "red":"🟥",
+
+  "dot": "<a:dot:1058803942517125142> ", 
+  "fail": "<:fail:1364887243369746463>",
+
+  "misc": "<:speaker:1364887382704390176>",
+  "mod": "<a:Mod:1199106146062045206>",
+
+  "pogger1": "<:Pog:893854195961184266>",
+  "heartbreak":"<:heartbreak:807895756773261332>",
+  
+  "lock": "<:lock:1364895284475334708>",
+  "unlock": "<:unlock:1364895382022131814>",
+
+  "owner": "<:owner:1364895399193612319> ",
+
+  "discord_employee":"<:discordemployee:1364895413500379247>  ",
+  "discord_partner": "<:partnered:1364895489308360774>",
+  "bughunter_level_1": "<:bughunterl1:1364895563534962689> ",
+  "bughunter_level_2": "<:bughunterl2:1364895566835875921>",
+  "hypesquad_events": "<:hypesquadevents:1364895617540821033> ",
+  "house_brilliance": "<:brilliance:1364895831106519084>",
+  "house_bravery": "<:housebravery:1364895846570659862>",
+  "house_balance": "<:housebalance:1364895859141247027> ",
+  "early_supporter": "<:earlysupporter:1364895872353304656>",
+  "verified_bot": "<:verifiedbot:1364895882952314940>",
+  "verified_developer": "<:verifieddev:1364895900622651492>",
+
+
+  "online": "<:online:1364894621431369728>",
+  "idle": "<:Idle:1364895148395335782>",
+  "offline": "<:offline:1364895046247256145>",
+  "dnd": "<:donotdisturb:1364894970347126815>",
+  "verify":"<:success:1364895027352043602>",
+
+  "voice": "<:speaker:1364894841946767432>",
+
+  "pong": "<:online:1364894621431369728>",
+
+  "altdetector":"<:alt:1364887779594604544>",
+  "applications":"<:Forms:1364893777784995893>",
+  "config":"<:configs_emoji:1364893858621558785>",
+  "utility":"<:utility:1364893933049745461>",
+  "economy":"<:currency_emoji:1364893983201034261>",
+  "fun":"<:fun_emoji:1364894141804318732> ",
+  "images":"<:image_emoji:1364894225631809546>",
+  "information":"<:information_emoji:1364894261866401802> ",
+  "moderation":"<:moderation_emoji:1364894334411083897>",
+  "nsfw":"<:nsfw:1364894363947241523>",
+  "reactionrole":"<:reaction_roles:1364894438123376680>",
+  "tickets":"<:ticket:1364894538212053003>"
+
+}

@@ -1,0 +1,23 @@
+{
+  "developers": ["YOUR_USER_ID"],
+  "status": "Aquire v14",
+  "discord": "https://aquire.tk/support",
+  "dashboard": "false",
+  "server": "YOUR_SUPPORT_SERVER_ID",
+  "prefix": "!",
+  "webhooks": {
+    "logs": "",
+    "maintenance_logs": "",
+    "ratelimit_logs": "",
+    "blacklist": "",
+    "report": "",
+    "contact": "",
+    "bugs": "",
+    "premium": "",
+    "suggestions": "",
+    "votes": "",
+    "errors": "",
+    "auth": "",
+    "joinsPublic": ""
+  }
+}
