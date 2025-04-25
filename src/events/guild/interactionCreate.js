@@ -7,12 +7,70 @@ const { handleTicketClose } = require('./handlers/ticketButtonHandler');
 const { handleSuggestionVote } = require('./handlers/suggestionHandler');
 const { handleEmbedModal } = require('./handlers/modalHandler');
 
+// THIS IS A SINGLETON OBJECT: Only one instance of this exists no matter how many times it's required
+// Use process-wide cache for processed interactions
+if (!global._processedInteractions) {
+  global._processedInteractions = new Map();
+  global._handlerExecutionCount = 0;
+  global._lastCleanupTime = Date.now();
+  
+  // Set up periodic cleanup to prevent memory leaks
+  setInterval(() => {
+    const now = Date.now();
+    let cleaned = 0;
+    
+    for (const [id, timestamp] of global._processedInteractions.entries()) {
+      if (now - timestamp > 60000) { // 1 minute
+        global._processedInteractions.delete(id);
+        cleaned++;
+      }
+    }
+    
+    if (cleaned > 0) {
+      logger.debug(`Cleaned up ${cleaned} old interactions from cache`);
+    }
+  }, 60000); // Clean every minute
+}
+
 module.exports = {
   name: Events.InteractionCreate,
   async execute(interaction, client) {
     try {
-      // Log basic interaction info for debugging
-      logger.debug(`Received interaction: ${interaction.id}, type: ${interaction.type}, ${interaction.commandName ? `commandName: ${interaction.commandName}` : interaction.customId ? `customId: ${interaction.customId}` : ''}`);
+      // Increment the global execution counter
+      global._handlerExecutionCount++;
+      const executionNumber = global._handlerExecutionCount;
+      
+      // Log minimal execution info
+      logger.debug(`Interaction handler execution #${executionNumber} for interaction ${interaction.id}`);
+      
+      // CRITICAL: Skip if we've already processed this interaction
+      if (global._processedInteractions.has(interaction.id)) {
+        logger.debug(`[DUPLICATE] Skipping already processed interaction: ${interaction.id}`);
+        return;
+      }
+      
+      // Mark this interaction as processed immediately
+      global._processedInteractions.set(interaction.id, Date.now());
+      
+      // Check if we need to clean up the cache (every 100 executions)
+      if (executionNumber % 100 === 0) {
+        const now = Date.now();
+        let cleanedCount = 0;
+        
+        for (const [id, timestamp] of global._processedInteractions.entries()) {
+          if (now - timestamp > 300000) { // 5 minutes
+            global._processedInteractions.delete(id);
+            cleanedCount++;
+          }
+        }
+        
+        if (cleanedCount > 0) {
+          logger.debug(`Cleaned up ${cleanedCount} old interactions`);
+        }
+      }
+      
+      // Log minimal interaction info
+      logger.debug(`Processing interaction: ${interaction.id}, type: ${interaction.type}, ${interaction.commandName || interaction.customId || "unknown"}`);
       
       // HANDLE SLASH COMMANDS (ApplicationCommand - type 2)
       if (interaction.type === InteractionType.ApplicationCommand) {
