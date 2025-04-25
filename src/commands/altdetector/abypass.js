@@ -26,7 +26,7 @@ module.exports = {
             .setRequired(true)))
     .addSubcommand(subcommand =>
       subcommand
-        .setName('remove')
+        .setName('removefromwhitelist')
         .setDescription('Remove a user from the alt detection whitelist')
         .addUserOption(option => 
           option.setName('user')
@@ -79,7 +79,7 @@ module.exports = {
         
         await interaction.reply({ embeds: [embed] });
         
-      } else if (subcommand === 'remove') {
+      } else if (subcommand === 'removefromwhitelist') {
         const user = interaction.options.getUser('user');
         
         // Check if user is whitelisted

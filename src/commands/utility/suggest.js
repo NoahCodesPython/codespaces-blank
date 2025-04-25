@@ -14,7 +14,7 @@ module.exports = {
   botPermissions: [],
   
   data: new SlashCommandBuilder()
-    .setName('suggest')
+    .setName('createsuggestion')
     .setDescription('Create a suggestion for the server')
     .addStringOption(option => 
       option.setName('suggestion')

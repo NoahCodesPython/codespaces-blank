@@ -4,10 +4,13 @@ const logger = require('../../utils/logger');
 module.exports = {
   name: 'interactionCreate',
   once: false,
-  async execute(client, interaction) {
+  async execute(interaction, client) {
+    // DISABLED - Moved to centralized handler
+    return;
+    
     try {
       // Check if the interaction is a modal submit
-      if (!interaction.isModalSubmit()) return;
+      if (interaction.type !== 5) return; // InteractionType.ModalSubmit is 5
       
       // Handle the embed creation modals
       if (interaction.customId === 'embed_modal' || interaction.customId === 'embed_modal_legacy') {

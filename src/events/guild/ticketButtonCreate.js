@@ -7,8 +7,11 @@ const logger = require('../../utils/logger');
 module.exports = {
   name: 'interactionCreate',
   async execute(interaction, client) {
+    // DISABLED - Moved to centralized handler
+    return;
+    
     // Only run this for the create_ticket button
-    if (!interaction.isButton() || interaction.customId !== 'create_ticket') return;
+    if (!(interaction.componentType === 2 && interaction.customId === 'create_ticket')) return;
     
     try {
       // Defer reply to prevent timeout

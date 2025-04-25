@@ -4,14 +4,12 @@ const { Collection, REST, Routes } = require('discord.js');
 const logger = require('../utils/logger');
 
 /**
- * Load all command files 
+ * Load all slash command files 
  * @param {Client} client - Discord.js client
  */
 const loadCommands = async (client) => {
   try {
-    // Initialize collections if they don't exist
-    client.commands = client.commands || new Collection();
-    client.aliases = client.aliases || new Collection();
+    // Initialize collection
     client.slashCommands = client.slashCommands || new Collection();
     
     const slashCommands = [];
@@ -33,25 +31,17 @@ const loadCommands = async (client) => {
         command.category = folder;
         command.name = command.data?.name || commandName;
         
-        // Add to commands collection (legacy commands)
-        client.commands.set(command.name, command);
-        
-        // Register aliases for legacy commands
-        if (command.aliases && Array.isArray(command.aliases)) {
-          command.aliases.forEach(alias => {
-            client.aliases.set(alias, command.name);
-          });
-        }
-        
-        // Register slash commands
+        // Only register slash commands
         if (command.data) {
           client.slashCommands.set(command.data.name, command);
           slashCommands.push(command.data.toJSON());
+        } else {
+          logger.warn(`Command ${commandName} in ${folder} does not have slash command data and will be skipped.`);
         }
       }
     }
     
-    logger.info(`Successfully loaded ${client.commands.size} legacy commands, ${client.aliases.size} aliases, and ${client.slashCommands.size} slash commands!`);
+    logger.info(`Successfully loaded ${client.slashCommands.size} slash commands!`);
     
     // Register slash commands with Discord API
     if (slashCommands.length > 0) {

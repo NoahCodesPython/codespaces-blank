@@ -29,7 +29,7 @@ module.exports = {
             .setRequired(false)))
     .addSubcommand(subcommand =>
       subcommand
-        .setName('remove')
+        .setName('removewarning')
         .setDescription('Remove a warning from a user')
         .addUserOption(option => 
           option.setName('user')
@@ -84,7 +84,7 @@ module.exports = {
         warningId: userWarning.warningId
       });
       
-    } else if (subcommand === 'remove') {
+    } else if (subcommand === 'removewarning') {
       const warningId = interaction.options.getInteger('warning_id');
       
       // Remove warning

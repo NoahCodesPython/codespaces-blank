@@ -24,9 +24,9 @@ const loadEvents = async (client) => {
         
         // Register event
         if (event.once) {
-          client.once(eventName, (...args) => event.execute(client, ...args));
+          client.once(event.name || eventName, (...args) => event.execute(...args, client));
         } else {
-          client.on(eventName, (...args) => event.execute(client, ...args));
+          client.on(event.name || eventName, (...args) => event.execute(...args, client));
         }
       }
     }

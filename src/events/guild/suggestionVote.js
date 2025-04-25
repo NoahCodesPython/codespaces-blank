@@ -5,55 +5,63 @@ const logger = require('../../utils/logger');
 
 module.exports = {
   name: 'interactionCreate',
+  once: false,
   async execute(interaction, client) {
-    // Only run this for suggestion vote buttons
-    if (!interaction.isButton() || 
-        !interaction.customId.startsWith('suggestion_upvote_') && 
-        !interaction.customId.startsWith('suggestion_downvote_')) return;
+    // DISABLED - Moved to centralized handler
+    return;
     
     try {
-      // Defer reply as ephemeral to hide the interaction
+      // Only handle button interactions that are for suggestions
+      if (!(interaction.componentType === 2 && interaction.customId?.startsWith('suggestion_'))) return;
+      
+      // Extract info from custom ID
+      const [_, action, suggestionID] = interaction.customId.split('_');
+      
+      if (!action || !suggestionID || !['upvote', 'downvote'].includes(action)) return;
+      
+      // Defer reply to prevent interaction timeout
       await interaction.deferReply({ ephemeral: true });
       
-      const { guild, user, customId } = interaction;
+      // Get suggestion settings
+      const settings = await SuggestionSettings.findOne({ guildID: interaction.guild.id });
       
-      // Parse button information
-      const isUpvote = customId.startsWith('suggestion_upvote_');
-      const suggestionID = parseInt(customId.split('_')[2]);
+      if (!settings || !settings.enabled) {
+        return interaction.editReply('The suggestion system is not enabled on this server.');
+      }
       
-      // Get suggestion and settings from database
-      const suggestion = await Suggestion.findOne({
-        guildID: guild.id,
-        suggestionID
+      // Find the suggestion
+      const suggestion = await Suggestion.findOne({ 
+        guildID: interaction.guild.id,
+        suggestionID: parseInt(suggestionID)
       });
       
       if (!suggestion) {
-        return interaction.editReply('This suggestion could not be found or has been deleted.');
+        return interaction.editReply(`Suggestion #${suggestionID} could not be found.`);
       }
       
-      const settings = await SuggestionSettings.findOne({ guildID: guild.id });
-      
-      if (!settings) {
-        return interaction.editReply('Suggestion settings could not be found for this server.');
+      // Check if suggestion is pending
+      if (suggestion.status !== 'pending') {
+        return interaction.editReply(`This suggestion has already been marked as ${suggestion.status}.`);
       }
       
-      // Check if user is the suggestion creator and self-voting is disabled
-      if (suggestion.userID === user.id && !settings.allowSelfVote) {
+      // Check if voting on own suggestion
+      if (!settings.allowSelfVote && suggestion.userID === interaction.user.id) {
         return interaction.editReply('You cannot vote on your own suggestion!');
       }
       
-      // Check if user has already voted
-      const existingVote = suggestion.voters.find(voter => voter.userID === user.id);
+      // Find if user has already voted
+      const existingVote = suggestion.voters.find(v => v.userID === interaction.user.id);
       
+      // Handle votes based on settings and existing votes
       if (existingVote) {
-        // User has already voted
+        // Check if changing votes is allowed
         if (!settings.allowChangeVote) {
-          return interaction.editReply('You have already voted on this suggestion and cannot change your vote.');
+          return interaction.editReply('You cannot change your vote on this suggestion!');
         }
         
-        // Change vote if it's different
-        if ((isUpvote && existingVote.vote === 'up') || (!isUpvote && existingVote.vote === 'down')) {
-          return interaction.editReply(`You have already ${isUpvote ? 'upvoted' : 'downvoted'} this suggestion.`);
+        // Is user trying to vote the same way?
+        if (existingVote.vote === action.replace('vote', '')) {
+          return interaction.editReply('You have already voted that way on this suggestion!');
         }
         
         // Remove old vote
@@ -63,69 +71,65 @@ module.exports = {
           suggestion.downvotes--;
         }
         
-        // Update the vote
-        existingVote.vote = isUpvote ? 'up' : 'down';
+        // Update vote
+        existingVote.vote = action.replace('vote', '');
+        
+        // Add new vote
+        if (action === 'upvote') {
+          suggestion.upvotes++;
+        } else {
+          suggestion.downvotes++;
+        }
       } else {
-        // New vote
+        // Add new vote
         suggestion.voters.push({
-          userID: user.id,
-          vote: isUpvote ? 'up' : 'down'
+          userID: interaction.user.id,
+          vote: action.replace('vote', '')
         });
+        
+        if (action === 'upvote') {
+          suggestion.upvotes++;
+        } else {
+          suggestion.downvotes++;
+        }
       }
       
-      // Update vote count
-      if (isUpvote) {
-        suggestion.upvotes++;
-      } else {
-        suggestion.downvotes++;
-      }
-      
-      // Save suggestion
+      // Save the updated suggestion
       await suggestion.save();
       
-      // Get suggestion message
-      const channel = await guild.channels.fetch(suggestion.channelID).catch(() => null);
-      
-      if (!channel) {
-        return interaction.editReply('The suggestion channel could not be found.');
+      // Update message
+      try {
+        const channel = await interaction.guild.channels.fetch(suggestion.channelID);
+        const message = await channel.messages.fetch(suggestion.messageID);
+        
+        const embed = EmbedBuilder.from(message.embeds[0]);
+        
+        // Update votes field
+        const fields = embed.data.fields;
+        for (let i = 0; i < fields.length; i++) {
+          if (fields[i].name === 'Votes') {
+            fields[i].value = `👍 ${suggestion.upvotes} | 👎 ${suggestion.downvotes}`;
+          }
+        }
+        
+        await message.edit({ embeds: [embed] });
+        
+        // Respond to user
+        await interaction.editReply(`Your vote has been recorded! (${action === 'upvote' ? '👍' : '👎'})`);
+        
+      } catch (error) {
+        logger.error(`Error updating suggestion message: ${error}`);
+        await interaction.editReply('Your vote has been recorded, but the suggestion message could not be updated.');
       }
-      
-      const message = await channel.messages.fetch(suggestion.messageID).catch(() => null);
-      
-      if (!message) {
-        return interaction.editReply('The suggestion message could not be found.');
-      }
-      
-      // Update the embed with new vote count
-      const embed = EmbedBuilder.from(message.embeds[0]);
-      
-      // Update the votes field
-      const fieldsToKeep = embed.data.fields.filter(field => field.name !== 'Votes');
-      embed.data.fields = [
-        ...fieldsToKeep,
-        { name: 'Votes', value: `👍 ${suggestion.upvotes} | 👎 ${suggestion.downvotes}`, inline: true }
-      ];
-      
-      // Edit the message
-      await message.edit({ embeds: [embed] });
-      
-      // Confirm vote to user
-      return interaction.editReply(`You have successfully ${isUpvote ? 'upvoted' : 'downvoted'} suggestion #${suggestionID}.`);
       
     } catch (error) {
-      logger.error(`Error in suggestion vote button handler: ${error}`);
+      logger.error(`Error in suggestion vote handler: ${error}`);
       
-      try {
-        if (interaction.deferred) {
-          await interaction.editReply('There was an error processing your vote.');
-        } else {
-          await interaction.reply({
-            content: 'There was an error processing your vote.',
-            ephemeral: true
-          });
-        }
-      } catch (replyError) {
-        logger.error(`Error replying to interaction: ${replyError}`);
+      // If interaction wasn't already replied to, reply with error
+      if (interaction.deferred) {
+        await interaction.editReply('There was an error processing your vote.').catch(() => {});
+      } else if (!interaction.replied) {
+        await interaction.reply({ content: 'There was an error processing your vote.', ephemeral: true }).catch(() => {});
       }
     }
   }

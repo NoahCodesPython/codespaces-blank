@@ -34,8 +34,6 @@ const client = new Client({
 });
 
 // Client collections
-client.commands = new Collection();
-client.aliases = new Collection();
 client.slashCommands = new Collection();
 client.cooldowns = new Collection();
 
@@ -72,6 +70,68 @@ const init = async () => {
     // Load commands and events
     await loadCommands(client);
     await loadEvents(client);
+    
+    // Register interaction handler directly
+    const { InteractionType, ComponentType } = require('discord.js');
+    
+    client.on('interactionCreate', async (interaction) => {
+      try {
+        // Log raw interaction properties
+        logger.debug(`INTERACTION OBJECT KEYS: ${Object.keys(interaction).join(', ')}`);
+        logger.debug(`INTERACTION PROTOTYPE KEYS: ${Object.keys(Object.getPrototypeOf(interaction)).join(', ')}`);
+        
+        // Log basic interaction data
+        logger.debug(`Direct handler - Received interaction: ${interaction.id}, type: ${interaction.type}, commandName: ${interaction.commandName || 'N/A'}`);
+        
+        // Check if we have a constructor name
+        logger.debug(`Constructor name: ${interaction.constructor ? interaction.constructor.name : 'No constructor'}`);
+        
+        // Try to determine interaction type by checking properties
+        if (interaction.commandName) {
+          logger.debug('This appears to be a slash command interaction (has commandName)');
+        } else if (interaction.customId) {
+          logger.debug('This appears to be a component interaction (has customId)');
+        }
+        
+        // Handle slash commands - check for commandName instead of type
+        if (interaction.commandName) {
+          logger.debug(`Processing slash command: ${interaction.commandName}`);
+          
+          // Get the command from the client.slashCommands collection
+          const command = client.slashCommands.get(interaction.commandName);
+          
+          // If the command doesn't exist, log and return
+          if (!command) {
+            logger.warn(`Command not found in collection: ${interaction.commandName}`);
+            return;
+          }
+          
+          logger.debug(`Found command in collection: ${command.name}`);
+          
+          try {
+            // Execute the command
+            await command.execute(interaction, client);
+          } catch (error) {
+            logger.error(`Error executing command ${interaction.commandName}: ${error}`);
+            
+            // Check if the interaction has already been replied to or deferred
+            if (interaction.replied || interaction.deferred) {
+              await interaction.followUp({ 
+                content: 'There was an error while executing this command!', 
+                ephemeral: true 
+              });
+            } else {
+              await interaction.reply({ 
+                content: 'There was an error while executing this command!', 
+                ephemeral: true 
+              });
+            }
+          }
+        }
+      } catch (error) {
+        logger.error(`Error in direct interactionCreate handler: ${error}`);
+      }
+    });
     
     // Initialize reminder handler
     initReminderHandler(client);

@@ -25,7 +25,7 @@ module.exports = {
             .setRequired(true)))
     .addSubcommand(subcommand =>
       subcommand
-        .setName('remove')
+        .setName('removerole')
         .setDescription('Set role to remove when application is approved')
         .addRoleOption(option => 
           option.setName('role')
@@ -104,7 +104,7 @@ module.exports = {
         });
       }
       
-      else if (subcommand === 'remove') {
+      else if (subcommand === 'removerole') {
         const role = interaction.options.getRole('role');
         
         // Check if bot can manage this role
