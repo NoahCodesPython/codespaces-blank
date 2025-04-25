@@ -1,0 +1,490 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+    
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <h1>Reaction Roles</h1>
+            <p class="text-muted">Configure reaction roles for <%= guild.name %></p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Create Reaction Role Menu</h5>
+              </div>
+              <div class="card-body">
+                <form action="/servers/<%= guild.id %>/reaction-roles" method="POST">
+                  <div class="mb-3">
+                    <label for="channel" class="form-label">Channel</label>
+                    <select class="form-select" id="channel" name="channel" required>
+                      <option value="">Select a text channel</option>
+                      <!-- Will be populated by JavaScript -->
+                    </select>
+                    <div class="form-text">Channel where the reaction role message will be sent</div>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" 
+                           placeholder="Choose your roles" required>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" 
+                              placeholder="React with the emojis below to get roles"></textarea>
+                    <div class="form-text">Optional description text for the reaction role message</div>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="color" class="form-label">Embed Color</label>
+                    <input type="color" class="form-control form-control-color" id="color" name="color" value="#5865F2">
+                  </div>
+                  
+                  <hr>
+                  
+                  <h5 class="mb-3">Role Reactions</h5>
+                  <div class="reaction-roles-container">
+                    <div class="reaction-role-item card mb-3">
+                      <div class="card-body">
+                        <div class="row g-3">
+                          <div class="col-md-3">
+                            <label class="form-label">Emoji</label>
+                            <input type="text" class="form-control" name="emoji[]" placeholder="🔴" maxlength="2" required>
+                          </div>
+                          <div class="col-md-9">
+                            <label class="form-label">Role</label>
+                            <select class="form-select role-select" name="role[]" required>
+                              <option value="">Select a role</option>
+                              <!-- Will be populated by JavaScript -->
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="text-center mb-3">
+                    <button type="button" class="btn btn-success btn-sm" id="addReactionRoleBtn">
+                      <i class="fas fa-plus me-1"></i> Add Reaction Role
+                    </button>
+                  </div>
+                  
+                  <hr>
+                  
+                  <div class="mb-3">
+                    <label for="reactionType" class="form-label">Reaction Type</label>
+                    <select class="form-select" id="reactionType" name="reactionType">
+                      <option value="toggle">Toggle (Add/Remove roles)</option>
+                      <option value="unique">Unique (Only one role at a time)</option>
+                    </select>
+                    <div class="form-text">
+                      <strong>Toggle:</strong> Users can have multiple roles from the menu<br>
+                      <strong>Unique:</strong> Adding a new role removes any previous roles from the menu
+                    </div>
+                  </div>
+                  
+                  <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary">Create Reaction Roles</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            
+            <div class="card mt-4">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Active Reaction Role Menus</h5>
+              </div>
+              <div class="card-body">
+                <% if (!reactionRoles || reactionRoles.length === 0) { %>
+                  <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No reaction role menus have been created yet.
+                  </div>
+                <% } else { %>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Channel</th>
+                          <th>Message</th>
+                          <th>Roles</th>
+                          <th>Type</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% reactionRoles.forEach(menu => { %>
+                          <tr>
+                            <td><%= menu.channelName %></td>
+                            <td>
+                              <a href="https://discord.com/channels/<%= guild.id %>/<%= menu.channelId %>/<%= menu.messageId %>" 
+                                 target="_blank" class="text-truncate d-inline-block" style="max-width: 150px;">
+                                <%= menu.title %>
+                              </a>
+                            </td>
+                            <td><%= menu.roles.length %></td>
+                            <td>
+                              <span class="badge bg-<%= menu.type === 'unique' ? 'warning' : 'info' %>">
+                                <%= menu.type === 'unique' ? 'Unique' : 'Toggle' %>
+                              </span>
+                            </td>
+                            <td>
+                              <form action="/servers/<%= guild.id %>/reaction-roles/<%= menu._id %>/delete" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this reaction role menu?')">
+                                  <i class="fas fa-trash-alt"></i>
+                                </button>
+                              </form>
+                              <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewMenuModal" 
+                                      data-menu-id="<%= menu._id %>">
+                                <i class="fas fa-eye"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <div class="card-header bg-info text-white">
+                <h5 class="mb-0">How It Works</h5>
+              </div>
+              <div class="card-body">
+                <ol>
+                  <li>Create a reaction role menu using the form</li>
+                  <li>The bot sends an embed message to the specified channel</li>
+                  <li>The bot adds the defined reactions to the message</li>
+                  <li>When users click on a reaction, they receive the corresponding role</li>
+                  <li>Clicking again removes the role (toggle mode) or switches to the new role (unique mode)</li>
+                </ol>
+              </div>
+            </div>
+            
+            <div class="card mb-4">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Preview</h5>
+              </div>
+              <div class="card-body p-0">
+                <div class="reaction-role-preview p-3">
+                  <div class="reaction-role-embed">
+                    <div class="embed-title" id="previewTitle">Choose your roles</div>
+                    <div class="embed-description" id="previewDescription">React with the emojis below to get roles</div>
+                    <div class="embed-roles mt-2" id="previewRoles">
+                      <div class="embed-role">🔴 - Role Name</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">Tips</h5>
+              </div>
+              <div class="card-body">
+                <ul>
+                  <li class="mb-2">Use clear, descriptive titles for your role menus</li>
+                  <li class="mb-2">Choose emojis that relate to the roles they represent</li>
+                  <li class="mb-2">Avoid using too many roles in a single menu (max 20)</li>
+                  <li class="mb-2">For color roles, use the "unique" type to prevent users from having multiple colors</li>
+                  <li class="mb-2">For hobby/interest roles, use the "toggle" type to allow multiple selections</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Menu Modal -->
+<div class="modal fade" id="viewMenuModal" tabindex="-1" aria-labelledby="viewMenuModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewMenuModalLabel">Reaction Role Menu Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="reaction-menu-details">
+          Loading...
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const guildId = '<%= guild.id %>';
+    
+    // Fetch and populate channels
+    const channelSelect = document.getElementById('channel');
+    if (channelSelect) {
+      fetchGuildChannels(guildId, 'text').then(channels => {
+        populateChannelSelect(channelSelect, channels);
+      });
+    }
+    
+    // Fetch and populate role selects
+    const roleSelects = document.querySelectorAll('.role-select');
+    if (roleSelects.length > 0) {
+      fetchGuildRoles(guildId).then(roles => {
+        roleSelects.forEach(select => {
+          populateRoleSelect(select, roles);
+        });
+      });
+    }
+    
+    // Handle adding new reaction roles
+    const addReactionRoleBtn = document.getElementById('addReactionRoleBtn');
+    const reactionRolesContainer = document.querySelector('.reaction-roles-container');
+    
+    if (addReactionRoleBtn && reactionRolesContainer) {
+      addReactionRoleBtn.addEventListener('click', function() {
+        const reactionRoleItem = document.createElement('div');
+        reactionRoleItem.className = 'reaction-role-item card mb-3';
+        reactionRoleItem.innerHTML = `
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <label class="form-label">Emoji</label>
+                <input type="text" class="form-control" name="emoji[]" placeholder="🔴" maxlength="2" required>
+              </div>
+              <div class="col-md-7">
+                <label class="form-label">Role</label>
+                <select class="form-select role-select" name="role[]" required>
+                  <option value="">Select a role</option>
+                  <!-- Will be populated by JavaScript -->
+                </select>
+              </div>
+              <div class="col-md-2 d-flex align-items-end">
+                <button type="button" class="btn btn-danger w-100 remove-reaction-role">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        reactionRolesContainer.appendChild(reactionRoleItem);
+        
+        // Populate the new role select
+        const newRoleSelect = reactionRoleItem.querySelector('.role-select');
+        fetchGuildRoles(guildId).then(roles => {
+          populateRoleSelect(newRoleSelect, roles);
+        });
+        
+        // Add event listener to the new remove button
+        reactionRoleItem.querySelector('.remove-reaction-role').addEventListener('click', function() {
+          reactionRoleItem.remove();
+          updatePreview();
+        });
+        
+        // Add event listeners for preview updates
+        const emojiInput = reactionRoleItem.querySelector('input[name="emoji[]"]');
+        const roleSelect = reactionRoleItem.querySelector('select[name="role[]"]');
+        
+        emojiInput.addEventListener('input', updatePreview);
+        roleSelect.addEventListener('change', updatePreview);
+        
+        updatePreview();
+      });
+    }
+    
+    // Update preview when inputs change
+    const titleInput = document.getElementById('title');
+    const descriptionInput = document.getElementById('description');
+    const colorInput = document.getElementById('color');
+    const emojiInputs = document.querySelectorAll('input[name="emoji[]"]');
+    const roleSelects = document.querySelectorAll('select[name="role[]"]');
+    
+    if (titleInput) titleInput.addEventListener('input', updatePreview);
+    if (descriptionInput) descriptionInput.addEventListener('input', updatePreview);
+    if (colorInput) colorInput.addEventListener('input', updatePreview);
+    emojiInputs.forEach(input => input.addEventListener('input', updatePreview));
+    roleSelects.forEach(select => select.addEventListener('change', updatePreview));
+    
+    // Initial preview update
+    updatePreview();
+    
+    // Function to update the preview
+    function updatePreview() {
+      const previewTitle = document.getElementById('previewTitle');
+      const previewDescription = document.getElementById('previewDescription');
+      const previewRoles = document.getElementById('previewRoles');
+      const embedPreview = document.querySelector('.reaction-role-embed');
+      
+      if (previewTitle && titleInput) {
+        previewTitle.textContent = titleInput.value || 'Choose your roles';
+      }
+      
+      if (previewDescription && descriptionInput) {
+        previewDescription.textContent = descriptionInput.value || 'React with the emojis below to get roles';
+        previewDescription.style.display = descriptionInput.value ? 'block' : 'none';
+      }
+      
+      if (embedPreview && colorInput) {
+        embedPreview.style.borderLeftColor = colorInput.value;
+      }
+      
+      if (previewRoles) {
+        previewRoles.innerHTML = '';
+        
+        const emojiInputs = document.querySelectorAll('input[name="emoji[]"]');
+        const roleSelects = document.querySelectorAll('select[name="role[]"]');
+        
+        for (let i = 0; i < emojiInputs.length; i++) {
+          const emoji = emojiInputs[i].value || '🔴';
+          const roleSelect = roleSelects[i];
+          let roleName = 'Role Name';
+          
+          if (roleSelect.selectedIndex > 0) {
+            roleName = roleSelect.options[roleSelect.selectedIndex].text;
+          }
+          
+          const roleElement = document.createElement('div');
+          roleElement.className = 'embed-role';
+          roleElement.textContent = `${emoji} - ${roleName}`;
+          
+          previewRoles.appendChild(roleElement);
+        }
+      }
+    }
+    
+    // View menu modal
+    const viewMenuModal = document.getElementById('viewMenuModal');
+    if (viewMenuModal) {
+      viewMenuModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const menuId = button.getAttribute('data-menu-id');
+        const menuDetailsContainer = viewMenuModal.querySelector('.reaction-menu-details');
+        
+        // Fetch menu details
+        menuDetailsContainer.innerHTML = 'Loading...';
+        
+        fetch(`/api/guilds/${guildId}/reaction-roles/${menuId}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              const menu = data.menu;
+              let rolesHtml = '';
+              
+              menu.roles.forEach(role => {
+                rolesHtml += `
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="me-2">${role.emoji}</div>
+                    <div class="role-badge" style="background-color: ${role.roleColor || '#99AAB5'}">
+                      ${role.roleName}
+                    </div>
+                  </div>
+                `;
+              });
+              
+              menuDetailsContainer.innerHTML = `
+                <div class="reaction-menu-preview">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title">${menu.title}</h5>
+                      <p class="card-text">${menu.description || ''}</p>
+                      <div class="reaction-menu-roles">
+                        ${rolesHtml}
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <small class="text-muted">
+                        Channel: <strong>#${menu.channelName}</strong> • 
+                        Type: <strong>${menu.type === 'unique' ? 'Unique' : 'Toggle'}</strong>
+                      </small>
+                    </div>
+                  </div>
+                  
+                  <div class="d-flex justify-content-center">
+                    <a href="https://discord.com/channels/${guildId}/${menu.channelId}/${menu.messageId}" 
+                       target="_blank" class="btn btn-sm btn-primary">
+                      <i class="fas fa-external-link-alt me-1"></i> View in Discord
+                    </a>
+                  </div>
+                </div>
+              `;
+            } else {
+              menuDetailsContainer.innerHTML = `
+                <div class="alert alert-danger">
+                  <i class="fas fa-exclamation-circle me-2"></i>
+                  Failed to load menu details: ${data.error || 'Unknown error'}
+                </div>
+              `;
+            }
+          })
+          .catch(error => {
+            menuDetailsContainer.innerHTML = `
+              <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                Error loading menu details: ${error.message}
+              </div>
+            `;
+          });
+      });
+    }
+  });
+</script>
+
+<style>
+  .reaction-role-preview {
+    background-color: #36393f;
+    color: #fff;
+    border-radius: 5px;
+  }
+  
+  .reaction-role-embed {
+    border-left: 4px solid #5865F2;
+    padding: 8px 12px;
+    background-color: #2f3136;
+    border-radius: 0 3px 3px 0;
+  }
+  
+  .embed-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  
+  .embed-description {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: #dcddde;
+  }
+  
+  .embed-role {
+    margin-bottom: 5px;
+    color: #dcddde;
+  }
+  
+  .role-badge {
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: white;
+    font-size: 0.85rem;
+  }
+</style>
+
+<%- include('../partials/footer') %>

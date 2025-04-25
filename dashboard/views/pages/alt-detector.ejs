@@ -1,0 +1,269 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+    
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <h1>Alt Account Detector</h1>
+            <p class="text-muted">Configure alt account detection for <%= guild.name %></p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Alt Account Detection Settings</h5>
+              </div>
+              <div class="card-body">
+                <form action="/servers/<%= guild.id %>/alt-detector" method="POST">
+                  <div class="form-check form-switch mb-4">
+                    <input class="form-check-input" type="checkbox" id="enabled" name="enabled" 
+                           <%= altSettings && altSettings.enabled ? 'checked' : '' %>>
+                    <label class="form-check-label" for="enabled">Enable Alt Account Detection</label>
+                  </div>
+                  
+                  <div class="alt-settings <%= altSettings && altSettings.enabled ? '' : 'd-none' %>">
+                    <div class="mb-3">
+                      <label for="minAge" class="form-label">Minimum Account Age (days)</label>
+                      <input type="number" class="form-control" id="minAge" name="minAge" min="1" max="365"
+                             value="<%= altSettings ? altSettings.minAge : 7 %>" required>
+                      <div class="form-text">Discord accounts younger than this will be considered possible alt accounts</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="action" class="form-label">Action on Detection</label>
+                      <select class="form-select" id="action" name="action" required>
+                        <option value="log" <%= altSettings && altSettings.action === 'log' ? 'selected' : '' %>>Log Only</option>
+                        <option value="notify" <%= altSettings && altSettings.action === 'notify' ? 'selected' : '' %>>Notify Moderators</option>
+                        <option value="kick" <%= altSettings && altSettings.action === 'kick' ? 'selected' : '' %>>Kick User</option>
+                        <option value="ban" <%= altSettings && altSettings.action === 'ban' ? 'selected' : '' %>>Ban User</option>
+                      </select>
+                      <div class="form-text">What to do when a potential alt account is detected</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="mod-log-channel" class="form-label">Mod Log Channel</label>
+                      <select class="form-select" id="mod-log-channel" name="modLogChannel">
+                        <option value="">Select a channel (optional)</option>
+                        <!-- Will be populated by JavaScript -->
+                      </select>
+                      <div class="form-text">Channel to log alt account detections (if not set, will use server's default mod log)</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="notifyRole" class="form-label">Notification Role</label>
+                      <select class="form-select" id="notifyRole" name="notifyRole">
+                        <option value="">None (notify server admins only)</option>
+                        <!-- Will be populated by JavaScript -->
+                      </select>
+                      <div class="form-text">Role to ping when an alt account is detected (if action is "Notify Moderators")</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="message" class="form-label">Custom Message</label>
+                      <textarea class="form-control" id="message" name="message" rows="2"><%= altSettings ? altSettings.message : 'Your account is too new to join this server.' %></textarea>
+                      <div class="form-text">Message sent to users when they are kicked/banned (if applicable)</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="bypassRoles" class="form-label">Exempt Roles</label>
+                      <select class="form-select" id="bypassRoles" name="bypassRoles" multiple>
+                        <!-- Will be populated by JavaScript -->
+                      </select>
+                      <div class="form-text">Users with these roles will bypass alt detection (useful for bots and trusted users)</div>
+                    </div>
+                  </div>
+                  
+                  <div class="text-end mt-4">
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <div class="card-header bg-info text-white">
+                <h5 class="mb-0">How It Works</h5>
+              </div>
+              <div class="card-body">
+                <p>When a new user joins your server, the bot checks:</p>
+                <ol>
+                  <li>How old their Discord account is</li>
+                  <li>If they have any exempt roles</li>
+                </ol>
+                <p>If their account is newer than the minimum age and they have no exempt roles, the bot will take the configured action.</p>
+                <p>This helps prevent alt accounts, ban evasion, and raid attempts by flagging suspicious new accounts.</p>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">Alt Detection Commands</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <code>/atoggle</code> - Toggle alt detection on/off
+                  </li>
+                  <li class="list-group-item">
+                    <code>/asetdays</code> - Set minimum account age
+                  </li>
+                  <li class="list-group-item">
+                    <code>/aaction</code> - Set the action to take
+                  </li>
+                  <li class="list-group-item">
+                    <code>/amodlog</code> - Set mod log channel
+                  </li>
+                  <li class="list-group-item">
+                    <code>/abypass</code> - Add exempt roles
+                  </li>
+                  <li class="list-group-item">
+                    <code>/adisallow</code> - Remove exempt roles
+                  </li>
+                  <li class="list-group-item">
+                    <code>/identifyalts</code> - Scan for potential alts
+                  </li>
+                  <li class="list-group-item">
+                    <code>/youngest</code> - List newest accounts
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recent Detections -->
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Recent Detections</h5>
+              </div>
+              <div class="card-body">
+                <% if (!altLogs || altLogs.length === 0) { %>
+                  <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No recent alt account detections.
+                  </div>
+                <% } else { %>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>User</th>
+                          <th>Account Age</th>
+                          <th>Detected On</th>
+                          <th>Action Taken</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% altLogs.forEach(log => { %>
+                          <tr>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <img src="<%= log.avatarURL || 'https://cdn.discordapp.com/embed/avatars/0.png' %>" alt="User Avatar" 
+                                     class="rounded-circle me-2" width="32" height="32">
+                                <%= log.username %> (<%= log.userId %>)
+                              </div>
+                            </td>
+                            <td><%= log.accountAge %> days</td>
+                            <td><%= new Date(log.detectedAt).toLocaleString() %></td>
+                            <td>
+                              <span class="badge bg-<%= log.action === 'ban' ? 'danger' : 
+                                                     log.action === 'kick' ? 'warning' : 
+                                                     log.action === 'notify' ? 'info' : 'secondary' %>">
+                                <%= log.action.charAt(0).toUpperCase() + log.action.slice(1) %>
+                              </span>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const guildId = '<%= guild.id %>';
+    
+    // Toggle alt settings visibility
+    const enabledSwitch = document.getElementById('enabled');
+    const altSettings = document.querySelector('.alt-settings');
+    
+    if (enabledSwitch && altSettings) {
+      enabledSwitch.addEventListener('change', function() {
+        if (this.checked) {
+          altSettings.classList.remove('d-none');
+        } else {
+          altSettings.classList.add('d-none');
+        }
+      });
+    }
+    
+    // Fetch and populate channels for mod log
+    const modLogChannelSelect = document.getElementById('mod-log-channel');
+    if (modLogChannelSelect) {
+      fetchGuildChannels(guildId, 'text').then(channels => {
+        populateChannelSelect(modLogChannelSelect, channels);
+        
+        // Set the currently selected mod log channel
+        const currentModLogChannel = '<%= altSettings ? altSettings.modLogChannel : "" %>';
+        if (currentModLogChannel) {
+          modLogChannelSelect.value = currentModLogChannel;
+        }
+      });
+    }
+    
+    // Fetch and populate roles
+    const notifyRoleSelect = document.getElementById('notifyRole');
+    const bypassRolesSelect = document.getElementById('bypassRoles');
+    
+    if (notifyRoleSelect || bypassRolesSelect) {
+      fetchGuildRoles(guildId).then(roles => {
+        if (notifyRoleSelect) {
+          populateRoleSelect(notifyRoleSelect, roles);
+          
+          // Set the currently selected notify role
+          const currentNotifyRole = '<%= altSettings ? altSettings.notifyRole : "" %>';
+          if (currentNotifyRole) {
+            notifyRoleSelect.value = currentNotifyRole;
+          }
+        }
+        
+        if (bypassRolesSelect) {
+          populateRoleSelect(bypassRolesSelect, roles);
+          
+          // Set the currently selected bypass roles
+          const bypassRoles = JSON.parse('<%= JSON.stringify(altSettings && altSettings.bypassRoles ? altSettings.bypassRoles : []) %>');
+          if (bypassRoles && bypassRoles.length > 0) {
+            for (let option of bypassRolesSelect.options) {
+              if (bypassRoles.includes(option.value)) {
+                option.selected = true;
+              }
+            }
+          }
+        }
+      });
+    }
+  });
+</script>
+
+<%- include('../partials/footer') %>

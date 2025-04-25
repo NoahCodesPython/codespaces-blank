@@ -1,0 +1,180 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+    
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <h1>Welcome System</h1>
+            <p class="text-muted">Configure welcome messages for <%= guild.name %></p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Welcome Message Settings</h5>
+              </div>
+              <div class="card-body">
+                <form action="/servers/<%= guild.id %>/welcome" method="POST" data-guild-id="<%= guild.id %>">
+                  <div class="form-check form-switch mb-4">
+                    <input class="form-check-input" type="checkbox" id="welcomeEnabled" name="welcomeEnabled" 
+                           <%= settings.welcome && settings.welcome.enabled ? 'checked' : '' %>>
+                    <label class="form-check-label" for="welcomeEnabled">Enable Welcome Messages</label>
+                  </div>
+                  
+                  <div class="welcome-settings <%= settings.welcome && settings.welcome.enabled ? '' : 'd-none' %>">
+                    <div class="mb-3">
+                      <label for="welcome-channel" class="form-label">Welcome Channel</label>
+                      <select class="form-select" id="welcome-channel" name="welcomeChannel" required>
+                        <option value="">Select a text channel</option>
+                        <!-- Will be populated by JavaScript -->
+                      </select>
+                      <div class="form-text">Channel where welcome messages will be sent</div>
+                    </div>
+                    
+                    <div class="mb-3 mt-4">
+                      <label for="welcomeMessage" class="form-label">Welcome Message</label>
+                      <textarea class="form-control" id="welcomeMessage" name="welcomeMessage" rows="5" required><%= settings.welcome ? settings.welcome.message : 'Welcome {user} to {server}! You are member #{membercount}.' %></textarea>
+                      <div class="form-text">
+                        Available variables:
+                        <ul class="mt-2">
+                          <li><code>{user}</code> - User mention</li>
+                          <li><code>{username}</code> - Username</li>
+                          <li><code>{server}</code> - Server name</li>
+                          <li><code>{membercount}</code> - Server member count</li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <div class="card mt-4 mb-4">
+                      <div class="card-header bg-light">
+                        <h6 class="mb-0">Message Preview</h6>
+                      </div>
+                      <div class="card-body">
+                        <div class="d-flex align-items-start" id="preview-container">
+                          <img src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Bot Avatar" class="rounded-circle me-2" width="40" height="40">
+                          <div>
+                            <div class="preview-message">
+                              Loading preview...
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="form-check mb-4">
+                      <input class="form-check-input" type="checkbox" id="testWelcome" name="testWelcome">
+                      <label class="form-check-label" for="testWelcome">
+                        Send a test message when saving
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="text-end mt-4">
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Tips</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled">
+                  <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Keep welcome messages brief and friendly</li>
+                  <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Include useful information for new members</li>
+                  <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Consider mentioning important channels</li>
+                  <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Use variables to personalize the message</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Example Messages</h5>
+              </div>
+              <div class="card-body">
+                <div class="mb-3">
+                  <strong>Simple Welcome:</strong>
+                  <div class="example-message bg-light p-2 mt-1 rounded">
+                    Welcome {user} to {server}! You are member #{membercount}.
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <strong>Detailed Welcome:</strong>
+                  <div class="example-message bg-light p-2 mt-1 rounded">
+                    Hey {user}, welcome to {server}! 🎉\n\nPlease check out #rules and #info to get started. If you have any questions, feel free to ask in #help.
+                  </div>
+                </div>
+                
+                <div>
+                  <strong>Fun Welcome:</strong>
+                  <div class="example-message bg-light p-2 mt-1 rounded">
+                    🎉 {username} just joined the party! Welcome to {server}, we're glad to have you as our #{membercount} member!
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle welcome settings visibility
+  document.addEventListener('DOMContentLoaded', function() {
+    const welcomeEnabledSwitch = document.getElementById('welcomeEnabled');
+    const welcomeSettings = document.querySelector('.welcome-settings');
+    
+    if (welcomeEnabledSwitch && welcomeSettings) {
+      welcomeEnabledSwitch.addEventListener('change', function() {
+        if (this.checked) {
+          welcomeSettings.classList.remove('d-none');
+        } else {
+          welcomeSettings.classList.add('d-none');
+        }
+      });
+    }
+    
+    // Live preview for welcome message
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    const previewMessage = document.querySelector('.preview-message');
+    
+    if (welcomeMessage && previewMessage) {
+      function updatePreview() {
+        let message = welcomeMessage.value;
+        
+        // Replace variables with sample values
+        message = message.replace(/{user}/g, '@NewUser');
+        message = message.replace(/{username}/g, 'NewUser');
+        message = message.replace(/{server}/g, '<%= guild.name %>');
+        message = message.replace(/{membercount}/g, '1000');
+        
+        // Replace newlines with <br>
+        message = message.replace(/\n/g, '<br>');
+        
+        previewMessage.innerHTML = message;
+      }
+      
+      welcomeMessage.addEventListener('input', updatePreview);
+      updatePreview(); // Initial preview
+    }
+  });
+</script>
+
+<%- include('../partials/footer') %>

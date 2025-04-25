@@ -1,0 +1,464 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+    
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <h1>Server Logs</h1>
+            <p class="text-muted">Configure logging for <%= guild.name %></p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Log Configuration</h5>
+              </div>
+              <div class="card-body">
+                <form action="/servers/<%= guild.id %>/logs" method="POST">
+                  <div class="form-check form-switch mb-4">
+                    <input class="form-check-input" type="checkbox" id="enabled" name="enabled" 
+                           <%= logSettings && logSettings.enabled ? 'checked' : '' %>>
+                    <label class="form-check-label" for="enabled">Enable Server Logs</label>
+                  </div>
+                  
+                  <div class="log-settings <%= logSettings && logSettings.enabled ? '' : 'd-none' %>">
+                    <div class="mb-4">
+                      <label for="log-channel" class="form-label">Main Log Channel</label>
+                      <select class="form-select" id="log-channel" name="logChannel" required>
+                        <option value="">Select a text channel</option>
+                        <!-- Will be populated by JavaScript -->
+                      </select>
+                      <div class="form-text">Channel where general logs will be sent</div>
+                    </div>
+                    
+                    <h5 class="mb-3">Log Categories</h5>
+                    
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                          <div class="card-header bg-light">
+                            <h6 class="mb-0">Member Events</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logJoin" name="logJoin" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.members && logSettings.categories.members.join ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logJoin">Member Join</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logLeave" name="logLeave" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.members && logSettings.categories.members.leave ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logLeave">Member Leave</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logNickname" name="logNickname" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.members && logSettings.categories.members.nickname ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logNickname">Nickname Changes</label>
+                            </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="logRoles" name="logRoles" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.members && logSettings.categories.members.roles ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logRoles">Role Changes</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                          <div class="card-header bg-light">
+                            <h6 class="mb-0">Message Events</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logMessageDelete" name="logMessageDelete" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.messages && logSettings.categories.messages.delete ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logMessageDelete">Message Delete</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logMessageEdit" name="logMessageEdit" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.messages && logSettings.categories.messages.edit ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logMessageEdit">Message Edit</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logMessageBulkDelete" name="logMessageBulkDelete" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.messages && logSettings.categories.messages.bulkDelete ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logMessageBulkDelete">Bulk Message Delete</label>
+                            </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="logReactions" name="logReactions" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.messages && logSettings.categories.messages.reactions ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logReactions">Reaction Changes</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                          <div class="card-header bg-light">
+                            <h6 class="mb-0">Channel Events</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logChannelCreate" name="logChannelCreate" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.channels && logSettings.categories.channels.create ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logChannelCreate">Channel Create</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logChannelDelete" name="logChannelDelete" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.channels && logSettings.categories.channels.delete ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logChannelDelete">Channel Delete</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logChannelUpdate" name="logChannelUpdate" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.channels && logSettings.categories.channels.update ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logChannelUpdate">Channel Update</label>
+                            </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="logVoice" name="logVoice" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.channels && logSettings.categories.channels.voice ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logVoice">Voice Channel Events</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                          <div class="card-header bg-light">
+                            <h6 class="mb-0">Server Events</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logRoleCreate" name="logRoleCreate" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.server && logSettings.categories.server.roleCreate ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logRoleCreate">Role Create</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logRoleDelete" name="logRoleDelete" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.server && logSettings.categories.server.roleDelete ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logRoleDelete">Role Delete</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                              <input class="form-check-input" type="checkbox" id="logRoleUpdate" name="logRoleUpdate" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.server && logSettings.categories.server.roleUpdate ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logRoleUpdate">Role Update</label>
+                            </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="logServerUpdate" name="logServerUpdate" 
+                                     <%= logSettings && logSettings.categories && logSettings.categories.server && logSettings.categories.server.update ? 'checked' : '' %>>
+                              <label class="form-check-label" for="logServerUpdate">Server Settings Update</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row mt-3">
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header bg-light">
+                            <h6 class="mb-0">Moderation Events</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-check form-switch mb-2">
+                                  <input class="form-check-input" type="checkbox" id="logBan" name="logBan" 
+                                         <%= logSettings && logSettings.categories && logSettings.categories.moderation && logSettings.categories.moderation.ban ? 'checked' : '' %>>
+                                  <label class="form-check-label" for="logBan">Ban/Unban</label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                  <input class="form-check-input" type="checkbox" id="logKick" name="logKick" 
+                                         <%= logSettings && logSettings.categories && logSettings.categories.moderation && logSettings.categories.moderation.kick ? 'checked' : '' %>>
+                                  <label class="form-check-label" for="logKick">Kick</label>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-check form-switch mb-2">
+                                  <input class="form-check-input" type="checkbox" id="logMute" name="logMute" 
+                                         <%= logSettings && logSettings.categories && logSettings.categories.moderation && logSettings.categories.moderation.mute ? 'checked' : '' %>>
+                                  <label class="form-check-label" for="logMute">Mute/Unmute</label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                  <input class="form-check-input" type="checkbox" id="logWarn" name="logWarn" 
+                                         <%= logSettings && logSettings.categories && logSettings.categories.moderation && logSettings.categories.moderation.warn ? 'checked' : '' %>>
+                                  <label class="form-check-label" for="logWarn">Warnings</label>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div class="form-check form-switch mt-2">
+                              <input class="form-check-input" type="checkbox" id="useSeparateModLogs" name="useSeparateModLogs" 
+                                     <%= logSettings && logSettings.useSeparateModLogs ? 'checked' : '' %>>
+                              <label class="form-check-label" for="useSeparateModLogs">Use separate channel for moderation logs</label>
+                            </div>
+                            
+                            <div class="mod-log-channel-container mt-3 <%= logSettings && logSettings.useSeparateModLogs ? '' : 'd-none' %>">
+                              <label for="mod-log-channel" class="form-label">Moderation Log Channel</label>
+                              <select class="form-select" id="mod-log-channel" name="modLogChannel">
+                                <option value="">Select a text channel</option>
+                                <!-- Will be populated by JavaScript -->
+                              </select>
+                              <div class="form-text">Channel where moderation logs will be sent</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header bg-light">
+                            <h6 class="mb-0">Ignored Channels & Roles</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="mb-3">
+                              <label for="ignoredChannels" class="form-label">Ignored Channels</label>
+                              <select class="form-select" id="ignoredChannels" name="ignoredChannels" multiple>
+                                <!-- Will be populated by JavaScript -->
+                              </select>
+                              <div class="form-text">Events in these channels will not be logged</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                              <label for="ignoredRoles" class="form-label">Ignored Roles</label>
+                              <select class="form-select" id="ignoredRoles" name="ignoredRoles" multiple>
+                                <!-- Will be populated by JavaScript -->
+                              </select>
+                              <div class="form-text">Users with these roles will be exempt from logging</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="text-end mt-4">
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <div class="card-header bg-info text-white">
+                <h5 class="mb-0">How It Works</h5>
+              </div>
+              <div class="card-body">
+                <p>The logging system keeps track of various events in your server, helping you:</p>
+                <ul>
+                  <li>Monitor member activity (joins, leaves, role changes)</li>
+                  <li>Track message modifications and deletions</li>
+                  <li>Stay informed about server setting changes</li>
+                  <li>Maintain records of moderation actions</li>
+                </ul>
+                <p>All logs are sent to the specified log channels as embeds with detailed information.</p>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">Tips</h5>
+              </div>
+              <div class="card-body">
+                <ul>
+                  <li class="mb-2">Create a dedicated category for logs to keep them organized</li>
+                  <li class="mb-2">Use a separate channel for moderation logs to maintain privacy</li>
+                  <li class="mb-2">Exclude busy channels to prevent log spam</li>
+                  <li class="mb-2">Exclude bot roles to avoid excessive logs from automated actions</li>
+                  <li class="mb-2">Regular pruning of log channels may be necessary in active servers</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recent Logs Preview -->
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Recent Logs</h5>
+              </div>
+              <div class="card-body">
+                <% if (!recentLogs || recentLogs.length === 0) { %>
+                  <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No recent logs available. Enable logging to start tracking server events.
+                  </div>
+                <% } else { %>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Time</th>
+                          <th>Type</th>
+                          <th>Description</th>
+                          <th>User</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% recentLogs.forEach(log => { %>
+                          <tr>
+                            <td><%= new Date(log.timestamp).toLocaleString() %></td>
+                            <td>
+                              <span class="badge bg-<%= 
+                                log.type.includes('delete') ? 'danger' : 
+                                log.type.includes('create') ? 'success' : 
+                                log.type.includes('update') ? 'info' : 
+                                log.type.includes('ban') || log.type.includes('kick') || log.type.includes('mute') ? 'warning' : 
+                                'secondary' 
+                              %>">
+                                <%= log.type %>
+                              </span>
+                            </td>
+                            <td><%= log.description %></td>
+                            <td>
+                              <% if (log.user) { %>
+                                <div class="d-flex align-items-center">
+                                  <img src="<%= log.user.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png' %>" 
+                                       alt="User Avatar" class="rounded-circle me-2" width="24" height="24">
+                                  <%= log.user.tag %>
+                                </div>
+                              <% } else { %>
+                                -
+                              <% } %>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const guildId = '<%= guild.id %>';
+    
+    // Toggle log settings visibility
+    const enabledSwitch = document.getElementById('enabled');
+    const logSettings = document.querySelector('.log-settings');
+    
+    if (enabledSwitch && logSettings) {
+      enabledSwitch.addEventListener('change', function() {
+        if (this.checked) {
+          logSettings.classList.remove('d-none');
+        } else {
+          logSettings.classList.add('d-none');
+        }
+      });
+    }
+    
+    // Toggle mod log channel visibility
+    const useSeparateModLogsSwitch = document.getElementById('useSeparateModLogs');
+    const modLogChannelContainer = document.querySelector('.mod-log-channel-container');
+    
+    if (useSeparateModLogsSwitch && modLogChannelContainer) {
+      useSeparateModLogsSwitch.addEventListener('change', function() {
+        if (this.checked) {
+          modLogChannelContainer.classList.remove('d-none');
+        } else {
+          modLogChannelContainer.classList.add('d-none');
+        }
+      });
+    }
+    
+    // Fetch and populate channels
+    const logChannelSelect = document.getElementById('log-channel');
+    const modLogChannelSelect = document.getElementById('mod-log-channel');
+    const ignoredChannelsSelect = document.getElementById('ignoredChannels');
+    
+    if (logChannelSelect || modLogChannelSelect || ignoredChannelsSelect) {
+      fetchGuildChannels(guildId, 'text').then(channels => {
+        if (logChannelSelect) {
+          populateChannelSelect(logChannelSelect, channels);
+          
+          // Set the currently selected log channel
+          const currentLogChannel = '<%= logSettings ? logSettings.logChannel : "" %>';
+          if (currentLogChannel) {
+            logChannelSelect.value = currentLogChannel;
+          }
+        }
+        
+        if (modLogChannelSelect) {
+          populateChannelSelect(modLogChannelSelect, channels);
+          
+          // Set the currently selected mod log channel
+          const currentModLogChannel = '<%= logSettings ? logSettings.modLogChannel : "" %>';
+          if (currentModLogChannel) {
+            modLogChannelSelect.value = currentModLogChannel;
+          }
+        }
+        
+        if (ignoredChannelsSelect) {
+          populateChannelSelect(ignoredChannelsSelect, channels);
+          
+          // Set the currently selected ignored channels
+          const ignoredChannels = JSON.parse('<%= JSON.stringify(logSettings && logSettings.ignoredChannels ? logSettings.ignoredChannels : []) %>');
+          if (ignoredChannels && ignoredChannels.length > 0) {
+            for (let option of ignoredChannelsSelect.options) {
+              if (ignoredChannels.includes(option.value)) {
+                option.selected = true;
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // Fetch and populate roles
+    const ignoredRolesSelect = document.getElementById('ignoredRoles');
+    if (ignoredRolesSelect) {
+      fetchGuildRoles(guildId).then(roles => {
+        populateRoleSelect(ignoredRolesSelect, roles);
+        
+        // Set the currently selected ignored roles
+        const ignoredRoles = JSON.parse('<%= JSON.stringify(logSettings && logSettings.ignoredRoles ? logSettings.ignoredRoles : []) %>');
+        if (ignoredRoles && ignoredRoles.length > 0) {
+          for (let option of ignoredRolesSelect.options) {
+            if (ignoredRoles.includes(option.value)) {
+              option.selected = true;
+            }
+          }
+        }
+      });
+    }
+    
+    // Select/deselect all buttons for each category
+    document.querySelectorAll('.select-all-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const category = this.getAttribute('data-category');
+        const checkboxes = document.querySelectorAll(`input[type="checkbox"][id^="log${category}"]`);
+        const selectAll = this.getAttribute('data-action') === 'select';
+        
+        checkboxes.forEach(checkbox => {
+          checkbox.checked = selectAll;
+        });
+      });
+    });
+  });
+</script>
+
+<%- include('../partials/footer') %>

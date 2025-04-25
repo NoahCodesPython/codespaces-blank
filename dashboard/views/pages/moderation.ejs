@@ -1,0 +1,280 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+    
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <h1>Moderation Settings</h1>
+            <p class="text-muted">Configure moderation settings for <%= guild.name %></p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-12 mb-4">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Mod Log Channel</h5>
+              </div>
+              <div class="card-body">
+                <form action="/servers/<%= guild.id %>/moderation/modlog" method="POST">
+                  <div class="row g-3 align-items-center">
+                    <div class="col-md-7">
+                      <label for="mod-log-channel" class="form-label">Mod Log Channel</label>
+                      <select class="form-select" id="mod-log-channel" name="modLogChannel">
+                        <option value="">None (disable mod logs)</option>
+                        <!-- Will be populated by JavaScript -->
+                      </select>
+                      <div class="form-text">Channel where moderation actions will be logged</div>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                      <button type="submit" class="btn btn-primary w-100">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-12 mb-4">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Auto-Moderation</h5>
+              </div>
+              <div class="card-body">
+                <form action="/servers/<%= guild.id %>/moderation/automod" method="POST">
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="card h-100">
+                        <div class="card-header bg-light">
+                          <h6 class="mb-0">Link & Invite Filter</h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="antiInvite" name="antiInvite" 
+                                   <%= settings.antiInvite ? 'checked' : '' %>>
+                            <label class="form-check-label" for="antiInvite">Discord Invite Filter</label>
+                            <div class="form-text">Automatically delete Discord invite links</div>
+                          </div>
+                          
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="antiLink" name="antiLink" 
+                                   <%= settings.antiLink ? 'checked' : '' %>>
+                            <label class="form-check-label" for="antiLink">All Links Filter</label>
+                            <div class="form-text">Automatically delete all links</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                      <div class="card h-100">
+                        <div class="card-header bg-light">
+                          <h6 class="mb-0">Alt Account Detection</h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="altDetection" name="altDetection" 
+                                   <%= altSettings && altSettings.enabled ? 'checked' : '' %>>
+                            <label class="form-check-label" for="altDetection">Enable Alt Detection</label>
+                            <div class="form-text">Detect and act on new accounts joining the server</div>
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label for="altMinAge" class="form-label">Minimum Account Age (days)</label>
+                            <input type="number" class="form-control" id="altMinAge" name="altMinAge" min="1" max="365"
+                                   value="<%= altSettings ? altSettings.minAge : 7 %>">
+                            <div class="form-text">Accounts younger than this will be flagged</div>
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label for="altAction" class="form-label">Action on Detection</label>
+                            <select class="form-select" id="altAction" name="altAction">
+                              <option value="log" <%= altSettings && altSettings.action === 'log' ? 'selected' : '' %>>Log Only</option>
+                              <option value="notify" <%= altSettings && altSettings.action === 'notify' ? 'selected' : '' %>>Notify Moderators</option>
+                              <option value="kick" <%= altSettings && altSettings.action === 'kick' ? 'selected' : '' %>>Kick User</option>
+                              <option value="ban" <%= altSettings && altSettings.action === 'ban' ? 'selected' : '' %>>Ban User</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="card h-100">
+                        <div class="card-header bg-light">
+                          <h6 class="mb-0">Punishment Settings</h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="mb-3">
+                            <label for="warnThreshold" class="form-label">Warning Threshold</label>
+                            <div class="input-group">
+                              <input type="number" class="form-control" id="warnThreshold" name="warnThreshold" min="1" max="10"
+                                   value="<%= modSettings ? modSettings.warnThreshold : 3 %>">
+                              <span class="input-group-text">warnings</span>
+                            </div>
+                            <div class="form-text">Number of warnings before automatic action</div>
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label for="thresholdAction" class="form-label">Threshold Action</label>
+                            <select class="form-select" id="thresholdAction" name="thresholdAction">
+                              <option value="none" <%= modSettings && modSettings.thresholdAction === 'none' ? 'selected' : '' %>>None</option>
+                              <option value="mute" <%= modSettings && modSettings.thresholdAction === 'mute' ? 'selected' : '' %>>Mute User</option>
+                              <option value="kick" <%= modSettings && modSettings.thresholdAction === 'kick' ? 'selected' : '' %>>Kick User</option>
+                              <option value="ban" <%= modSettings && modSettings.thresholdAction === 'ban' ? 'selected' : '' %>>Ban User</option>
+                            </select>
+                            <div class="form-text">Action to take when warning threshold is reached</div>
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label for="muteDuration" class="form-label">Mute Duration (minutes)</label>
+                            <input type="number" class="form-control" id="muteDuration" name="muteDuration" min="1"
+                                   value="<%= modSettings ? modSettings.muteDuration : 60 %>">
+                            <div class="form-text">Default duration for mutes (if threshold action is mute)</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                      <div class="card h-100">
+                        <div class="card-header bg-light">
+                          <h6 class="mb-0">Excluded Roles & Channels</h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="mb-3">
+                            <label for="exempt-roles" class="form-label">Exempt Roles</label>
+                            <select class="form-select" id="exempt-roles" name="exemptRoles" multiple>
+                              <!-- Will be populated by JavaScript -->
+                            </select>
+                            <div class="form-text">Users with these roles will be exempt from auto-moderation</div>
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label for="exempt-channels" class="form-label">Exempt Channels</label>
+                            <select class="form-select" id="exempt-channels" name="exemptChannels" multiple>
+                              <!-- Will be populated by JavaScript -->
+                            </select>
+                            <div class="form-text">Auto-moderation will not apply in these channels</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="text-end">
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="alert alert-info">
+              <h5><i class="fas fa-info-circle me-2"></i> Using Moderation Commands</h5>
+              <p class="mb-0">
+                Use the following slash commands for moderation:
+                <ul class="mb-0">
+                  <li><code>/ban</code> - Ban a user from the server</li>
+                  <li><code>/kick</code> - Kick a user from the server</li>
+                  <li><code>/mute</code> - Mute a user for a specified time</li>
+                  <li><code>/warn</code> - Give a warning to a user</li>
+                  <li><code>/warnings</code> - View a user's warnings</li>
+                </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const guildId = '<%= guild.id %>';
+    
+    // Fetch and populate channels for mod log
+    const modLogChannelSelect = document.getElementById('mod-log-channel');
+    if (modLogChannelSelect) {
+      fetchGuildChannels(guildId, 'text').then(channels => {
+        populateChannelSelect(modLogChannelSelect, channels);
+        
+        // Set the currently selected mod log channel
+        const currentModLogChannel = '<%= modSettings ? modSettings.modLogChannel : "" %>';
+        if (currentModLogChannel) {
+          modLogChannelSelect.value = currentModLogChannel;
+        }
+      });
+    }
+    
+    // Fetch and populate exempt channels
+    const exemptChannelsSelect = document.getElementById('exempt-channels');
+    if (exemptChannelsSelect) {
+      fetchGuildChannels(guildId, 'text').then(channels => {
+        populateChannelSelect(exemptChannelsSelect, channels);
+        
+        // Set the currently selected exempt channels
+        const exemptChannels = JSON.parse('<%= JSON.stringify(modSettings && modSettings.exemptChannels ? modSettings.exemptChannels : []) %>');
+        if (exemptChannels && exemptChannels.length > 0) {
+          for (let option of exemptChannelsSelect.options) {
+            if (exemptChannels.includes(option.value)) {
+              option.selected = true;
+            }
+          }
+        }
+      });
+    }
+    
+    // Fetch and populate exempt roles
+    const exemptRolesSelect = document.getElementById('exempt-roles');
+    if (exemptRolesSelect) {
+      fetchGuildRoles(guildId).then(roles => {
+        populateRoleSelect(exemptRolesSelect, roles);
+        
+        // Set the currently selected exempt roles
+        const exemptRoles = JSON.parse('<%= JSON.stringify(modSettings && modSettings.exemptRoles ? modSettings.exemptRoles : []) %>');
+        if (exemptRoles && exemptRoles.length > 0) {
+          for (let option of exemptRolesSelect.options) {
+            if (exemptRoles.includes(option.value)) {
+              option.selected = true;
+            }
+          }
+        }
+      });
+    }
+    
+    // Toggle visibility of alt detection settings
+    const altDetectionSwitch = document.getElementById('altDetection');
+    const altSettings = document.querySelectorAll('#altMinAge, #altAction');
+    
+    if (altDetectionSwitch && altSettings.length > 0) {
+      function toggleAltSettings() {
+        const isEnabled = altDetectionSwitch.checked;
+        altSettings.forEach(setting => {
+          setting.disabled = !isEnabled;
+        });
+      }
+      
+      // Initial state
+      toggleAltSettings();
+      
+      // Listen for changes
+      altDetectionSwitch.addEventListener('change', toggleAltSettings);
+    }
+  });
+</script>
+
+<%- include('../partials/footer') %>

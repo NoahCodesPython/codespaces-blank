@@ -1,0 +1,374 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+    
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <h1>Ticket System</h1>
+            <p class="text-muted">Configure the ticket system for <%= guild.name %></p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Ticket System Settings</h5>
+              </div>
+              <div class="card-body">
+                <form action="/servers/<%= guild.id %>/tickets" method="POST">
+                  <div class="form-check form-switch mb-4">
+                    <input class="form-check-input" type="checkbox" id="enabled" name="enabled" 
+                           <%= ticketSettings && ticketSettings.enabled ? 'checked' : '' %>>
+                    <label class="form-check-label" for="enabled">Enable Ticket System</label>
+                  </div>
+                  
+                  <div class="ticket-settings <%= ticketSettings && ticketSettings.enabled ? '' : 'd-none' %>">
+                    <div class="mb-3">
+                      <label for="ticket-category" class="form-label">Ticket Category</label>
+                      <select class="form-select" id="ticket-category" name="ticketCategory" required>
+                        <option value="">Select a category</option>
+                        <!-- Will be populated by JavaScript -->
+                      </select>
+                      <div class="form-text">Category where ticket channels will be created</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="ticket-log-channel" class="form-label">Ticket Log Channel</label>
+                      <select class="form-select" id="ticket-log-channel" name="ticketLogChannel" required>
+                        <option value="">Select a channel</option>
+                        <!-- Will be populated by JavaScript -->
+                      </select>
+                      <div class="form-text">Channel where ticket transcripts and logs will be sent</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="supportRoles" class="form-label">Support Team Roles</label>
+                      <select class="form-select" id="supportRoles" name="supportRoles" multiple required>
+                        <!-- Will be populated by JavaScript -->
+                      </select>
+                      <div class="form-text">Roles that have access to view and manage tickets</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="welcomeMessage" class="form-label">Ticket Welcome Message</label>
+                      <textarea class="form-control" id="welcomeMessage" name="welcomeMessage" rows="3"><%= ticketSettings ? ticketSettings.welcomeMessage : 'Thank you for creating a ticket. Please describe your issue and a staff member will assist you shortly.' %></textarea>
+                      <div class="form-text">
+                        Message that appears when a new ticket is created. Available variables: {user}, {username}, {server}
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label for="ticketLimit" class="form-label">Max Tickets Per User</label>
+                        <input type="number" class="form-control" id="ticketLimit" name="ticketLimit" min="1" max="10"
+                               value="<%= ticketSettings ? ticketSettings.ticketLimit : 1 %>" required>
+                        <div class="form-text">Maximum number of open tickets a user can have at once</div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="nameFormat" class="form-label">Ticket Name Format</label>
+                        <input type="text" class="form-control" id="nameFormat" name="nameFormat" 
+                               value="<%= ticketSettings ? ticketSettings.nameFormat : 'ticket-{username}-{number}' %>" required>
+                        <div class="form-text">Format for ticket channel names. Available variables: {username}, {number}</div>
+                      </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h5 class="mb-3">Ticket Types</h5>
+                    <div class="ticket-types-container">
+                      <% const ticketTypes = ticketSettings && ticketSettings.types ? ticketSettings.types : [
+                        { name: 'General Support', emoji: '🔧', description: 'Get help with general issues' },
+                        { name: 'Report User', emoji: '🚨', description: 'Report a user who is breaking rules' }
+                      ]; %>
+                      
+                      <% ticketTypes.forEach((type, index) => { %>
+                        <div class="ticket-type-item card mb-3">
+                          <div class="card-body">
+                            <div class="row g-3">
+                              <div class="col-md-3">
+                                <label class="form-label">Emoji</label>
+                                <input type="text" class="form-control" name="ticketTypeEmoji[]" value="<%= type.emoji %>" maxlength="2">
+                              </div>
+                              <div class="col-md-4">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="ticketTypeName[]" value="<%= type.name %>" required>
+                              </div>
+                              <div class="col-md-5">
+                                <label class="form-label">Description</label>
+                                <div class="input-group">
+                                  <input type="text" class="form-control" name="ticketTypeDescription[]" value="<%= type.description %>">
+                                  <% if (index > 0) { %>
+                                    <button type="button" class="btn btn-danger remove-ticket-type">
+                                      <i class="fas fa-trash"></i>
+                                    </button>
+                                  <% } %>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <% }); %>
+                    </div>
+                    
+                    <div class="text-center mb-3">
+                      <button type="button" class="btn btn-success btn-sm" id="addTicketTypeBtn">
+                        <i class="fas fa-plus me-1"></i> Add Ticket Type
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div class="text-end mt-4">
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <div class="card-header bg-info text-white">
+                <h5 class="mb-0">How It Works</h5>
+              </div>
+              <div class="card-body">
+                <p><strong>For Users:</strong></p>
+                <ol>
+                  <li>Users click on the ticket creation button or use the <code>/ticket</code> command</li>
+                  <li>They select a ticket type from the menu</li>
+                  <li>A private channel is created where they can discuss their issue with staff</li>
+                  <li>Once resolved, staff can close the ticket</li>
+                </ol>
+                
+                <p class="mt-3"><strong>For Staff:</strong></p>
+                <ol>
+                  <li>Staff members with support roles can view all tickets</li>
+                  <li>Use <code>/close</code> to close a ticket when resolved</li>
+                  <li>Ticket transcripts are saved to the log channel</li>
+                  <li>Staff can reopen tickets if needed</li>
+                </ol>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Ticket Commands</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <code>/ticket</code> - Open a new ticket
+                  </li>
+                  <li class="list-group-item">
+                    <code>/close</code> - Close a ticket
+                  </li>
+                  <li class="list-group-item">
+                    <code>/add</code> - Add a user to a ticket
+                  </li>
+                  <li class="list-group-item">
+                    <code>/remove</code> - Remove a user from a ticket
+                  </li>
+                  <li class="list-group-item">
+                    <code>/rename</code> - Rename a ticket
+                  </li>
+                  <li class="list-group-item">
+                    <code>/ticketpanel</code> - Create a ticket panel
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Ticket Statistics -->
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Ticket Statistics</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-3 mb-3 mb-md-0">
+                    <div class="card bg-light">
+                      <div class="card-body text-center">
+                        <h5 class="card-title">Total Tickets</h5>
+                        <h2 class="mb-0">
+                          <i class="fas fa-ticket-alt text-primary me-2"></i>
+                          <%= ticketStats ? ticketStats.total : 0 %>
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3 mb-md-0">
+                    <div class="card bg-light">
+                      <div class="card-body text-center">
+                        <h5 class="card-title">Open Tickets</h5>
+                        <h2 class="mb-0">
+                          <i class="fas fa-door-open text-success me-2"></i>
+                          <%= ticketStats ? ticketStats.open : 0 %>
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3 mb-md-0">
+                    <div class="card bg-light">
+                      <div class="card-body text-center">
+                        <h5 class="card-title">Closed Today</h5>
+                        <h2 class="mb-0">
+                          <i class="fas fa-check-circle text-danger me-2"></i>
+                          <%= ticketStats ? ticketStats.closedToday : 0 %>
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card bg-light">
+                      <div class="card-body text-center">
+                        <h5 class="card-title">Avg. Response</h5>
+                        <h2 class="mb-0">
+                          <i class="fas fa-clock text-warning me-2"></i>
+                          <%= ticketStats ? ticketStats.avgResponse : '0m' %>
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <% if (!recentTickets || recentTickets.length === 0) { %>
+                  <div class="alert alert-info mt-4">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No recent ticket activity.
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const guildId = '<%= guild.id %>';
+    
+    // Toggle ticket settings visibility
+    const enabledSwitch = document.getElementById('enabled');
+    const ticketSettings = document.querySelector('.ticket-settings');
+    
+    if (enabledSwitch && ticketSettings) {
+      enabledSwitch.addEventListener('change', function() {
+        if (this.checked) {
+          ticketSettings.classList.remove('d-none');
+        } else {
+          ticketSettings.classList.add('d-none');
+        }
+      });
+    }
+    
+    // Fetch and populate channels and categories
+    const ticketCategorySelect = document.getElementById('ticket-category');
+    const ticketLogChannelSelect = document.getElementById('ticket-log-channel');
+    
+    if (ticketCategorySelect) {
+      fetchGuildChannels(guildId, 'category').then(categories => {
+        populateChannelSelect(ticketCategorySelect, categories);
+        
+        // Set the currently selected category
+        const currentCategory = '<%= ticketSettings ? ticketSettings.ticketCategory : "" %>';
+        if (currentCategory) {
+          ticketCategorySelect.value = currentCategory;
+        }
+      });
+    }
+    
+    if (ticketLogChannelSelect) {
+      fetchGuildChannels(guildId, 'text').then(channels => {
+        populateChannelSelect(ticketLogChannelSelect, channels);
+        
+        // Set the currently selected log channel
+        const currentLogChannel = '<%= ticketSettings ? ticketSettings.ticketLogChannel : "" %>';
+        if (currentLogChannel) {
+          ticketLogChannelSelect.value = currentLogChannel;
+        }
+      });
+    }
+    
+    // Fetch and populate support roles
+    const supportRolesSelect = document.getElementById('supportRoles');
+    if (supportRolesSelect) {
+      fetchGuildRoles(guildId).then(roles => {
+        populateRoleSelect(supportRolesSelect, roles);
+        
+        // Set the currently selected support roles
+        const supportRoles = JSON.parse('<%= JSON.stringify(ticketSettings && ticketSettings.supportRoles ? ticketSettings.supportRoles : []) %>');
+        if (supportRoles && supportRoles.length > 0) {
+          for (let option of supportRolesSelect.options) {
+            if (supportRoles.includes(option.value)) {
+              option.selected = true;
+            }
+          }
+        }
+      });
+    }
+    
+    // Handle adding new ticket types
+    const addTicketTypeBtn = document.getElementById('addTicketTypeBtn');
+    const ticketTypesContainer = document.querySelector('.ticket-types-container');
+    
+    if (addTicketTypeBtn && ticketTypesContainer) {
+      addTicketTypeBtn.addEventListener('click', function() {
+        const ticketTypeItem = document.createElement('div');
+        ticketTypeItem.className = 'ticket-type-item card mb-3';
+        ticketTypeItem.innerHTML = `
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <label class="form-label">Emoji</label>
+                <input type="text" class="form-control" name="ticketTypeEmoji[]" value="🎫" maxlength="2">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="ticketTypeName[]" value="New Type" required>
+              </div>
+              <div class="col-md-5">
+                <label class="form-label">Description</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="ticketTypeDescription[]" value="Description">
+                  <button type="button" class="btn btn-danger remove-ticket-type">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        ticketTypesContainer.appendChild(ticketTypeItem);
+        
+        // Add event listener to the new remove button
+        ticketTypeItem.querySelector('.remove-ticket-type').addEventListener('click', function() {
+          ticketTypeItem.remove();
+        });
+      });
+    }
+    
+    // Handle removing ticket types
+    document.querySelectorAll('.remove-ticket-type').forEach(button => {
+      button.addEventListener('click', function() {
+        this.closest('.ticket-type-item').remove();
+      });
+    });
+  });
+</script>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,130 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+    
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <h1>Suggestions System</h1>
+            <p class="text-muted">Configure the suggestions system for <%= guild.name %></p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Suggestion Settings</h5>
+              </div>
+              <div class="card-body">
+                <form action="/servers/<%= guild.id %>/suggestions" method="POST" data-guild-id="<%= guild.id %>">
+                  <div class="form-check form-switch mb-4">
+                    <input class="form-check-input" type="checkbox" id="enabled" name="enabled" 
+                           <%= suggestionSettings && suggestionSettings.enabled ? 'checked' : '' %>>
+                    <label class="form-check-label" for="enabled">Enable Suggestions System</label>
+                  </div>
+                  
+                  <div class="suggestion-settings <%= suggestionSettings && suggestionSettings.enabled ? '' : 'd-none' %>">
+                    <div class="mb-3">
+                      <label for="suggestion-channel" class="form-label">Suggestions Channel</label>
+                      <select class="form-select" id="suggestion-channel" name="suggestionChannel" required>
+                        <option value="">Select a text channel</option>
+                        <!-- Will be populated by JavaScript -->
+                      </select>
+                      <div class="form-text">Channel where suggestions will be posted</div>
+                    </div>
+                    
+                    <div class="mt-4">
+                      <h6>Suggestion Features:</h6>
+                      <ul>
+                        <li>Users can submit suggestions using the <code>/suggest</code> command</li>
+                        <li>Suggestions appear in the designated channel with voting reactions</li>
+                        <li>Staff can approve or reject suggestions with the <code>/suggestmanage</code> command</li>
+                        <li>Users can view the status of their suggestions</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div class="text-end mt-4">
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <div class="card-header bg-info text-white">
+                <h5 class="mb-0">How It Works</h5>
+              </div>
+              <div class="card-body">
+                <p><strong>For Users:</strong></p>
+                <ol>
+                  <li>Use <code>/suggest Your suggestion here</code> to submit a suggestion</li>
+                  <li>The bot posts the suggestion in the suggestions channel</li>
+                  <li>Other members can vote with 👍 or 👎 reactions</li>
+                </ol>
+                
+                <p class="mt-3"><strong>For Moderators:</strong></p>
+                <ol>
+                  <li>Use <code>/suggestmanage</code> to manage suggestions</li>
+                  <li>You can approve, deny, or delete suggestions</li>
+                  <li>Add a reason when approving or denying</li>
+                </ol>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Preview</h5>
+              </div>
+              <div class="card-body p-0">
+                <img src="/images/suggestion-preview.png" alt="Suggestion Preview" class="img-fluid">
+              </div>
+              <div class="card-footer bg-light">
+                <small class="text-muted">Example of how suggestions appear</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recent Suggestions -->
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <div class="alert alert-info">
+              <i class="fas fa-info-circle me-2"></i>
+              Recent suggestions will be displayed here in a future update.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle suggestion settings visibility
+  document.addEventListener('DOMContentLoaded', function() {
+    const enabledSwitch = document.getElementById('enabled');
+    const suggestionSettings = document.querySelector('.suggestion-settings');
+    
+    if (enabledSwitch && suggestionSettings) {
+      enabledSwitch.addEventListener('change', function() {
+        if (this.checked) {
+          suggestionSettings.classList.remove('d-none');
+        } else {
+          suggestionSettings.classList.add('d-none');
+        }
+      });
+    }
+  });
+</script>
+
+<%- include('../partials/footer') %>

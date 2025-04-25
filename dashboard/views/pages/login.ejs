@@ -1,0 +1,53 @@
+<%- include('../partials/header') %>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body text-center p-5">
+          <img src="/images/logo.png" alt="Aquire Bot" class="mb-4" style="width: 100px; height: 100px;">
+          <h1 class="mb-4">Login to Dashboard</h1>
+          <p class="lead mb-4">Manage your Discord servers, configure bot settings, and customize features.</p>
+          
+          <a href="/auth/discord" class="btn btn-discord btn-lg w-100">
+            <i class="fab fa-discord me-2"></i> Login with Discord
+          </a>
+          
+          <div class="mt-4 text-muted">
+            <small>By logging in, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card mt-4">
+        <div class="card-body">
+          <h5 class="card-title">What can you do with the dashboard?</h5>
+          <ul class="mb-0">
+            <li>Configure bot settings for your servers</li>
+            <li>Set up welcome messages and auto-responses</li>
+            <li>Manage moderation settings</li>
+            <li>Configure reaction roles</li>
+            <li>And much more!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .btn-discord {
+    background-color: #5865F2;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-discord:hover {
+    background-color: #4752c4;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<%- include('../partials/footer') %>

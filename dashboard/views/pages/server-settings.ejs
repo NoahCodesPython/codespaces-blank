@@ -1,0 +1,130 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+    
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <h1>General Settings</h1>
+            <p class="text-muted">Configure general settings for <%= guild.name %></p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Bot Configuration</h5>
+              </div>
+              <div class="card-body">
+                <form id="server-settings-form" action="/servers/<%= guild.id %>/settings" method="POST" data-guild-id="<%= guild.id %>">
+                  <div class="mb-4">
+                    <h5>General</h5>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label for="prefix" class="form-label">Command Prefix</label>
+                        <input type="text" class="form-control" id="prefix" name="prefix" value="<%= settings.prefix || '!' %>" maxlength="3" required>
+                        <div class="form-text">The prefix used for text commands (max 3 characters)</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <hr>
+                  
+                  <div class="mb-4">
+                    <h5>Welcome Message</h5>
+                    <div class="form-check form-switch mb-3">
+                      <input class="form-check-input" type="checkbox" id="welcomeEnabled" name="welcomeEnabled" 
+                             <%= settings.welcome && settings.welcome.enabled ? 'checked' : '' %>>
+                      <label class="form-check-label" for="welcomeEnabled">Enable welcome messages</label>
+                    </div>
+                    
+                    <div class="welcome-settings <%= settings.welcome && settings.welcome.enabled ? '' : 'd-none' %>">
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <label for="welcome-channel" class="form-label">Welcome Channel</label>
+                          <select class="form-select" id="welcome-channel" name="welcomeChannel">
+                            <option value="">Select a channel</option>
+                            <!-- Will be populated by JavaScript -->
+                          </select>
+                          <div class="form-text">Channel where welcome messages will be sent</div>
+                        </div>
+                      </div>
+                      
+                      <div class="row g-3 mt-2">
+                        <div class="col-md-12">
+                          <label for="welcomeMessage" class="form-label">Welcome Message</label>
+                          <textarea class="form-control" id="welcomeMessage" name="welcomeMessage" rows="3"><%= settings.welcome ? settings.welcome.message : 'Welcome {user} to {server}!' %></textarea>
+                          <div class="form-text">
+                            Available variables: {user} - User mention, {username} - Username, {server} - Server name, 
+                            {membercount} - Member count
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <hr>
+                  
+                  <div class="mb-4">
+                    <h5>Auto-Moderation</h5>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="antiInvite" name="antiInvite" 
+                                 <%= settings.antiInvite ? 'checked' : '' %>>
+                          <label class="form-check-label" for="antiInvite">Anti Discord Invite</label>
+                          <div class="form-text">Automatically delete Discord invite links</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="antiLink" name="antiLink" 
+                                 <%= settings.antiLink ? 'checked' : '' %>>
+                          <label class="form-check-label" for="antiLink">Anti Link</label>
+                          <div class="form-text">Automatically delete all links</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <hr>
+                  
+                  <div class="text-end">
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle welcome settings visibility
+  document.addEventListener('DOMContentLoaded', function() {
+    const welcomeEnabledSwitch = document.getElementById('welcomeEnabled');
+    const welcomeSettings = document.querySelector('.welcome-settings');
+    
+    if (welcomeEnabledSwitch && welcomeSettings) {
+      welcomeEnabledSwitch.addEventListener('change', function() {
+        if (this.checked) {
+          welcomeSettings.classList.remove('d-none');
+        } else {
+          welcomeSettings.classList.add('d-none');
+        }
+      });
+    }
+  });
+</script>
+
+<%- include('../partials/footer') %>

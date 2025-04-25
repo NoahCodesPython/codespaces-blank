@@ -1,0 +1,157 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+    
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-12 d-flex align-items-center justify-content-between">
+            <div>
+              <h1 class="mb-2"><%= guild.name %></h1>
+              <p class="text-muted mb-0">Server ID: <%= guild.id %></p>
+            </div>
+            <% if (guild.icon) { %>
+              <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png" alt="<%= guild.name %>" 
+                   class="rounded-circle" width="100" height="100">
+            <% } else { %>
+              <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                <span style="font-size: 2.5rem;"><%= guild.name.split(' ').map(word => word[0]).join('').substring(0, 2).toUpperCase() %></span>
+              </div>
+            <% } %>
+          </div>
+        </div>
+        
+        <div class="row mb-5">
+          <div class="col-md-4 mb-4">
+            <div class="card dashboard-card">
+              <div class="card-body text-center">
+                <i class="fas fa-cogs fa-3x mb-3 text-primary"></i>
+                <h4>Bot Configuration</h4>
+                <p>Manage general settings, prefix, and command permissions</p>
+                <a href="/servers/<%= guild.id %>/settings" class="btn btn-primary">Settings</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card dashboard-card">
+              <div class="card-body text-center">
+                <i class="fas fa-door-open fa-3x mb-3 text-success"></i>
+                <h4>Welcome System</h4>
+                <p>Configure welcome messages and channels for new members</p>
+                <a href="/servers/<%= guild.id %>/welcome" class="btn btn-success">Setup</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card dashboard-card">
+              <div class="card-body text-center">
+                <i class="fas fa-reply-all fa-3x mb-3 text-info"></i>
+                <h4>Auto Responses</h4>
+                <p>Create custom automatic responses to messages</p>
+                <a href="/servers/<%= guild.id %>/auto-responses" class="btn btn-info">Manage</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card dashboard-card">
+              <div class="card-body text-center">
+                <i class="fas fa-microphone fa-3x mb-3 text-warning"></i>
+                <h4>Voice Channels</h4>
+                <p>Configure temporary voice channels for your server</p>
+                <a href="/servers/<%= guild.id %>/temp-vc" class="btn btn-warning">Configure</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card dashboard-card">
+              <div class="card-body text-center">
+                <i class="fas fa-lightbulb fa-3x mb-3 text-danger"></i>
+                <h4>Suggestions</h4>
+                <p>Set up a suggestion system for your server members</p>
+                <a href="/servers/<%= guild.id %>/suggestions" class="btn btn-danger">Setup</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card dashboard-card">
+              <div class="card-body text-center">
+                <i class="fas fa-gavel fa-3x mb-3 text-secondary"></i>
+                <h4>Moderation</h4>
+                <p>Configure moderation settings and logs</p>
+                <a href="/servers/<%= guild.id %>/moderation" class="btn btn-secondary">Manage</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Server Overview</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6>Current Configuration:</h6>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Command Prefix
+                        <span class="badge bg-primary rounded-pill"><%= settings.prefix || '!' %></span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Welcome Messages
+                        <span class="badge bg-<%= settings.welcome && settings.welcome.enabled ? 'success' : 'danger' %> rounded-pill">
+                          <%= settings.welcome && settings.welcome.enabled ? 'Enabled' : 'Disabled' %>
+                        </span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Anti-Invite
+                        <span class="badge bg-<%= settings.antiInvite ? 'success' : 'danger' %> rounded-pill">
+                          <%= settings.antiInvite ? 'Enabled' : 'Disabled' %>
+                        </span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Anti-Link
+                        <span class="badge bg-<%= settings.antiLink ? 'success' : 'danger' %> rounded-pill">
+                          <%= settings.antiLink ? 'Enabled' : 'Disabled' %>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <h6>Commands Usage:</h6>
+                    <div class="alert alert-info">
+                      <i class="fas fa-info-circle me-2"></i>
+                      Command usage statistics will be available soon.
+                    </div>
+                    
+                    <h6 class="mt-4">Quick Actions:</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                      <a href="/servers/<%= guild.id %>/settings" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-cogs me-1"></i> Settings
+                      </a>
+                      <a href="/servers/<%= guild.id %>/logs" class="btn btn-sm btn-outline-info">
+                        <i class="fas fa-list me-1"></i> Logs
+                      </a>
+                      <a href="https://discord.com/oauth2/authorize?client_id=<%= process.env.CLIENT_ID %>&permissions=8&scope=bot%20applications.commands&guild_id=<%= guild.id %>&disable_guild_select=true" 
+                         class="btn btn-sm btn-outline-success" target="_blank">
+                        <i class="fas fa-sync-alt me-1"></i> Reinvite Bot
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

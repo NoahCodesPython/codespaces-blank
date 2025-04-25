@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <i class="fas fa-search fa-5x text-primary mb-4"></i>
+      <h1 class="display-1 fw-bold">404</h1>
+      <h2 class="mb-4">Page Not Found</h2>
+      <p class="lead mb-5">The page you're looking for doesn't exist or has been moved.</p>
+      
+      <div class="d-flex justify-content-center gap-3">
+        <a href="javascript:history.back()" class="btn btn-outline-primary">
+          <i class="fas fa-arrow-left me-2"></i> Go Back
+        </a>
+        <a href="/" class="btn btn-primary">
+          <i class="fas fa-home me-2"></i> Home
+        </a>
+      </div>
+      
+      <div class="mt-5">
+        <h5>Looking for something?</h5>
+        <p>Here are some helpful links:</p>
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div class="list-group">
+              <a href="/" class="list-group-item list-group-item-action d-flex align-items-center">
+                <i class="fas fa-home me-3 text-primary"></i> Home
+              </a>
+              <a href="/dashboard" class="list-group-item list-group-item-action d-flex align-items-center">
+                <i class="fas fa-tachometer-alt me-3 text-primary"></i> Dashboard
+              </a>
+              <a href="/commands" class="list-group-item list-group-item-action d-flex align-items-center">
+                <i class="fas fa-code me-3 text-primary"></i> Commands List
+              </a>
+              <a href="https://discord.gg/invite" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center">
+                <i class="fab fa-discord me-3 text-primary"></i> Support Server
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

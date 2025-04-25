@@ -1,0 +1,111 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+    
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <h1>Auto Responses</h1>
+            <p class="text-muted">Configure automatic responses for <%= guild.name %></p>
+          </div>
+        </div>
+        
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Create Auto Response</h5>
+              </div>
+              <div class="card-body">
+                <form id="auto-response-form" action="/servers/<%= guild.id %>/auto-responses" method="POST">
+                  <div class="row g-3">
+                    <div class="col-md-5">
+                      <label for="trigger" class="form-label">Trigger</label>
+                      <input type="text" class="form-control" id="trigger" name="trigger" placeholder="Word or phrase that triggers the response" required>
+                      <div class="form-text">When a message contains this word or phrase, the bot will respond</div>
+                    </div>
+                    <div class="col-md-7">
+                      <label for="response" class="form-label">Response</label>
+                      <textarea class="form-control" id="response" name="response" rows="1" placeholder="Bot's response message" required></textarea>
+                      <div class="form-text">The message that will be sent in response</div>
+                    </div>
+                  </div>
+                  <div class="text-end mt-3">
+                    <button type="submit" class="btn btn-primary">Add Response</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Auto Responses List</h5>
+                <span class="badge bg-light text-dark"><%= autoResponses ? autoResponses.length : 0 %> Responses</span>
+              </div>
+              <div class="card-body">
+                <% if (!autoResponses || autoResponses.length === 0) { %>
+                  <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No auto responses configured yet. Create one using the form above.
+                  </div>
+                <% } else { %>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Trigger</th>
+                          <th scope="col">Response</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% autoResponses.forEach((response, index) => { %>
+                          <tr>
+                            <th scope="row"><%= index + 1 %></th>
+                            <td><code><%= response.trigger %></code></td>
+                            <td><%= response.response %></td>
+                            <td>
+                              <form action="/servers/<%= guild.id %>/auto-responses/<%= response._id %>/delete" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this auto response?')">
+                                  <i class="fas fa-trash-alt"></i>
+                                </button>
+                              </form>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <div class="alert alert-info">
+              <h5><i class="fas fa-lightbulb me-2"></i> How Auto Responses Work</h5>
+              <p class="mb-0">
+                When a user sends a message containing the trigger word or phrase, Aquire Bot will automatically respond with the configured response. 
+                Triggers are case-insensitive, so "hello" will match "Hello", "HELLO", etc.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
