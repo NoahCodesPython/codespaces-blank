@@ -25,8 +25,14 @@ module.exports = {
     ]
   },
   
+  // Primary bot owner ID
+  ownerID: '-1354494701104926760',
+  
   // User IDs with bot owner permissions
-  ownerIds: [],
+  ownerIds: ['-1354494701104926760'],
+  
+  // Owner name
+  ownerName: 'Noah Osmont',
   
   // Webhooks for logging (add your webhook URLs as needed)
   webhooks: {
