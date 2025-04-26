@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Aquire Bot Logo</title>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="gradientFill">
+            <stop stop-color="#5865F2" offset="0%"></stop>
+            <stop stop-color="#7289DA" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Background" fill="url(#gradientFill)" cx="100" cy="100" r="90"></circle>
+        <path d="M150,80 C150,63.4315 136.569,50 120,50 C103.431,50 90,63.4315 90,80 L100,80 C100,69.0066 108.954,60 120,60 C131.046,60 140,69.0066 140,80 L150,80 Z" id="ArcTop" fill="#FFFFFF"></path>
+        <path d="M50,120 C50,136.569 63.4315,150 80,150 C96.5685,150 110,136.569 110,120 L100,120 C100,130.993 91.0457,140 80,140 C68.9543,140 60,130.993 60,120 L50,120 Z" id="ArcBottom" fill="#FFFFFF"></path>
+        <path d="M80,50 L120,50 L120,60 L80,60 L80,50 Z" id="TopBar" fill="#FFFFFF"></path>
+        <path d="M80,140 L120,140 L120,150 L80,150 L80,140 Z" id="BottomBar" fill="#FFFFFF"></path>
+        <circle id="LeftDot" fill="#FFFFFF" cx="65" cy="100" r="10"></circle>
+        <circle id="RightDot" fill="#FFFFFF" cx="135" cy="100" r="10"></circle>
+    </g>
+</svg>
