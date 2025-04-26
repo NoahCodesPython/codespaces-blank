@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "Pogy.js",
   "dependencies": {
+    "@huggingface/inference": "^3.9.2",
     "ansi-regex": "^6.1.0",
     "ansi-styles": "^6.2.1",
     "async": "^3.2.6",

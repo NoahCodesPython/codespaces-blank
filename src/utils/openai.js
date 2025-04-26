@@ -1,34 +1,22 @@
-
-const OpenAI = require('openai');
+const { HfInference } = require('@huggingface/inference');
 const logger = require('./logger');
 
-// Create the OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const hf = new HfInference(process.env.HUGGINGFACE_TOKEN);
 
-// Retry and rate limit configuration
+// Rate limiting configuration
 const MAX_RETRIES = 5;
-const BASE_DELAY = 2000; // 2 seconds
-const RATE_LIMIT = 1; // requests per minute
-const RATE_WINDOW = 60 * 1000; // 1 minute in milliseconds
+const BASE_DELAY = 2000;
+const RATE_LIMIT = 1;
+const RATE_WINDOW = 60 * 1000;
 
-// Rate limiting queue
 let requestQueue = [];
 
-/**
- * Sleep for a given number of milliseconds
- * @param {number} ms - milliseconds to sleep
- */
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-/**
- * Check and maintain rate limits
- */
 async function checkRateLimit() {
   const now = Date.now();
   requestQueue = requestQueue.filter(time => now - time < RATE_WINDOW);
-  
+
   if (requestQueue.length >= RATE_LIMIT) {
     const oldestRequest = requestQueue[0];
     const waitTime = RATE_WINDOW - (now - oldestRequest);
@@ -36,110 +24,71 @@ async function checkRateLimit() {
     await sleep(waitTime);
     return checkRateLimit();
   }
-  
+
   requestQueue.push(now);
 }
 
-/**
- * Generate an image using DALL-E 3 with retry logic
- */
-async function generateImage(prompt, size = '1024x1024', quality = 'standard', style = 'vivid') {
+async function generateImage(prompt, size = '1024x1024') {
   if (!prompt || prompt.trim().length === 0) {
     throw new Error('Prompt cannot be empty');
   }
 
-  if (prompt.length > 4000) {
-    throw new Error('Prompt is too long (max 4000 characters)');
-  }
-
   let retries = 0;
-  
+
   while (retries < MAX_RETRIES) {
     await checkRateLimit();
     try {
-      // Validate inputs
-      const validSizes = ['1024x1024', '1792x1024', '1024x1792'];
-      const validQualities = ['standard', 'hd'];
-      const validStyles = ['vivid', 'natural'];
-      
-      if (!validSizes.includes(size)) {
-        throw new Error(`Invalid size: ${size}. Must be one of: ${validSizes.join(', ')}`);
-      }
-      
-      if (!validQualities.includes(quality)) {
-        throw new Error(`Invalid quality: ${quality}. Must be one of: ${validQualities.join(', ')}`);
-      }
-      
-      if (!validStyles.includes(style)) {
-        throw new Error(`Invalid style: ${style}. Must be one of: ${validStyles.join(', ')}`);
-      }
-      
       logger.info(`Generating image with prompt: "${prompt.substring(0, 50)}${prompt.length > 50 ? '...' : ''}"`);
-      
-      const response = await openai.images.generate({
-        model: "dall-e-3",
-        prompt: prompt,
-        n: 1,
-        size: size,
-        quality: quality,
-        style: style,
+
+      const response = await hf.textToImage({
+        model: 'stabilityai/stable-diffusion-2',
+        inputs: prompt,
       });
-      
+
       logger.info('Image generated successfully');
-      return response.data[0];
-      
+      return { url: URL.createObjectURL(response) };
+
     } catch (error) {
-      if (error.status === 429) {
-        retries++;
-        if (retries === MAX_RETRIES) {
-          logger.error('Max retries reached for rate limit');
-          throw new Error('OpenAI API rate limit reached. Please try again later.');
-        }
-        const delay = BASE_DELAY * Math.pow(2, retries);
-        logger.warn(`Rate limit hit, retrying in ${delay}ms`);
-        await sleep(delay);
-        continue;
+      retries++;
+      if (retries === MAX_RETRIES) {
+        logger.error('Max retries reached');
+        throw new Error('Failed to generate image. Please try again later.');
       }
-      logger.error(`Error generating image: ${error.message}`);
-      throw error;
+      const delay = BASE_DELAY * Math.pow(2, retries);
+      logger.warn(`Error encountered, retrying in ${delay}ms`);
+      await sleep(delay);
     }
   }
 }
 
-/**
- * Chat completion with GPT-4o with retry logic
- */
 async function getChatCompletion(messages) {
   let retries = 0;
-  
+
   while (retries < MAX_RETRIES) {
     await checkRateLimit();
     try {
       logger.info(`Getting chat completion for ${messages.length} messages`);
-      
-      const response = await openai.chat.completions.create({
-        model: "gpt-4o",
-        messages: messages,
-        temperature: 0.7,
+
+      const response = await hf.textGeneration({
+        model: 'microsoft/DialoGPT-large',
+        inputs: messages[messages.length - 1].content,
+        parameters: {
+          max_length: 1000,
+          temperature: 0.7,
+        },
       });
-      
-      return response.choices[0].message.content;
-      
+
+      return response.generated_text;
+
     } catch (error) {
-      if (error.status === 429) {
-        retries++;
-        if (retries === MAX_RETRIES) {
-          logger.error('Max retries reached for rate limit');
-          throw new Error('OpenAI API rate limit reached. Please try again later.');
-        }
-        const delay = BASE_DELAY * Math.pow(2, retries);
-        logger.warn(`Rate limit hit, retrying in ${delay}ms`);
-        await sleep(delay);
-        continue;
+      retries++;
+      if (retries === MAX_RETRIES) {
+        logger.error('Max retries reached');
+        throw new Error('Failed to get response. Please try again later.');
       }
-      const errorMessage = error.response?.data?.error?.message || error.message;
-      logger.error(`Error getting chat completion: ${errorMessage}`);
-      throw new Error(errorMessage);
+      const delay = BASE_DELAY * Math.pow(2, retries);
+      logger.warn(`Error encountered, retrying in ${delay}ms`);
+      await sleep(delay);
     }
   }
 }
