@@ -44,6 +44,14 @@ async function checkRateLimit() {
  * Generate an image using DALL-E 3 with retry logic
  */
 async function generateImage(prompt, size = '1024x1024', quality = 'standard', style = 'vivid') {
+  if (!prompt || prompt.trim().length === 0) {
+    throw new Error('Prompt cannot be empty');
+  }
+
+  if (prompt.length > 4000) {
+    throw new Error('Prompt is too long (max 4000 characters)');
+  }
+
   let retries = 0;
   
   while (retries < MAX_RETRIES) {
@@ -129,8 +137,9 @@ async function getChatCompletion(messages) {
         await sleep(delay);
         continue;
       }
-      logger.error(`Error getting chat completion: ${error.message}`);
-      throw error;
+      const errorMessage = error.response?.data?.error?.message || error.message;
+      logger.error(`Error getting chat completion: ${errorMessage}`);
+      throw new Error(errorMessage);
     }
   }
 }
