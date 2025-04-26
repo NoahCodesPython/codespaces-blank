@@ -8,9 +8,9 @@ const openai = new OpenAI({
 });
 
 // Retry and rate limit configuration
-const MAX_RETRIES = 3;
-const BASE_DELAY = 1000; // 1 second
-const RATE_LIMIT = 3; // requests per minute
+const MAX_RETRIES = 5;
+const BASE_DELAY = 2000; // 2 seconds
+const RATE_LIMIT = 1; // requests per minute
 const RATE_WINDOW = 60 * 1000; // 1 minute in milliseconds
 
 // Rate limiting queue
