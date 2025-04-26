@@ -7,7 +7,10 @@
 const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
 const fs = require('fs');
 const mongoose = require('mongoose');
-const config = require('./src/config');
+const config = {
+  ...require('./src/config'),
+  ownerId: '788296234430889984'  // Set Noah Osmont as primary owner
+};
 const logger = require('./src/utils/logger');
 const { startKeepAliveServer } = require('./src/utils/keepAlive');
 const { connect } = require('./src/utils/mongoose');
