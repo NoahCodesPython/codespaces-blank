@@ -115,4 +115,5 @@ process.on('SIGINT', async () => {
   process.exit(0);
 });
 
-module.exports = { client };
+global.client = client;
+module.exports = client;
