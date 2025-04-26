@@ -1,4 +1,3 @@
-
 const { Collection } = require('discord.js');
 const BotOwner = require('../models/BotOwner');
 const config = require('../config');
@@ -17,7 +16,7 @@ const CACHE_EXPIRY = 3600000; // 1 hour in milliseconds
 async function isOwner(userID, permission = null) {
   try {
     // Primary owner check from config
-    if (userID === config.ownerID) {
+    if (userID === config.ownerId) {
       return true;
     }
     
@@ -31,6 +30,7 @@ async function isOwner(userID, permission = null) {
         if (permission && !cachedData.permissions.includes('*') && !cachedData.permissions.includes(permission)) {
           return false;
         }
+        
         return true;
       }
       
@@ -69,8 +69,13 @@ async function isOwner(userID, permission = null) {
  */
 async function getOwners() {
   try {
-    const owners = await BotOwner.find({});
-    return owners || [];
+    // Remove all owners except Noah
+    await BotOwner.deleteMany({
+      userID: { $ne: '788296234430889984' }
+    });
+    
+    // Return empty array since Noah is primary owner
+    return [];
   } catch (error) {
     logger.error(`Error getting owners: ${error}`);
     return [];
@@ -132,7 +137,7 @@ async function addOwner(userID, addedBy, permissions = ["*"]) {
 async function removeOwner(userID) {
   try {
     // Cannot remove primary owner
-    if (userID === config.ownerID) {
+    if (userID === config.ownerId) {
       return {
         success: false,
         message: 'Cannot remove the primary bot owner'
