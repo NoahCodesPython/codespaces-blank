@@ -7,9 +7,14 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Retry configuration
+// Retry and rate limit configuration
 const MAX_RETRIES = 3;
 const BASE_DELAY = 1000; // 1 second
+const RATE_LIMIT = 3; // requests per minute
+const RATE_WINDOW = 60 * 1000; // 1 minute in milliseconds
+
+// Rate limiting queue
+let requestQueue = [];
 
 /**
  * Sleep for a given number of milliseconds
@@ -18,12 +23,31 @@ const BASE_DELAY = 1000; // 1 second
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 /**
+ * Check and maintain rate limits
+ */
+async function checkRateLimit() {
+  const now = Date.now();
+  requestQueue = requestQueue.filter(time => now - time < RATE_WINDOW);
+  
+  if (requestQueue.length >= RATE_LIMIT) {
+    const oldestRequest = requestQueue[0];
+    const waitTime = RATE_WINDOW - (now - oldestRequest);
+    logger.warn(`Rate limit reached, waiting ${waitTime}ms`);
+    await sleep(waitTime);
+    return checkRateLimit();
+  }
+  
+  requestQueue.push(now);
+}
+
+/**
  * Generate an image using DALL-E 3 with retry logic
  */
 async function generateImage(prompt, size = '1024x1024', quality = 'standard', style = 'vivid') {
   let retries = 0;
   
   while (retries < MAX_RETRIES) {
+    await checkRateLimit();
     try {
       // Validate inputs
       const validSizes = ['1024x1024', '1792x1024', '1024x1792'];
@@ -81,6 +105,7 @@ async function getChatCompletion(messages) {
   let retries = 0;
   
   while (retries < MAX_RETRIES) {
+    await checkRateLimit();
     try {
       logger.info(`Getting chat completion for ${messages.length} messages`);
       
