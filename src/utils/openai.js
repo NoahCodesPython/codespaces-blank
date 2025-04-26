@@ -4,9 +4,9 @@ const logger = require('./logger');
 const hf = new HfInference(process.env.HUGGINGFACE_TOKEN);
 
 // Rate limiting configuration
-const MAX_RETRIES = 5;
-const BASE_DELAY = 2000;
-const RATE_LIMIT = 1;
+const MAX_RETRIES = 3;
+const BASE_DELAY = 1000;
+const RATE_LIMIT = 2;
 const RATE_WINDOW = 60 * 1000;
 
 let requestQueue = [];
@@ -28,53 +28,22 @@ async function checkRateLimit() {
   requestQueue.push(now);
 }
 
-async function generateImage(prompt, size = '1024x1024') {
-  if (!prompt || prompt.trim().length === 0) {
-    throw new Error('Prompt cannot be empty');
-  }
-
-  let retries = 0;
-
-  while (retries < MAX_RETRIES) {
-    await checkRateLimit();
-    try {
-      logger.info(`Generating image with prompt: "${prompt.substring(0, 50)}${prompt.length > 50 ? '...' : ''}"`);
-
-      const response = await hf.textToImage({
-        model: 'stabilityai/stable-diffusion-2',
-        inputs: prompt,
-      });
-
-      logger.info('Image generated successfully');
-      return { url: URL.createObjectURL(response) };
-
-    } catch (error) {
-      retries++;
-      if (retries === MAX_RETRIES) {
-        logger.error('Max retries reached');
-        throw new Error('Failed to generate image. Please try again later.');
-      }
-      const delay = BASE_DELAY * Math.pow(2, retries);
-      logger.warn(`Error encountered, retrying in ${delay}ms`);
-      await sleep(delay);
-    }
-  }
-}
-
 async function getChatCompletion(messages) {
   let retries = 0;
+  const userMessage = messages[messages.length - 1].content;
 
   while (retries < MAX_RETRIES) {
-    await checkRateLimit();
     try {
-      logger.info(`Getting chat completion for ${messages.length} messages`);
+      logger.info(`Getting chat completion for message`);
 
       const response = await hf.textGeneration({
-        model: 'microsoft/DialoGPT-large',
-        inputs: messages[messages.length - 1].content,
+        model: 'gpt2',
+        inputs: userMessage,
         parameters: {
-          max_length: 1000,
+          max_new_tokens: 250,
           temperature: 0.7,
+          top_p: 0.9,
+          return_full_text: false
         },
       });
 
@@ -83,8 +52,8 @@ async function getChatCompletion(messages) {
     } catch (error) {
       retries++;
       if (retries === MAX_RETRIES) {
-        logger.error('Max retries reached');
-        throw new Error('Failed to get response. Please try again later.');
+        logger.error(`Failed after ${MAX_RETRIES} retries`);
+        throw new Error('Unable to get response at this time. Please try again later.');
       }
       const delay = BASE_DELAY * Math.pow(2, retries);
       logger.warn(`Error encountered, retrying in ${delay}ms`);
@@ -94,6 +63,5 @@ async function getChatCompletion(messages) {
 }
 
 module.exports = {
-  generateImage,
-  getChatCompletion,
+  getChatCompletion
 };
