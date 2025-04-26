@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ChannelType, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, ChannelType, PermissionFlagsBits, MessageFlags } = require('discord.js');
 const logger = require('../../utils/logger');
 
 module.exports = {
@@ -21,34 +21,48 @@ module.exports = {
         .setRequired(false)
         .addChannelTypes(ChannelType.GuildText)),
 
-  // Execute slash command
   async execute(client, interaction) {
     try {
-      // Get options
       const channel = interaction.options.getChannel('channel') || interaction.channel;
-      const message = interaction.options.getString('message', true);
+      const message = interaction.options.getString('message');
 
       // Check channel permissions
       if (!channel.permissionsFor(interaction.guild.members.me).has(PermissionFlagsBits.SendMessages)) {
-        return interaction.reply({ content: 'I don\'t have permission to send messages in that channel!', ephemeral: true });
+        return await interaction.reply({ 
+          content: 'I don\'t have permission to send messages in that channel!',
+          flags: MessageFlags.Ephemeral 
+        });
       }
 
       if (!channel.permissionsFor(interaction.member).has(PermissionFlagsBits.SendMessages)) {
-        return interaction.reply({ content: 'You don\'t have permission to send messages in that channel!', ephemeral: true });
+        return await interaction.reply({ 
+          content: 'You don\'t have permission to send messages in that channel!',
+          flags: MessageFlags.Ephemeral 
+        });
       }
 
       // Send the message
       await channel.send(message);
 
-      // If the channel is different from the interaction channel, let the user know
+      // Send confirmation
       if (channel.id !== interaction.channel.id) {
-        await interaction.reply({ content: `Message sent to ${channel}!`, flags: 64 });
+        await interaction.reply({ 
+          content: `Message sent to ${channel}!`,
+          flags: MessageFlags.Ephemeral 
+        });
       } else {
-        await interaction.reply({ content: 'Message sent!', flags: 64 });
+        await interaction.reply({ 
+          content: 'Message sent!',
+          flags: MessageFlags.Ephemeral 
+        });
       }
+
     } catch (error) {
       logger.error(`Error in say command: ${error}`);
-      await interaction.reply({ content: 'There was an error executing that command!', ephemeral: true });
+      await interaction.reply({ 
+        content: 'There was an error executing that command!',
+        flags: MessageFlags.Ephemeral 
+      });
     }
   },
 
