@@ -42,10 +42,12 @@ client.slashCommands = new Collection();
 client.config = config;
 
 // Handler to load commands
-require('./src/handlers/command')(client);
+const { loadCommands } = require('./src/handlers/command');
+loadCommands(client);
 
 // Handler to load events
-require('./src/handlers/event')(client);
+const { loadEvents } = require('./src/handlers/event');
+loadEvents(client);
 
 // Initialize reminder handler
 const { initReminderHandler } = require('./src/handlers/reminderHandler');

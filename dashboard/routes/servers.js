@@ -2,13 +2,16 @@ const express = require('express');
 const router = express.Router();
 const { isAuthenticated, hasGuildPermission } = require('../middleware/auth');
 
+// Import Discord client
+const { client } = require('../../index');
+
 // Import database models
-// const Guild = require('../../src/models/Guild');
-// const TempVC = require('../../src/models/TempVC');
-// const SuggestionSettings = require('../../src/models/SuggestionSettings');
-// const AutoResponse = require('../../src/models/AutoResponse');
-// const CustomCommand = require('../../src/models/CustomCommand');
-// const AltDetector = require('../../src/models/AltDetector');
+const Guild = require('../../src/models/Guild');
+const TempVC = require('../../src/models/TempVC');
+const SuggestionSettings = require('../../src/models/SuggestionSettings');
+const AutoResponse = require('../../src/models/AutoResponse');
+const CustomCommand = require('../../src/models/CustomCommand');
+const AltDetector = require('../../src/models/AltDetector');
 
 /**
  * Server management home route
@@ -120,21 +123,51 @@ router.get('/:id/welcome', hasGuildPermission, async (req, res) => {
     const guildId = req.params.id;
     const guild = req.user.guilds.find(g => g.id === guildId);
     
-    // Placeholder for guild settings
-    // In a production environment, fetch these from the database
-    const settings = {
-      prefix: '!',
-      welcome: {
-        enabled: false,
-        channel: null,
-        message: 'Welcome {user} to {server}!'
-      }
-    };
+    // Check if the bot is in the guild
+    const discordGuild = client.guilds.cache.get(guildId);
+    if (!discordGuild) {
+      return res.status(404).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 404,
+          message: 'Bot is not in this server. Please add the bot to the server first.'
+        }
+      });
+    }
+    
+    // Get guild settings from database
+    let guildData = await Guild.findOne({ guildId });
+    
+    if (!guildData) {
+      // Create default settings if none exist
+      guildData = new Guild({
+        guildId,
+        prefix: client.config.prefix,
+        welcome: {
+          enabled: false,
+          channel: null,
+          message: 'Welcome {user} to {server}!'
+        },
+        antiInvite: false,
+        antiLink: false
+      });
+      
+      await guildData.save();
+    }
+    
+    // Get channels for the dropdown
+    const channels = discordGuild.channels.cache
+      .filter(c => c.type === 0) // Text channels only
+      .map(c => ({
+        id: c.id,
+        name: c.name
+      }));
     
     res.render('pages/welcome', {
       title: `${guild.name} - Welcome System`,
       guild,
-      settings
+      settings: guildData,
+      channels
     });
   } catch (err) {
     console.error('Error fetching welcome settings:', err);
@@ -156,7 +189,43 @@ router.post('/:id/welcome', hasGuildPermission, async (req, res) => {
     const guildId = req.params.id;
     const { welcomeEnabled, welcomeChannel, welcomeMessage, testWelcome } = req.body;
     
-    // In a production environment, save these to the database
+    // Get guild settings from database or create new ones
+    let guildData = await Guild.findOne({ guildId });
+    
+    if (!guildData) {
+      guildData = new Guild({
+        guildId,
+        prefix: client.config.prefix
+      });
+    }
+    
+    // Update welcome settings
+    guildData.welcome = {
+      enabled: welcomeEnabled === 'on',
+      channel: welcomeChannel,
+      message: welcomeMessage
+    };
+    
+    await guildData.save();
+    
+    // Test welcome message if requested
+    if (testWelcome === 'on') {
+      try {
+        const channel = client.channels.cache.get(welcomeChannel);
+        if (channel) {
+          const member = client.guilds.cache.get(guildId).members.cache.get(req.user.id);
+          const welcomeMsg = welcomeMessage
+            .replace(/{user}/g, `<@${member.id}>`)
+            .replace(/{username}/g, member.user.username)
+            .replace(/{server}/g, client.guilds.cache.get(guildId).name)
+            .replace(/{membercount}/g, client.guilds.cache.get(guildId).memberCount);
+          
+          await channel.send(welcomeMsg);
+        }
+      } catch (testError) {
+        console.error('Error sending test welcome message:', testError);
+      }
+    }
     
     // Redirect back to welcome page
     res.redirect(`/servers/${guildId}/welcome`);
@@ -180,20 +249,36 @@ router.get('/:id/auto-responses', hasGuildPermission, async (req, res) => {
     const guildId = req.params.id;
     const guild = req.user.guilds.find(g => g.id === guildId);
     
-    // Placeholder for guild settings
-    // In a production environment, fetch these from the database
-    const settings = {
-      prefix: '!'
-    };
+    // Check if the bot is in the guild
+    const discordGuild = client.guilds.cache.get(guildId);
+    if (!discordGuild) {
+      return res.status(404).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 404,
+          message: 'Bot is not in this server. Please add the bot to the server first.'
+        }
+      });
+    }
     
-    // Placeholder for auto responses
-    // In a production environment, fetch these from the database
-    const autoResponses = [];
+    // Get guild settings from database
+    let guildData = await Guild.findOne({ guildId });
+    
+    if (!guildData) {
+      guildData = new Guild({
+        guildId,
+        prefix: client.config.prefix
+      });
+      await guildData.save();
+    }
+    
+    // Get auto responses from database
+    const autoResponses = await AutoResponse.find({ guildId });
     
     res.render('pages/auto-responses', {
       title: `${guild.name} - Auto Responses`,
       guild,
-      settings,
+      settings: guildData,
       autoResponses
     });
   } catch (err) {
@@ -216,7 +301,26 @@ router.post('/:id/auto-responses', hasGuildPermission, async (req, res) => {
     const guildId = req.params.id;
     const { trigger, response } = req.body;
     
-    // In a production environment, save these to the database
+    // Input validation
+    if (!trigger || !response) {
+      return res.status(400).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 400,
+          message: 'Trigger and response are required.'
+        }
+      });
+    }
+    
+    // Create auto response
+    const autoResponse = new AutoResponse({
+      guildId,
+      trigger,
+      response,
+      createdBy: req.user.id
+    });
+    
+    await autoResponse.save();
     
     // Redirect back to auto responses page
     res.redirect(`/servers/${guildId}/auto-responses`);
@@ -240,7 +344,8 @@ router.post('/:id/auto-responses/:responseId/delete', hasGuildPermission, async 
     const guildId = req.params.id;
     const responseId = req.params.responseId;
     
-    // In a production environment, delete this from the database
+    // Delete auto response from database
+    await AutoResponse.findByIdAndDelete(responseId);
     
     // Redirect back to auto responses page
     res.redirect(`/servers/${guildId}/auto-responses`);
@@ -264,19 +369,56 @@ router.get('/:id/temp-vc', hasGuildPermission, async (req, res) => {
     const guildId = req.params.id;
     const guild = req.user.guilds.find(g => g.id === guildId);
     
-    // Placeholder for temp VC settings
-    // In a production environment, fetch these from the database
-    const tempVCSettings = {
-      enabled: false,
-      channelId: null,
-      categoryId: null,
-      nameFormat: '{username}\'s channel'
-    };
+    // Check if the bot is in the guild
+    const discordGuild = client.guilds.cache.get(guildId);
+    if (!discordGuild) {
+      return res.status(404).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 404,
+          message: 'Bot is not in this server. Please add the bot to the server first.'
+        }
+      });
+    }
+    
+    // Get temp VC settings from database
+    let tempVCSettings = await TempVC.findOne({ guildId });
+    
+    if (!tempVCSettings) {
+      // Create default settings if none exist
+      tempVCSettings = new TempVC({
+        guildId,
+        enabled: false,
+        channelId: null,
+        categoryId: null,
+        nameFormat: '{username}\'s channel'
+      });
+      
+      await tempVCSettings.save();
+    }
+    
+    // Get voice channels for the dropdown
+    const voiceChannels = discordGuild.channels.cache
+      .filter(c => c.type === 2) // Voice channels only
+      .map(c => ({
+        id: c.id,
+        name: c.name
+      }));
+    
+    // Get categories for the dropdown
+    const categories = discordGuild.channels.cache
+      .filter(c => c.type === 4) // Categories only
+      .map(c => ({
+        id: c.id,
+        name: c.name
+      }));
     
     res.render('pages/temp-vc', {
       title: `${guild.name} - Voice Channels`,
       guild,
-      tempVCSettings
+      tempVCSettings,
+      voiceChannels,
+      categories
     });
   } catch (err) {
     console.error('Error fetching temp VC settings:', err);
@@ -298,7 +440,33 @@ router.post('/:id/temp-vc', hasGuildPermission, async (req, res) => {
     const guildId = req.params.id;
     const { enabled, channelId, categoryId, nameFormat } = req.body;
     
-    // In a production environment, save these to the database
+    // Input validation
+    if (enabled === 'on' && !channelId) {
+      return res.status(400).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 400,
+          message: 'Join channel is required when enabling temporary voice channels.'
+        }
+      });
+    }
+    
+    // Get temp VC settings from database or create new ones
+    let tempVCSettings = await TempVC.findOne({ guildId });
+    
+    if (!tempVCSettings) {
+      tempVCSettings = new TempVC({
+        guildId
+      });
+    }
+    
+    // Update temp VC settings
+    tempVCSettings.enabled = enabled === 'on';
+    tempVCSettings.channelId = channelId;
+    tempVCSettings.categoryId = categoryId || null;
+    tempVCSettings.nameFormat = nameFormat || '{username}\'s channel';
+    
+    await tempVCSettings.save();
     
     // Redirect back to temp VC page
     res.redirect(`/servers/${guildId}/temp-vc`);
@@ -322,17 +490,45 @@ router.get('/:id/suggestions', hasGuildPermission, async (req, res) => {
     const guildId = req.params.id;
     const guild = req.user.guilds.find(g => g.id === guildId);
     
-    // Placeholder for suggestion settings
-    // In a production environment, fetch these from the database
-    const suggestionSettings = {
-      enabled: false,
-      suggestionChannel: null
-    };
+    // Check if the bot is in the guild
+    const discordGuild = client.guilds.cache.get(guildId);
+    if (!discordGuild) {
+      return res.status(404).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 404,
+          message: 'Bot is not in this server. Please add the bot to the server first.'
+        }
+      });
+    }
+    
+    // Get suggestion settings from database
+    let suggestionSettings = await SuggestionSettings.findOne({ guildId });
+    
+    if (!suggestionSettings) {
+      // Create default settings if none exist
+      suggestionSettings = new SuggestionSettings({
+        guildId,
+        enabled: false,
+        suggestionChannel: null
+      });
+      
+      await suggestionSettings.save();
+    }
+    
+    // Get text channels for the dropdown
+    const textChannels = discordGuild.channels.cache
+      .filter(c => c.type === 0) // Text channels only
+      .map(c => ({
+        id: c.id,
+        name: c.name
+      }));
     
     res.render('pages/suggestions', {
       title: `${guild.name} - Suggestions`,
       guild,
-      suggestionSettings
+      suggestionSettings,
+      channels: textChannels
     });
   } catch (err) {
     console.error('Error fetching suggestion settings:', err);
@@ -354,7 +550,31 @@ router.post('/:id/suggestions', hasGuildPermission, async (req, res) => {
     const guildId = req.params.id;
     const { enabled, suggestionChannel } = req.body;
     
-    // In a production environment, save these to the database
+    // Input validation
+    if (enabled === 'on' && !suggestionChannel) {
+      return res.status(400).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 400,
+          message: 'Suggestion channel is required when enabling suggestions.'
+        }
+      });
+    }
+    
+    // Get suggestion settings from database or create new ones
+    let suggestionSettings = await SuggestionSettings.findOne({ guildId });
+    
+    if (!suggestionSettings) {
+      suggestionSettings = new SuggestionSettings({
+        guildId
+      });
+    }
+    
+    // Update suggestion settings
+    suggestionSettings.enabled = enabled === 'on';
+    suggestionSettings.suggestionChannel = suggestionChannel;
+    
+    await suggestionSettings.save();
     
     // Redirect back to suggestions page
     res.redirect(`/servers/${guildId}/suggestions`);
@@ -472,27 +692,65 @@ router.get('/:id/alt-detector', hasGuildPermission, async (req, res) => {
     const guildId = req.params.id;
     const guild = req.user.guilds.find(g => g.id === guildId);
     
-    // Placeholder for alt detector settings
-    // In a production environment, fetch these from the database
-    const altSettings = {
-      enabled: false,
-      minAge: 7,
-      action: 'log',
-      modLogChannel: null,
-      notifyRole: null,
-      message: 'Your account is too new to join this server.',
-      bypassRoles: []
-    };
+    // Check if the bot is in the guild
+    const discordGuild = client.guilds.cache.get(guildId);
+    if (!discordGuild) {
+      return res.status(404).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 404,
+          message: 'Bot is not in this server. Please add the bot to the server first.'
+        }
+      });
+    }
     
-    // Placeholder for alt logs
-    // In a production environment, fetch these from the database
-    const altLogs = [];
+    // Get alt detector settings from database
+    let altSettings = await AltDetector.findOne({ guildId });
+    
+    if (!altSettings) {
+      // Create default settings if none exist
+      altSettings = new AltDetector({
+        guildId,
+        enabled: false,
+        minAge: 7,
+        action: 'log',
+        modLogChannel: null,
+        notifyRole: null,
+        message: 'Your account is too new to join this server.',
+        bypassRoles: []
+      });
+      
+      await altSettings.save();
+    }
+    
+    // Get detected alt accounts (would need to implement this model and functionality)
+    const altLogs = []; // Future feature: fetchAltLogs(guildId)
+    
+    // Get text channels for the dropdown
+    const textChannels = discordGuild.channels.cache
+      .filter(c => c.type === 0) // Text channels only
+      .map(c => ({
+        id: c.id,
+        name: c.name
+      }));
+    
+    // Get roles for the dropdown
+    const roles = discordGuild.roles.cache
+      .filter(r => r.name !== '@everyone')
+      .sort((a, b) => b.position - a.position)
+      .map(r => ({
+        id: r.id,
+        name: r.name,
+        color: r.hexColor
+      }));
     
     res.render('pages/alt-detector', {
       title: `${guild.name} - Alt Detector`,
       guild,
       altSettings,
-      altLogs
+      altLogs,
+      channels: textChannels,
+      roles
     });
   } catch (err) {
     console.error('Error fetching alt detector settings:', err);
@@ -512,8 +770,68 @@ router.get('/:id/alt-detector', hasGuildPermission, async (req, res) => {
 router.post('/:id/alt-detector', hasGuildPermission, async (req, res) => {
   try {
     const guildId = req.params.id;
+    const { 
+      enabled, 
+      minAge, 
+      action, 
+      modLogChannel, 
+      notifyRole, 
+      message, 
+      bypassRoles 
+    } = req.body;
     
-    // In a production environment, save these to the database
+    // Input validation for required fields
+    if (enabled === 'on') {
+      if (!minAge || minAge < 1) {
+        return res.status(400).render('pages/error', {
+          title: 'Error',
+          error: {
+            status: 400,
+            message: 'Minimum account age must be at least 1 day.'
+          }
+        });
+      }
+      
+      if (!action) {
+        return res.status(400).render('pages/error', {
+          title: 'Error',
+          error: {
+            status: 400,
+            message: 'An action must be selected for detected alt accounts.'
+          }
+        });
+      }
+    }
+    
+    // Get alt detector settings from database or create new ones
+    let altSettings = await AltDetector.findOne({ guildId });
+    
+    if (!altSettings) {
+      altSettings = new AltDetector({
+        guildId
+      });
+    }
+    
+    // Update alt detector settings
+    altSettings.enabled = enabled === 'on';
+    altSettings.minAge = parseInt(minAge) || 7;
+    altSettings.action = action || 'log';
+    altSettings.modLogChannel = modLogChannel || null;
+    altSettings.notifyRole = notifyRole || null;
+    altSettings.message = message || 'Your account is too new to join this server.';
+    
+    // Handle bypass roles (may be a single value or an array)
+    if (bypassRoles) {
+      if (Array.isArray(bypassRoles)) {
+        altSettings.bypassRoles = bypassRoles;
+      } else {
+        altSettings.bypassRoles = [bypassRoles];
+      }
+    } else {
+      altSettings.bypassRoles = [];
+    }
+    
+    await altSettings.save();
     
     // Redirect back to alt detector page
     res.redirect(`/servers/${guildId}/alt-detector`);
@@ -537,20 +855,36 @@ router.get('/:id/custom-commands', hasGuildPermission, async (req, res) => {
     const guildId = req.params.id;
     const guild = req.user.guilds.find(g => g.id === guildId);
     
-    // Placeholder for guild settings
-    // In a production environment, fetch these from the database
-    const settings = {
-      prefix: '!'
-    };
+    // Check if the bot is in the guild
+    const discordGuild = client.guilds.cache.get(guildId);
+    if (!discordGuild) {
+      return res.status(404).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 404,
+          message: 'Bot is not in this server. Please add the bot to the server first.'
+        }
+      });
+    }
     
-    // Placeholder for custom commands
-    // In a production environment, fetch these from the database
-    const customCommands = [];
+    // Get guild settings from database
+    let guildData = await Guild.findOne({ guildId });
+    
+    if (!guildData) {
+      guildData = new Guild({
+        guildId,
+        prefix: client.config.prefix
+      });
+      await guildData.save();
+    }
+    
+    // Get custom commands from database
+    const customCommands = await CustomCommand.find({ guildId });
     
     res.render('pages/custom-commands', {
       title: `${guild.name} - Custom Commands`,
       guild,
-      settings,
+      settings: guildData,
       customCommands
     });
   } catch (err) {
@@ -573,7 +907,42 @@ router.post('/:id/custom-commands', hasGuildPermission, async (req, res) => {
     const guildId = req.params.id;
     const { commandName, commandResponse } = req.body;
     
-    // In a production environment, save these to the database
+    // Input validation
+    if (!commandName || !commandResponse) {
+      return res.status(400).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 400,
+          message: 'Command name and response are required.'
+        }
+      });
+    }
+    
+    // Check if command already exists
+    const existingCommand = await CustomCommand.findOne({
+      guildId,
+      name: commandName
+    });
+    
+    if (existingCommand) {
+      return res.status(400).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 400,
+          message: `Command "${commandName}" already exists.`
+        }
+      });
+    }
+    
+    // Create custom command
+    const customCommand = new CustomCommand({
+      guildId,
+      name: commandName,
+      response: commandResponse,
+      createdBy: req.user.id
+    });
+    
+    await customCommand.save();
     
     // Redirect back to custom commands page
     res.redirect(`/servers/${guildId}/custom-commands`);
@@ -597,7 +966,56 @@ router.post('/:id/custom-commands/edit', hasGuildPermission, async (req, res) =>
     const guildId = req.params.id;
     const { commandId, commandName, commandResponse } = req.body;
     
-    // In a production environment, save these to the database
+    // Input validation
+    if (!commandId || !commandName || !commandResponse) {
+      return res.status(400).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 400,
+          message: 'Command ID, name, and response are required.'
+        }
+      });
+    }
+    
+    // Find the command to update
+    const customCommand = await CustomCommand.findById(commandId);
+    
+    if (!customCommand || customCommand.guildId !== guildId) {
+      return res.status(404).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 404,
+          message: 'Custom command not found.'
+        }
+      });
+    }
+    
+    // Check if new name conflicts with another command
+    if (commandName !== customCommand.name) {
+      const existingCommand = await CustomCommand.findOne({
+        guildId,
+        name: commandName,
+        _id: { $ne: commandId } // Exclude the current command
+      });
+      
+      if (existingCommand) {
+        return res.status(400).render('pages/error', {
+          title: 'Error',
+          error: {
+            status: 400,
+            message: `Command "${commandName}" already exists.`
+          }
+        });
+      }
+    }
+    
+    // Update custom command
+    customCommand.name = commandName;
+    customCommand.response = commandResponse;
+    customCommand.updatedBy = req.user.id;
+    customCommand.updatedAt = Date.now();
+    
+    await customCommand.save();
     
     // Redirect back to custom commands page
     res.redirect(`/servers/${guildId}/custom-commands`);
@@ -621,7 +1039,21 @@ router.post('/:id/custom-commands/:commandId/delete', hasGuildPermission, async 
     const guildId = req.params.id;
     const commandId = req.params.commandId;
     
-    // In a production environment, delete this from the database
+    // Find and delete the custom command
+    const result = await CustomCommand.deleteOne({
+      _id: commandId,
+      guildId
+    });
+    
+    if (result.deletedCount === 0) {
+      return res.status(404).render('pages/error', {
+        title: 'Error',
+        error: {
+          status: 404,
+          message: 'Custom command not found.'
+        }
+      });
+    }
     
     // Redirect back to custom commands page
     res.redirect(`/servers/${guildId}/custom-commands`);
