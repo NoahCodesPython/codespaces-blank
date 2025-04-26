@@ -16,7 +16,7 @@ const CACHE_EXPIRY = 3600000; // 1 hour in milliseconds
 async function isOwner(userID, permission = null) {
   try {
     // Primary owner check from config
-    if (userID === config.ownerID) {
+    if (userID === config.ownerId) {
       return true;
     }
     
@@ -132,7 +132,7 @@ async function addOwner(userID, addedBy, permissions = ["*"]) {
 async function removeOwner(userID) {
   try {
     // Cannot remove primary owner
-    if (userID === config.ownerID) {
+    if (userID === config.ownerId) {
       return {
         success: false,
         message: 'Cannot remove the primary bot owner'

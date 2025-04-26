@@ -45,20 +45,10 @@ const loadCommands = async (client) => {
     
     // Register slash commands with Discord API
     if (slashCommands.length > 0) {
-      const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
-      
-      try {
-        logger.info('Started refreshing application (/) commands.');
-        
-        await rest.put(
-          Routes.applicationCommands(client.user.id),
-          { body: slashCommands }
-        );
-        
-        logger.info(`Successfully registered ${slashCommands.length} application (/) commands.`);
-      } catch (error) {
-        logger.error(`Error registering slash commands: ${error}`);
-      }
+      // Store commands for later registration after the bot is logged in
+      client.slashCommandsToRegister = slashCommands;
+      logger.info(`Prepared ${slashCommands.length} slash commands for registration.`);
+      logger.info(`Commands will be registered after the bot logs in.`);
     }
   } catch (error) {
     logger.error(`Error loading commands: ${error}`);

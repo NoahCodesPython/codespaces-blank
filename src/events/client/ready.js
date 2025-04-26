@@ -1,4 +1,4 @@
-const { Events, ActivityType } = require('discord.js');
+const { Events, ActivityType, REST, Routes } = require('discord.js');
 const logger = require('../../utils/logger');
 const config = require('../../config');
 const BotOwner = require('../../models/BotOwner');
@@ -20,16 +20,34 @@ module.exports = {
       // Ensure default owner is set
       try {
         // Check if owner exists first
-        const existingOwner = await BotOwner.findOne({ userID: config.ownerID });
+        const existingOwner = await BotOwner.findOne({ userID: config.ownerId });
         if (!existingOwner) {
           // Add owner if not found
-          const result = await addOwner(config.ownerID, config.ownerID, ["*"]);
+          const result = await addOwner(config.ownerId, config.ownerId, ["*"]);
           logger.info(`Default owner setup: ${result.success ? 'Success' : result.message}`);
         } else {
           logger.debug('Default owner already exists in database');
         }
       } catch (error) {
         logger.error(`Error setting up default owner: ${error}`);
+      }
+      
+      // Register slash commands with Discord API if they were prepared
+      if (client.slashCommandsToRegister && client.slashCommandsToRegister.length > 0) {
+        const rest = new REST({ version: '10' }).setToken(config.token);
+        
+        try {
+          logger.info('Started refreshing application (/) commands.');
+          
+          await rest.put(
+            Routes.applicationCommands(client.user.id),
+            { body: client.slashCommandsToRegister }
+          );
+          
+          logger.info(`Successfully registered ${client.slashCommandsToRegister.length} application (/) commands.`);
+        } catch (error) {
+          logger.error(`Error registering slash commands: ${error}`);
+        }
       }
       
       // Define rotating statuses
@@ -47,7 +65,7 @@ module.exports = {
           type: ActivityType.Listening
         },
         { 
-          name: `Made by ${config.ownerName}`,
+          name: `Made by Noah Osmont`,
           type: ActivityType.Competing
         },
         { 
