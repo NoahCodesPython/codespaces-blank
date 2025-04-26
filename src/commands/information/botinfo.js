@@ -61,10 +61,10 @@ module.exports = {
     // Bot team info
     const botTeam = stripIndent`
       Owner
-     • Peter (@peter)
+     • Noah Osmont (@noah_osmont._.)
       
       Developers
-     • Alex (@alex)
+     • Curently None
     `;
     
     const embed = new EmbedBuilder()
@@ -129,10 +129,10 @@ module.exports = {
     // Bot team info
     const botTeam = stripIndent`
       Owner
-     • Peter (@peter)
+     • Noah Osmont (@noah_osmont._.)
       
       Developers
-     • Alex (@alex)
+     • Currently None
     `;
     
     const embed = new EmbedBuilder()
