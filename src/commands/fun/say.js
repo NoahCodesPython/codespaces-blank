@@ -42,9 +42,9 @@ module.exports = {
 
       // If the channel is different from the interaction channel, let the user know
       if (channel.id !== interaction.channel.id) {
-        await interaction.reply({ content: `Message sent to ${channel}!`, ephemeral: true });
+        await interaction.reply({ content: `Message sent to ${channel}!`, flags: 64 });
       } else {
-        await interaction.reply({ content: 'Message sent!', ephemeral: true });
+        await interaction.reply({ content: 'Message sent!', flags: 64 });
       }
     } catch (error) {
       logger.error(`Error in say command: ${error}`);
