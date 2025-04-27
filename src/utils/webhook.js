@@ -1,5 +1,7 @@
+
 const { WebhookClient } = require('discord.js');
 const logger = require('./logger');
+const config = require('../config');
 
 /**
  * Create and return a webhook client if the webhook URL exists in the config
@@ -8,8 +10,6 @@ const logger = require('./logger');
  */
 function getWebhookClient(webhookType) {
   try {
-    const config = require('../../config.json');
-    
     if (!config.webhooks || !config.webhooks[webhookType]) {
       return null;
     }
@@ -37,6 +37,7 @@ async function send(options, webhookType = 'logs') {
     const webhookClient = getWebhookClient(webhookType);
     
     if (!webhookClient) {
+      logger.debug(`No webhook configured for type: ${webhookType}`);
       return;
     }
     
