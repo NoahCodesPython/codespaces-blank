@@ -1,4 +1,3 @@
-
 const { WebhookClient } = require('discord.js');
 const logger = require('./logger');
 const config = require('../config');
@@ -13,13 +12,13 @@ function getWebhookClient(webhookType) {
     if (!config.webhooks || !config.webhooks[webhookType]) {
       return null;
     }
-    
+
     const webhookUrl = config.webhooks[webhookType];
-    
+
     if (!webhookUrl) {
       return null;
     }
-    
+
     return new WebhookClient({ url: webhookUrl });
   } catch (error) {
     logger.error(`Error creating webhook client: ${error}`);
@@ -35,12 +34,12 @@ function getWebhookClient(webhookType) {
 async function send(options, webhookType = 'logs') {
   try {
     const webhookClient = getWebhookClient(webhookType);
-    
+
     if (!webhookClient) {
       logger.debug(`No webhook configured for type: ${webhookType}`);
       return;
     }
-    
+
     await webhookClient.send(options);
   } catch (error) {
     logger.error(`Error sending webhook message: ${error}`);

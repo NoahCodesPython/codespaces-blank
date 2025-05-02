@@ -95,7 +95,7 @@ module.exports = {
       // Try to send the feedback to the bot owner
       try {
         const config = require('../../config');
-        const owner = await interaction.client.users.fetch(config.ownerID.startsWith('-') ? config.ownerID.substring(1) : config.ownerID);
+        const owner = await interaction.client.users.fetch(config.ownerId.startsWith('-') ? config.ownerId.substring(1) : config.ownerId);
         if (owner) {
           await owner.send({ embeds: [feedbackEmbed] });
           logger.info(`Feedback sent to owner: ${config.ownerName}`);

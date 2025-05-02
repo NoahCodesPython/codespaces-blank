@@ -166,13 +166,15 @@ module.exports = {
             
             // DM the bug report to the bot owner
             try {
-              const owner = await client.users.fetch(config.ownerID.startsWith('-') ? config.ownerID.substring(1) : config.ownerID);
+              const owner = await client.users.fetch(config.ownerId);
               if (owner) {
                 await owner.send({ embeds: [bugReportEmbed] });
-                logger.info(`Bug report sent to owner: ${config.ownerName}`);
+                logger.info(`Bug report sent to owner: ${owner.tag}`);
+              } else {
+                logger.warn('Owner not found. Unable to send bug report.');
               }
             } catch (dmError) {
-              logger.error(`Error sending bug report DM to owner: ${dmError}`);
+              logger.error(`Error sending bug report DM to owner: ${dmError.message}`);
             }
             
             // Reply to the user

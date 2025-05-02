@@ -1,0 +1,465 @@
+[2025-04-25 18:17:09] error: Error in custom command handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:09] error: Error in invite filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:09] error: Error in link filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:16] error: Error in AFK message handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:16] error: Error in auto-response handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:16] error: Error in custom command handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:16] error: Error in invite filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:16] error: Error in link filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:39] error: Error in modal submit event: TypeError: interaction.isModalSubmit is not a function
+[2025-04-25 18:17:39] error: Failed to send error message: TypeError: interaction.reply is not a function
+[2025-04-25 18:17:39] error: Error in suggestion vote handler: TypeError: interaction.isButton is not a function
+[2025-04-25 18:17:39] error: Uncaught exception: TypeError: interaction.reply is not a function
+[2025-04-25 18:17:40] error: Error executing balance command: MongoServerError: E11000 duplicate key error collection: test.users index: discordId_1 dup key: { discordId: null }
+[2025-04-25 18:17:40] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:17:40] error: Error executing command balance: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:17:44] error: Error in AFK message handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:44] error: Error in auto-response handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:44] error: Error in custom command handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:44] error: Error in invite filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:17:44] error: Error in link filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:07] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:18:07] error: Error in AFK message handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:07] error: Error in custom command handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:07] error: Error in invite filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:07] error: Error in link filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:07] error: Error executing command balance: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:18:15] error: Error in AFK message handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:15] error: Error in custom command handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:15] error: Error in invite filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:15] error: Error in link filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:17] error: Error in AFK message handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:17] error: Error in custom command handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:17] error: Error in invite filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:17] error: Error in link filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:26] error: Error executing daily command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:18:26] error: Error in AFK message handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:26] error: Error in custom command handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:26] error: Error in invite filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:26] error: Error in link filter: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:26] error: Error executing command daily: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:18:26] error: Error in direct interactionCreate handler: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:18:50] error: Error executing emoji command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:18:50] error: Error in custom command handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:18:50] error: Error executing command emoji: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:18:50] error: Error in direct interactionCreate handler: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:19:11] error: Error in custom command handler: TypeError: Cannot read properties of undefined (reading 'bot')
+[2025-04-25 18:19:11] error: Error executing serverinfo command: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:19:11] error: Error executing command serverinfo: Error [InteractionAlreadyReplied]: The reply to this interaction has already been sent or deferred.
+[2025-04-25 18:19:55] error: Error executing deposit command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:19:55] error: Error executing command deposit: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:20:11] error: Error executing permissions command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:20:12] error: Error executing command permissions: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:20:12] error: DiscordAPIError[10062]: Unknown interaction
+    at handleErrors (/home/runner/workspace/node_modules/@discordjs/rest/dist/index.js:727:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async BurstHandler.runRequest (/home/runner/workspace/node_modules/@discordjs/rest/dist/index.js:831:23)
+    at async _REST.request (/home/runner/workspace/node_modules/@discordjs/rest/dist/index.js:1272:22)
+    at async ChatInputCommandInteraction.reply (/home/runner/workspace/node_modules/discord.js/src/structures/interfaces/InteractionResponses.js:194:22)
+    at async Object.execute (/home/runner/workspace/src/commands/information/permissions.js:94:7)
+    at async Object.execute (/home/runner/workspace/src/events/guild/interactionCreate.js:42:11)
+[2025-04-25 18:20:24] error: Error executing joke command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:20:24] error: Error executing command joke: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:21:31] error: Error in custom command handler: TypeError: Cannot read properties of undefined (reading 'has')
+[2025-04-25 18:21:35] error: Error executing help command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:21:35] error: Error executing command help: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:22:25] error: Error executing meme command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:22:25] error: Error executing command meme: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:22:25] error: DiscordAPIError[40060]: Interaction has already been acknowledged.
+    at handleErrors (/home/runner/workspace/node_modules/@discordjs/rest/dist/index.js:727:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async BurstHandler.runRequest (/home/runner/workspace/node_modules/@discordjs/rest/dist/index.js:831:23)
+    at async _REST.request (/home/runner/workspace/node_modules/@discordjs/rest/dist/index.js:1272:22)
+    at async ChatInputCommandInteraction.reply (/home/runner/workspace/node_modules/discord.js/src/structures/interfaces/InteractionResponses.js:194:22)
+    at async Object.execute (/home/runner/workspace/src/commands/fun/meme.js:66:9)
+    at async Object.execute (/home/runner/workspace/src/events/guild/interactionCreate.js:51:11)
+[2025-04-25 18:22:25] error: Error fetching from Reddit: Request failed with status code 403
+[2025-04-25 18:26:05] error: Error executing meme command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:26:05] error: Error executing meme command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:26:05] error: Error executing meme command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:26:05] error: Error executing command meme: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:26:05] error: Error fetching from Reddit: Request failed with status code 403
+[2025-04-25 18:26:05] error: Error executing meme command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:26:05] error: Error executing meme command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:26:05] error: Error executing meme command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:26:05] error: Error executing command meme: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:26:05] error: Error fetching from Reddit: Request failed with status code 403
+[2025-04-25 18:26:06] error: Error executing command meme: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:26:06] error: Error executing command meme: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:26:06] error: Error in direct interactionCreate handler: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:26:06] error: Error in direct interactionCreate handler: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:26:06] error: Error executing command meme: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:26:06] error: Error executing command meme: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:26:06] error: Error in direct interactionCreate handler: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:26:16] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:26:16] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:26:16] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:26:16] error: Error executing command balance: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:26:17] error: Error executing command balance: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:26:17] error: Error executing command balance: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:26:17] error: Error in direct interactionCreate handler: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:33:23] error: Error in invite command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:33:23] error: Error in invite command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:33:23] error: Unhandled promise rejection: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:33:24] error: Unhandled promise rejection: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:34:24] error: Error executing command announce: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:34:24] error: Error executing command announce: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:34:25] error: Error in direct interactionCreate handler: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:34:38] error: Error executing uptime command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:34:38] error: Error executing command uptime: Error [InteractionAlreadyReplied]: The reply to this interaction has already been sent or deferred.
+[2025-04-25 18:34:38] error: Error executing uptime command: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:34:38] error: Error executing uptime command: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:34:38] error: Error executing command uptime: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:34:38] error: Error executing command uptime: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:34:40] error: Error in direct interactionCreate handler: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:35:33] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:35:33] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:35:33] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:35:33] error: Error executing command balance: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:35:34] error: Error executing command balance: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:35:35] error: Error executing command balance: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:35:35] error: Error in direct interactionCreate handler: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:36:10] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:36:10] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:36:10] error: Error executing command balance: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:36:10] error: Error executing command balance: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:37:14] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:37:14] error: Error executing command balance: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:37:32] error: Error executing meme command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:37:32] error: Error executing command meme: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:37:32] error: Error fetching from Reddit: Request failed with status code 403
+[2025-04-25 18:37:48] error: Error executing meme command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:37:48] error: Error executing command meme: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:37:48] error: Error fetching from Reddit: Request failed with status code 403
+[2025-04-25 18:38:25] error: Error executing meme command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:38:25] error: Error fetching from Reddit: Request failed with status code 403
+[2025-04-25 18:38:25] error: Error executing command meme: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:38:43] error: Error executing command daily: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:40:14] error: Error executing help command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:40:14] error: Error executing command help: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:40:49] error: Error executing command help: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:41:16] error: Error executing youngest command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:41:16] error: Error executing command youngest: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:41:44] error: Error executing serverinfo command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:41:44] error: Error executing command serverinfo: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-25 18:47:55] error: Error executing help command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-25 18:47:55] error: Error executing command help: DiscordAPIError[10062]: Unknown interaction
+[2025-04-26 01:45:05] error: Error registering slash commands: TypeError: Cannot read properties of null (reading 'id')
+[2025-04-26 01:45:10] error: Error adding owner: ValidationError: userID: Path `userID` is required., addedBy: Path `addedBy` is required.
+[2025-04-26 02:15:01] error: Error getting chat completion: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+[2025-04-26 02:15:01] error: Error in ask command: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+[2025-04-26 02:17:36] error: Error sending bug report DM to owner: TypeError: Cannot read properties of undefined (reading 'startsWith')
+[2025-04-26 02:18:23] error: Unhandled promise rejection: Cannot read properties of undefined (reading 'length')
+[2025-04-26 02:18:57] error: Error sending feedback DM to owner: TypeError: Cannot read properties of undefined (reading 'startsWith')
+[2025-04-26 02:46:06] error: Error fetching from Reddit: Request failed with status code 403
+[2025-04-26 02:48:16] error: Error generating image: 400 Error in request. Please check your input.
+[2025-04-26 02:48:16] error: Error in imagine command: 400 Error in request. Please check your input.
+[2025-04-26 02:52:01] error: Error getting chat completion: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+[2025-04-26 02:52:01] error: Error in ask command: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+[2025-04-26 02:52:22] error: Error generating image: 400 Error in request. Please check your input.
+[2025-04-26 02:52:22] error: Error in imagine command: 400 Error in request. Please check your input.
+[2025-04-26 02:57:38] error: Error adding owner: ValidationError: userID: Path `userID` is required., addedBy: Path `addedBy` is required.
+[2025-04-26 02:59:17] error: Error adding owner: ValidationError: userID: Path `userID` is required., addedBy: Path `addedBy` is required.
+[2025-04-26 03:03:21] error: Max retries reached for rate limit
+[2025-04-26 03:03:21] error: Error in ask command: OpenAI API rate limit reached. Please try again later.
+[2025-04-26 03:05:08] error: Max retries reached for rate limit
+[2025-04-26 03:05:08] error: Error in ask command: OpenAI API rate limit reached. Please try again later.
+[2025-04-26 03:09:01] error: Error generating image: 400 Error in request. Please check your input.
+[2025-04-26 03:09:01] error: Error in imagine command: 400 Error in request. Please check your input.
+[2025-04-26 03:10:23] error: Error generating image: 400 Error in request. Please check your input.
+[2025-04-26 03:10:23] error: Error in imagine command: 400 Error in request. Please check your input.
+[2025-04-26 03:29:48] error: Error getting chat completion: 401 Incorrect API key provided: asst_bhL*****************Sllw. You can find your API key at https://platform.openai.com/account/api-keys.
+[2025-04-26 03:29:48] error: Error in ask command: 401 Incorrect API key provided: asst_bhL*****************Sllw. You can find your API key at https://platform.openai.com/account/api-keys.
+[2025-04-26 03:32:10] error: Error fetching from Reddit: Request failed with status code 403
+[2025-04-26 03:33:20] error: Error executing meme command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-26 03:33:21] error: Error fetching from Reddit: Request failed with status code 403
+[2025-04-26 03:33:21] error: Error executing command meme: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-26 03:33:43] error: Error executing 8ball command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-26 03:33:43] error: Error executing command 8ball: DiscordAPIError[10062]: Unknown interaction
+[2025-04-26 03:33:56] error: Error executing balance command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-26 03:33:56] error: Error executing command balance: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-04-26 03:34:07] error: Error executing command botinfo: DiscordAPIError[10062]: Unknown interaction
+[2025-04-26 03:34:07] error: Error executing command botinfo: TypeError: Cannot read properties of null (reading 'members')
+[2025-04-26 03:40:20] error: Error executing pay command: MongoServerError: E11000 duplicate key error collection: test.users index: discordId_1 dup key: { discordId: null }
+[2025-04-26 03:55:54] error: Error creating temporary voice channel: ReferenceError: client is not defined
+[2025-04-26 03:57:25] error: Error creating temporary voice channel: ReferenceError: client is not defined
+[2025-04-26 04:01:26] error: Error in say command: TypeError: interaction.options.getChannel is not a function
+[2025-04-26 04:01:26] error: Error executing command say: TypeError: interaction.reply is not a function
+[2025-04-26 04:02:29] error: Error in say command: TypeError: interaction.options.getChannel is not a function
+[2025-04-26 04:02:29] error: Error executing command say: TypeError: interaction.reply is not a function
+[2025-04-26 04:04:42] error: Error sending announcement to guild 811202229587542016: DiscordAPIError[50013]: Missing Permissions
+[2025-04-26 04:04:43] error: Error sending announcement to guild 918817853048782908: DiscordAPIError[50001]: Missing Access
+[2025-04-26 04:04:44] error: Error sending announcement to guild 831886661755076618: DiscordAPIError[50001]: Missing Access
+[2025-04-26 04:04:44] error: Error sending announcement to guild 836685448256552980: DiscordAPIError[50001]: Missing Access
+[2025-04-26 04:04:45] error: Error sending announcement to guild 645281161949741064: DiscordAPIError[50001]: Missing Access
+[2025-04-26 04:04:46] error: Error sending announcement to guild 863312638678794240: DiscordAPIError[50013]: Missing Permissions
+[2025-04-26 04:04:50] error: Error sending announcement to guild 1056538362418319460: DiscordAPIError[50013]: Missing Permissions
+[2025-04-26 04:04:50] error: Error sending announcement to guild 968050675294543872: DiscordAPIError[50001]: Missing Access
+[2025-04-26 04:04:52] error: Error sending announcement to guild 728586685796843541: DiscordAPIError[50001]: Missing Access
+[2025-04-26 04:04:52] error: Error sending announcement to guild 923235487693565992: DiscordAPIError[50001]: Missing Access
+[2025-04-26 04:04:53] error: Error sending announcement to guild 551377300705378304: DiscordAPIError[50001]: Missing Access
+[2025-04-26 04:04:56] error: Error sending announcement to guild 813489437715070987: DiscordAPIError[50001]: Missing Access
+[2025-04-26 04:04:57] error: Error sending announcement to guild 602906543356379156: DiscordAPIError[50001]: Missing Access
+[2025-04-26 04:04:57] error: Error sending announcement to guild 819899570728337418: DiscordAPIError[50001]: Missing Access
+[2025-04-26 14:11:44] error: Error in say command: TypeError: interaction.options.getChannel is not a function
+[2025-04-26 14:11:44] error: Error executing command say: TypeError: interaction.reply is not a function
+[2025-04-26 14:13:42] error: Error in say command: TypeError: interaction.options.getString is not a function
+[2025-04-26 14:13:42] error: Error executing command say: TypeError: interaction.reply is not a function
+[2025-04-26 14:15:57] error: Error in say command: TypeError: interaction.options.getChannel is not a function
+[2025-04-26 14:15:57] error: Error executing command say: TypeError: interaction.reply is not a function
+[2025-04-26 14:19:49] error: Error in say command: TypeError: interaction.options.getChannel is not a function
+[2025-04-26 14:19:49] error: Error executing command say: TypeError: interaction.reply is not a function
+[2025-04-27 06:43:56] error: Unhandled promise rejection: Cannot read properties of undefined (reading 'length')
+[2025-04-27 06:43:58] error: Unhandled promise rejection: Cannot read properties of undefined (reading 'find')
+[2025-04-27 06:44:03] error: Unhandled promise rejection: Cannot read properties of undefined (reading 'find')
+[2025-04-27 06:50:02] error: Error fetching from Reddit: Request failed with status code 403
+[2025-04-27 06:54:09] error: Error executing command warn: TypeError: interaction.deferReply is not a function
+[2025-04-27 18:01:06] error: Error sending bug report DM to owner: TypeError: Cannot read properties of undefined (reading 'startsWith')
+[2025-04-27 18:01:06] error: Error sending bug report DM to owner: TypeError: Cannot read properties of undefined (reading 'startsWith')
+[2025-04-27 18:01:07] error: Error processing bug report modal: DiscordAPIError[10062]: Unknown interaction
+[2025-04-27 18:01:35] error: Error sending bug report DM to owner: TypeError: Cannot read properties of undefined (reading 'startsWith')
+[2025-04-27 18:18:14] error: Error sending bug report DM to owner: TypeError: Cannot read properties of undefined (reading 'startsWith')
+[2025-04-27 18:19:48] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 18:29:08] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 18:30:08] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 18:31:08] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 18:34:08] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 18:35:08] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 18:36:08] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 18:37:08] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 18:38:08] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 18:39:08] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 18:41:59] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 18:43:42] error: Error sending bug report DM to owner: TypeError: Cannot read properties of undefined (reading 'startsWith')
+[2025-04-27 18:43:43] error: Error processing bug report modal: DiscordAPIError[10062]: Unknown interaction
+[2025-04-27 18:47:33] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 18:54:03] error: Error sending bug report DM to owner: TypeError: Cannot read properties of undefined (reading 'startsWith')
+[2025-04-27 18:54:58] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 19:02:13] error: Error sending bug report DM to owner: TypeError: Cannot read properties of undefined (reading 'startsWith')
+[2025-04-27 19:14:04] error: Error loading commands: Error: Cannot find module './handlers/ticketButtonHandler'
+Require stack:
+- C:\Users\Noah Osmont\Documents\PogyRemake\PogyRemake\src\commands\utility\bugreport.js
+- C:\Users\Noah Osmont\Documents\PogyRemake\PogyRemake\src\handlers\command.js
+- C:\Users\Noah Osmont\Documents\PogyRemake\PogyRemake\index.js
+[2025-04-27 19:17:00] error: Error loading commands: Error: Cannot find module './handlers/ticketButtonHandler'
+Require stack:
+- C:\Users\Noah Osmont\Documents\PogyRemake\PogyRemake\src\commands\utility\bugreport.js
+- C:\Users\Noah Osmont\Documents\PogyRemake\PogyRemake\src\handlers\command.js
+- C:\Users\Noah Osmont\Documents\PogyRemake\PogyRemake\index.js
+[2025-04-27 19:23:42] error: Error loading commands: Error: Cannot find module './handlers/ticketButtonHandler'
+Require stack:
+- C:\Users\Noah Osmont\Documents\PogyRemake\PogyRemake\src\commands\utility\bugreport.js
+- C:\Users\Noah Osmont\Documents\PogyRemake\PogyRemake\src\handlers\command.js
+- C:\Users\Noah Osmont\Documents\PogyRemake\PogyRemake\index.js
+[2025-04-27 19:26:26] error: Error sending bug report DM to owner: Invalid Form Body
+user_id[NUMBER_TYPE_COERCE]: Value "null" is not snowflake.
+[2025-04-27 19:56:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 19:57:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 19:58:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 19:59:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 20:00:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 20:01:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 20:02:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 20:03:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 20:04:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 20:05:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 20:06:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 20:07:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 20:08:24] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-27 20:27:17] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 20:37:15] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 21:18:08] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 21:25:36] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 21:26:34] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 21:49:09] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 21:50:58] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 21:51:15] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 22:02:08] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 22:05:36] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 22:09:22] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 22:14:15] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 22:19:39] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-27 19:45:52] error: Error sending bug report DM to owner: Invalid Form Body
+user_id[NUMBER_TYPE_COERCE]: Value "null" is not snowflake.
+[2025-04-28 04:08:38] error: Error sending feedback DM to owner: TypeError: Cannot read properties of undefined (reading 'startsWith')
+[2025-04-28 11:54:09] error: Error executing command ping: TypeError: Cannot read properties of null (reading 'members')
+[2025-04-28 15:32:44] error: Error in reminder handler: MongoServerSelectionError: connection <monitor> to 159.41.242.230:27017 timed out
+[2025-04-28 15:40:53] error: Error in reminder handler: MongoServerSelectionError: connection <monitor> to 159.41.242.230:27017 timed out
+[2025-04-28 15:41:44] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30001ms (connectTimeoutMS: 30000)
+[2025-04-28 15:42:44] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30001ms (connectTimeoutMS: 30000)
+[2025-04-28 16:43:45] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 17:46:37] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 17:46:56] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 17:48:31] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 17:57:46] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 18:11:10] error: Error loading commands: TypeError: option.setName(...).setDescription(...).setRequired(...).setDefault is not a function
+[2025-04-28 18:16:42] error: Error loading commands: TypeError: option.setName(...).setDescription(...).setRequired(...).setDefault is not a function
+[2025-04-28 18:18:18] error: Error loading commands: TypeError: option.setName(...).setDescription(...).setRequired(...).setDefault is not a function
+[2025-04-28 18:20:09] error: Error loading commands: TypeError: option.setName(...).setDescription(...).setRequired(...).setDefault is not a function
+[2025-04-28 18:24:55] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 18:25:53] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 18:54:06] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 18:55:29] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 18:58:59] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 19:06:09] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 19:08:50] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 19:23:12] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 19:36:08] error: Error executing welcome command: MongoServerError: E11000 duplicate key error collection: test.guilds index: guildId_1 dup key: { guildId: null }
+[2025-04-28 19:39:14] error: Error executing welcome command: MongoServerError: E11000 duplicate key error collection: test.guilds index: guildId_1 dup key: { guildId: null }
+[2025-04-28 19:40:24] error: Error executing welcome command: Error: Failed to convert JavaScript value `Undefined` into rust type `String`
+[2025-04-28 19:44:35] error: Failed to create welcome image: Error: Failed to convert JavaScript value `Undefined` into rust type `String`
+[2025-04-28 19:44:35] error: Error executing welcome command: DiscordAPIError[10062]: Unknown interaction
+[2025-04-28 19:44:36] error: Error executing command welcome: DiscordAPIError[10062]: Unknown interaction
+[2025-04-28 19:47:00] error: Failed to create welcome image: Error: Failed to convert JavaScript value `Undefined` into rust type `String`
+[2025-04-28 19:52:52] error: Error loading commands: SyntaxError: Unexpected token ':'
+[2025-04-28 19:55:24] error: Error loading commands: Error: Cannot find module 'gif-parse'
+Require stack:
+- /home/container/src/commands/config/welcome.js
+- /home/container/src/handlers/command.js
+- /home/container/index.js
+[2025-04-28 19:56:26] error: Error loading commands: Error: Cannot find module 'gif-parse'
+Require stack:
+- /home/container/src/commands/config/welcome.js
+- /home/container/src/handlers/command.js
+- /home/container/index.js
+[2025-04-28 19:59:37] error: Error loading commands: Error [ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING]: Stripping types is currently unsupported for files under node_modules, for "/home/container/node_modules/gif-decoder/dist/build.umd.ts"
+[2025-04-28 20:01:39] error: Error loading commands: Error: Cannot find module 'gif-parse'
+Require stack:
+- /home/container/src/commands/config/welcome.js
+- /home/container/src/handlers/command.js
+- /home/container/index.js
+[2025-04-28 20:07:54] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 20:16:57] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 20:18:43] error: Error creating welcome image: $
+{error}
+[2025-04-28 20:18:43] error: Failed to create welcome image:
+TypeError: gifyParse.parse is not a function
+[2025-04-28 20:27:29] error: Error loading commands: Error: Cannot find module 'gif-offset'
+Require stack:
+- /home/container/src/commands/config/welcome.js
+- /home/container/src/handlers/command.js
+- /home/container/index.js
+[2025-04-28 20:34:27] error: Error creating welcome image: $
+{error}
+[2025-04-28 20:34:27] error: Failed to create welcome image:
+TypeError: gifEncoder.start is not a function
+[2025-04-28 20:41:05] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 20:44:44] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 20:46:08] error: Error creating welcome image: $
+{error}
+[2025-04-28 20:46:08] error: Failed to create welcome image:
+TypeError: createCanvas.loadImage is not a function
+[2025-04-28 20:56:34] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 20:56:52] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 21:29:28] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 21:34:17] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 21:48:49] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 22:16:35] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 22:23:27] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 23:22:12] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 23:25:05] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-28 23:29:24] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 03:17:03] error: Error creating welcome image: $
+{error}
+[2025-04-29 03:17:03] error: Failed to create welcome image:
+Error: Unsupported image type
+[2025-04-29 03:23:11] error: Error creating welcome image: $
+{error}
+[2025-04-29 03:23:11] error: Failed to create welcome image:
+Error: Failed to convert JavaScript value `Undefined` into rust type `String`
+[2025-04-29 04:25:53] error: Error loading events: SyntaxError: Identifier 'EmbedBuilder' has already been declared
+[2025-04-29 04:27:03] error: Error loading events: Error: Cannot find module '../../../models/WelcomeSettings'
+Require stack:
+- /home/container/src/events/guild/guildMemberAdd.js
+- /home/container/src/handlers/event.js
+- /home/container/index.js
+[2025-04-29 05:17:33] error: Error executing command welcome: MongoServerError: E11000 duplicate key error collection: test.guilds index: guildId_1 dup key: { guildId: null }
+[2025-04-29 05:18:14] error: Error executing command welcome: DiscordAPIError[10062]: Unknown interaction
+[2025-04-29 05:18:32] error: Error executing command welcome: DiscordAPIError[10062]: Unknown interaction
+[2025-04-29 05:21:45] error: Error executing command welcome: DiscordAPIError[10062]: Unknown interaction
+[2025-04-29 05:26:20] error: Error executing command welcome: MongoServerError: E11000 duplicate key error collection: test.guilds index: guildId_1 dup key: { guildId: null }
+[2025-04-29 05:27:37] error: Error executing command welcome: MongoServerError: E11000 duplicate key error collection: test.guilds index: guildId_1 dup key: { guildId: null }
+[2025-04-29 08:32:36] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 08:44:16] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 09:02:13] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 14:18:46] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 14:21:19] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 17:14:13] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 17:17:41] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 17:22:29] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 17:24:13] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 17:28:28] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 17:53:15] error: Error loading events: Error: Cannot find module 'canvas'
+Require stack:
+- /home/container/src/events/guild/guildMemberAdd.js
+- /home/container/src/handlers/event.js
+- /home/container/index.js
+[2025-04-29 17:53:17] error: Error loading commands: Error: Cannot find module 'gifencoder'
+Require stack:
+- /home/container/src/utils/generateWelcomeGif.js
+- /home/container/src/commands/utility/welcome.js
+- /home/container/src/handlers/command.js
+- /home/container/index.js
+[2025-04-29 17:56:36] error: Error loading events: Error: Cannot find module 'gifencoder'
+Require stack:
+- /home/container/src/events/guild/guildMemberAdd.js
+- /home/container/src/handlers/event.js
+- /home/container/index.js
+[2025-04-29 17:56:36] error: Error loading commands: Error: Cannot find module 'gifencoder'
+Require stack:
+- /home/container/src/utils/generateWelcomeGif.js
+- /home/container/src/commands/utility/welcome.js
+- /home/container/src/handlers/command.js
+- /home/container/index.js
+[2025-04-29 18:03:06] error: Error loading events: Error: Cannot find module 'gifencoder'
+Require stack:
+- /home/container/src/events/guild/guildMemberAdd.js
+- /home/container/src/handlers/event.js
+- /home/container/index.js
+[2025-04-29 18:03:06] error: Error loading commands: Error: Cannot find module 'gifencoder'
+Require stack:
+- /home/container/src/utils/generateWelcomeGif.js
+- /home/container/src/commands/utility/welcome.js
+- /home/container/src/handlers/command.js
+- /home/container/index.js
+[2025-04-29 18:11:01] error: Error loading commands: Error: Cannot find module 'gifencoder'
+Require stack:
+- /home/container/src/utils/generateWelcomeGif.js
+- /home/container/src/commands/utility/welcome.js
+- /home/container/src/handlers/command.js
+- /home/container/index.js
+[2025-04-29 18:35:12] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 18:39:06] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 18:42:30] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 18:47:48] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-29 22:47:04] error: Error in guildMemberAdd event: TypeError: AltDetector.findOne is not a function
+[2025-04-30 01:55:08] error: Error loading commands: Error: Cannot find module 'gifencoder'
+Require stack:
+- /home/container/src/utils/generateWelcomeGif.js
+- /home/container/src/commands/utility/welcome.js
+- /home/container/src/handlers/command.js
+- /home/container/index.js
+[2025-04-30 02:00:06] error: Error loading events: Error: ENOENT: no such file or directory, lstat '/home/container/src/assets'
+[2025-04-30 02:00:06] error: Error loading commands: Error: ENOENT: no such file or directory, lstat '/home/container/src/assets'
+[2025-04-30 02:03:12] error: Error loading events: Error: ENOENT: no such file or directory, lstat '/home/container/src/assets'
+[2025-04-30 02:03:13] error: Error loading commands: Error: ENOENT: no such file or directory, lstat '/home/container/src/assets'
+[2025-04-30 02:05:23] error: Error executing command welcome: Error: Failed to fetch image from https://example.com/default-background.jpg
+[2025-04-30 10:50:38] error: Error in reminder handler: MongoServerSelectionError: getaddrinfo EAI_AGAIN ac-rsckl4o-shard-00-00.a2rt8g7.mongodb.net
+[2025-04-30 10:51:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30000ms (connectTimeoutMS: 30000)
+[2025-04-30 10:52:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30003ms (connectTimeoutMS: 30000)
+[2025-04-30 10:53:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30003ms (connectTimeoutMS: 30000)
+[2025-04-30 10:54:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30002ms (connectTimeoutMS: 30000)
+[2025-04-30 10:55:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30000ms (connectTimeoutMS: 30000)
+[2025-04-30 10:56:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30000ms (connectTimeoutMS: 30000)
+[2025-04-30 10:57:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30001ms (connectTimeoutMS: 30000)
+[2025-04-30 10:58:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30000ms (connectTimeoutMS: 30000)
+[2025-04-30 10:59:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30000ms (connectTimeoutMS: 30000)
+[2025-04-30 11:00:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30003ms (connectTimeoutMS: 30000)
+[2025-04-30 11:01:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30000ms (connectTimeoutMS: 30000)
+[2025-04-30 11:02:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30000ms (connectTimeoutMS: 30000)
+[2025-04-30 11:03:10] error: Error in reminder handler: MongoServerSelectionError: Socket 'secureConnect' timed out after 30000ms (connectTimeoutMS: 30000)
+[2025-05-01 11:14:13] error: Error in remind command: TypeError: Cannot read properties of null (reading 'id')
+[2025-05-01 11:14:30] error: Error executing command ping: TypeError: Cannot read properties of null (reading 'members')
+[2025-05-02 09:49:05] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 10:51:40] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 10:57:12] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
