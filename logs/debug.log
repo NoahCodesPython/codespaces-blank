@@ -13107,3 +13107,63 @@ content[BASE_TYPE_MAX_LENGTH]: Must be 4000 or fewer in length.
 [2025-05-02 17:10:23] info: Started refreshing application (/) commands.
 [2025-05-02 17:10:24] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
 [2025-05-02 17:10:24] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-02 17:12:17] info: SIGINT received, shutting down...
+[2025-05-02 17:12:19] info: Initializing reminder handler
+[2025-05-02 17:12:19] info: Reminder handler initialized
+[2025-05-02 17:12:19] info: Dashboard started on port 3000
+[2025-05-02 17:12:19] info: Loading 11 categories...
+[2025-05-02 17:12:19] info: Loading 8 commands from altdetector...
+[2025-05-02 17:12:19] info: Loading 1 events from client...
+[2025-05-02 17:12:19] debug: Registered event handler: ready.js for event: ready
+[2025-05-02 17:12:19] info: Loading 10 commands from applications...
+[2025-05-02 17:12:19] info: Loading 15 events from guild...
+[2025-05-02 17:12:19] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-02 17:12:19] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-02 17:12:19] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-02 17:12:19] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-02 17:12:19] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-02 17:12:19] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-02 17:12:19] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-02 17:12:19] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-02 17:12:19] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-02 17:12:19] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-02 17:12:19] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-02 17:12:19] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-02 17:12:19] debug: Event ready has 1 listener(s)
+[2025-05-02 17:12:19] debug: Event interactionCreate has 1 listener(s)
+[2025-05-02 17:12:19] debug: Event messageCreate has 1 listener(s)
+[2025-05-02 17:12:19] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-02 17:12:19] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-02 17:12:19] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-02 17:12:19] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-02 17:12:19] info: Events loaded successfully!
+[2025-05-02 17:12:19] info: Loading 15 commands from config...
+[2025-05-02 17:12:20] info: Loading 7 commands from economy...
+[2025-05-02 17:12:20] info: Loading 9 commands from fun...
+[2025-05-02 17:12:20] info: Loading 11 commands from information...
+[2025-05-02 17:12:20] info: Loading 5 commands from moderation...
+[2025-05-02 17:12:20] info: Loading 7 commands from owner...
+[2025-05-02 17:12:20] info: Loading 3 commands from reactionrole...
+[2025-05-02 17:12:20] info: Loading 6 commands from ticket...
+[2025-05-02 17:12:20] info: Loading 12 commands from utility...
+[2025-05-02 17:12:20] info: Successfully loaded 93 slash commands!
+[2025-05-02 17:12:20] info: Prepared 93 slash commands for registration.
+[2025-05-02 17:12:20] info: Commands will be registered after the bot logs in.
+[2025-05-02 17:12:20] info: Connected to MongoDB
+[2025-05-02 17:12:22] info: Logged in as Aquire#0674
+[2025-05-02 17:12:22] info: Aquire is serving 80 servers with 72189 users
+[2025-05-02 17:12:22] debug: Default owner already exists in database
+[2025-05-02 17:12:22] info: Started refreshing application (/) commands.
+[2025-05-02 17:12:23] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-02 17:12:23] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-02 17:14:23] info: Rotated bot activity to: with 72189 users (Playing)
+[2025-05-02 17:15:20] debug: Interaction handler execution #1 for interaction 1367912357069586566
+[2025-05-02 17:15:20] debug: Processing interaction: 1367912357069586566, type: 2, ping
+[2025-05-02 17:15:21] debug: Successfully executed command: ping
+[2025-05-02 17:16:23] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-02 17:17:19] debug: Cleaned up 1 old interactions from cache
+[2025-05-02 17:18:23] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-02 17:20:23] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-02 17:22:23] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-02 17:24:23] info: Rotated bot activity to: with 72189 users (Playing)
+[2025-05-02 17:25:12] info: SIGINT received, shutting down...

@@ -63,6 +63,7 @@ async function registerCommands(client) {
     if (error.code === 50240) {
       logger.error('DiscordAPIError[50240]: You cannot remove this app\'s Entry Point command in a bulk update operation.');
       logger.error('Suggested Fix: Ensure the Entry Point command is included in the bulk update request or delete it separately.');
+      logger.error('Alternatively, disable activities in your application dashboard to resolve this issue.');
       logger.error('Commands being registered:', commands.map(cmd => cmd.name));
       logger.error('Existing commands fetched from Discord:', existingCommands.map(cmd => cmd.name));
       logger.error('Full error details:', error);
