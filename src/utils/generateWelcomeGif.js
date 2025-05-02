@@ -97,12 +97,16 @@ async function generateWelcomeGif(user, guild, messageTemplate, backgroundURL) {
     console.log('Frame height:', gifFrames.info.height);
     console.log('Channels:', gifFrames.info.channels);
 
-    // Dynamically calculate frame size
-    const frameSize = gifFrames.info.width * gifFrames.info.height * gifFrames.info.channels;
-    console.log('Calculated frame size:', frameSize);
+    // Manually calculate frame height if pageHeight is available
+    const frameHeight = gifFrames.info.pageHeight || gifFrames.info.height / gifFrames.info.pages;
+    console.log('Calculated frame height:', frameHeight);
+
+    // Adjust frame size calculation
+    const frameSize = gifFrames.info.width * frameHeight * gifFrames.info.channels;
+    console.log('Adjusted frame size:', frameSize);
 
     // Validate total frames
-    const totalFrames = Math.floor(gifFrames.data.length / frameSize);
+    const totalFrames = gifFrames.info.pages || Math.floor(gifFrames.data.length / frameSize);
     console.log('Total frames calculated:', totalFrames);
 
     for (let i = 0; i < Math.min(60, totalFrames); i++) {
@@ -130,7 +134,7 @@ async function generateWelcomeGif(user, guild, messageTemplate, backgroundURL) {
       const processedFrameBuffer = await sharp(frameBuffer, {
         raw: {
           width: gifFrames.info.width,
-          height: gifFrames.info.height,
+          height: frameHeight,
           channels: gifFrames.info.channels,
         },
       })
