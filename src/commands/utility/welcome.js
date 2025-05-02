@@ -70,7 +70,7 @@ module.exports = {
 
     const sub = options.getSubcommand();
 
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: 64 }); // Use flags instead of ephemeral
 
     let data = await Guild.findOne({ guildID: guild.id });
 
@@ -140,22 +140,17 @@ module.exports = {
 
       }
 
-      const stream = await generateWelcomeGif({
+      const gifBuffer = await generateWelcomeGif(
+        user, // Pass the user object directly
+        guild,
+        data.welcomeMessage,
+        data.welcomeBackground || 'https://media.tenor.com/nG8mRUjHvhoAAAAC/galaxy.gif'
+      );
 
-        username: user.username,
-
-        avatarUrl: user.displayAvatarURL({ extension: 'png', size: 512 }),
-
-        backgroundUrl: data.welcomeBackground || 'https://media.tenor.com/nG8mRUjHvhoAAAAC/galaxy.gif',
-
-      });
-
-      const attachment = new AttachmentBuilder(stream, { name: 'welcome.gif' });
+      const attachment = new AttachmentBuilder(gifBuffer, { name: 'welcome.gif' });
 
       const welcomeText = data.welcomeMessage
-
         .replace('{user}', `<@${user.id}>`)
-
         .replace('{server}', guild.name);
 
       await channel.send({ content: welcomeText, files: [attachment] });

@@ -48,24 +48,42 @@ async function generateWelcomeGif(user, guild, messageTemplate, backgroundURL) {
   encoder.setDelay(100); // frame delay in ms
   encoder.setQuality(10); // image quality. 10 is default.
 
+  console.log('generateWelcomeGif function started');
+
   try {
     // Validate user object
     if (!user || typeof user.displayAvatarURL !== 'function') {
       throw new Error('Invalid user object. Ensure the user parameter is a valid Discord.js User or GuildMember instance.');
     }
 
-    // Load background GIF and extract frames using sharp
-    const backgroundBuffer = await fetchImageBuffer(backgroundURL || 'https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzQ4bjB3NnI2ZDE2bGx2azZjaWR3NnF4cGhvMWU0OGt3NGt0dGtvMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1jRItUChOutcU0MDsc/giphy.gif');
+    const avatarURL = user.displayAvatarURL({ extension: 'png', size: 512 });
+    console.log('Fetching background URL:', backgroundURL);
+    console.log('Fetching avatar URL:', avatarURL);
+
+    console.log('Fetching background image buffer');
+    const backgroundBuffer = await fetchImageBuffer(backgroundURL || 'https://media.tenor.com/nG8mRUjHvhoAAAAC/galaxy.gif');
+
+    console.log('Extracting frames from background GIF');
     const gifFrames = await sharp(backgroundBuffer, { animated: true }).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
 
-    // Validate frame data
     if (!gifFrames.info || gifFrames.info.pages <= 0) {
       throw new Error('Invalid GIF format or no frames found.');
     }
 
+    console.log('Number of frames extracted:', gifFrames.info.pages);
+
     // Load user avatar
-    const avatarURL = user.displayAvatarURL({ extension: 'png', size: 512 });
     const avatarBuffer = await fetchImageBuffer(avatarURL);
+    
+    // Validate avatar buffer
+    if (!avatarBuffer || avatarBuffer.length === 0) {
+      console.error('Avatar buffer is empty. URL:', avatarURL);
+      throw new Error('Avatar image buffer is empty. Please check the user avatar URL.');
+    }
+
+    console.log('Avatar buffer size:', avatarBuffer.length);
+    console.log('Avatar buffer (first 20 bytes):', avatarBuffer.slice(0, 20));
+
     const avatarImage = await loadImage(avatarBuffer);
 
     // Prepare welcome message
@@ -73,13 +91,41 @@ async function generateWelcomeGif(user, guild, messageTemplate, backgroundURL) {
       .replace('{user}', user.username)
       .replace('{server}', guild.name);
 
-    // Generate frames by combining the background GIF frames with the user avatar and text
-    const maxFrames = Math.min(60, gifFrames.info.pages); // Limit to 60 frames
-    for (let i = 0; i < maxFrames; i++) {
-      ctx.clearRect(0, 0, width, height);
+    // Log detailed frame data for debugging
+    console.log('Total data size:', gifFrames.data.length);
+    console.log('Frame width:', gifFrames.info.width);
+    console.log('Frame height:', gifFrames.info.height);
+    console.log('Channels:', gifFrames.info.channels);
 
-      const frameSize = gifFrames.info.width * gifFrames.info.height * gifFrames.info.channels;
-      const frameBuffer = gifFrames.data.slice(i * frameSize, (i + 1) * frameSize);
+    // Dynamically calculate frame size
+    const frameSize = gifFrames.info.width * gifFrames.info.height * gifFrames.info.channels;
+    console.log('Calculated frame size:', frameSize);
+
+    // Validate total frames
+    const totalFrames = Math.floor(gifFrames.data.length / frameSize);
+    console.log('Total frames calculated:', totalFrames);
+
+    for (let i = 0; i < Math.min(60, totalFrames); i++) {
+      const frameStart = i * frameSize;
+      const frameEnd = frameStart + frameSize;
+
+      console.log(`Processing frame ${i + 1}: Start=${frameStart}, End=${frameEnd}`);
+
+      if (frameEnd > gifFrames.data.length) {
+        console.warn(`Frame ${i + 1} exceeds data length. Skipping this frame.`);
+        continue;
+      }
+
+      const frameBuffer = gifFrames.data.slice(frameStart, frameEnd);
+
+      // Validate frame buffer
+      if (!frameBuffer || frameBuffer.length !== frameSize) {
+        console.warn(`Frame ${i + 1} buffer size mismatch or empty. Expected: ${frameSize}, Actual: ${frameBuffer.length}`);
+        continue;
+      }
+
+      console.log(`Frame ${i + 1} buffer size: ${frameBuffer.length}`);
+      console.log(`Frame ${i + 1} buffer (first 20 bytes):`, frameBuffer.slice(0, 20));
 
       const processedFrameBuffer = await sharp(frameBuffer, {
         raw: {
@@ -93,6 +139,7 @@ async function generateWelcomeGif(user, guild, messageTemplate, backgroundURL) {
         .toBuffer();
 
       const frameImage = await loadImage(processedFrameBuffer);
+      ctx.clearRect(0, 0, width, height);
       ctx.drawImage(frameImage, 0, 0, width, height);
 
       ctx.save();
@@ -111,9 +158,14 @@ async function generateWelcomeGif(user, guild, messageTemplate, backgroundURL) {
       ctx.font = '20px Space Mono';
       ctx.fillText(welcomeMsg, 200, 150);
 
+      console.log(`Adding frame ${i + 1} to GIFEncoder.`);
       encoder.addFrame(ctx);
+
+      console.log(`Completed processing frame ${i + 1}/${Math.min(60, totalFrames)}`);
     }
 
+    // Finalize the GIFEncoder
+    console.log('Finalizing GIFEncoder.');
     encoder.finish();
 
     // Return the complete GIF buffer

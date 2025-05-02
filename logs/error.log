@@ -463,3 +463,25 @@ Require stack:
 [2025-05-02 09:49:05] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
 [2025-05-02 10:51:40] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
 [2025-05-02 10:57:12] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 11:34:54] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 11:53:48] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 12:22:17] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 12:24:03] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 12:29:31] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 12:31:17] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 12:34:24] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 12:36:00] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 12:37:46] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 13:04:45] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 13:14:25] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 13:23:31] error: Error executing command welcome: MongoServerError: E11000 duplicate key error collection: test.guilds index: guildId_1 dup key: { guildId: null }
+[2025-05-02 13:23:49] error: Error executing command welcome: MongoServerError: E11000 duplicate key error collection: test.guilds index: guildId_1 dup key: { guildId: null }
+[2025-05-02 13:24:00] error: Error executing command welcome: MongoServerError: E11000 duplicate key error collection: test.guilds index: guildId_1 dup key: { guildId: null }
+[2025-05-02 13:24:09] error: Error executing command welcome: MongoServerError: E11000 duplicate key error collection: test.guilds index: guildId_1 dup key: { guildId: null }
+[2025-05-02 13:24:29] error: Error executing command welcome: MongoServerError: E11000 duplicate key error collection: test.guilds index: guildId_1 dup key: { guildId: null }
+[2025-05-02 13:24:55] error: Error executing command welcome: MongoServerError: E11000 duplicate key error collection: test.guilds index: guildId_1 dup key: { guildId: null }
+[2025-05-02 13:25:24] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 13:27:36] error: Error executing command welcome: DiscordAPIError[50035]: Invalid Form Body
+content[BASE_TYPE_MAX_LENGTH]: Must be 4000 or fewer in length.
+[2025-05-02 13:29:36] error: Error executing command welcome: DiscordAPIError[50035]: Invalid Form Body
+content[BASE_TYPE_MAX_LENGTH]: Must be 4000 or fewer in length.
