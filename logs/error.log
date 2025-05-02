@@ -485,3 +485,16 @@ Require stack:
 content[BASE_TYPE_MAX_LENGTH]: Must be 4000 or fewer in length.
 [2025-05-02 13:29:36] error: Error executing command welcome: DiscordAPIError[50035]: Invalid Form Body
 content[BASE_TYPE_MAX_LENGTH]: Must be 4000 or fewer in length.
+[2025-05-02 15:52:18] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 15:54:27] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 15:58:09] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 16:16:45] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 16:25:28] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-02 16:33:47] error: Error executing command welcome: Error: Failed to generate welcome GIF. Please check the image formats.
+[2025-05-02 16:36:51] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-02 16:44:06] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-02 16:50:01] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-02 16:54:38] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-02 16:59:42] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-02 17:04:04] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-02 17:10:24] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.

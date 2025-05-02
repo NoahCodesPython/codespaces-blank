@@ -59,7 +59,16 @@ async function registerCommands(client) {
       logger.info(`Successfully registered ${commands.length} guild slash commands for development`);
     }
   } catch (error) {
-    logger.error(`Error registering slash commands: ${error}`);
+    // Log detailed error information for DiscordAPIError[50240]
+    if (error.code === 50240) {
+      logger.error('DiscordAPIError[50240]: You cannot remove this app\'s Entry Point command in a bulk update operation.');
+      logger.error('Suggested Fix: Ensure the Entry Point command is included in the bulk update request or delete it separately.');
+      logger.error('Commands being registered:', commands.map(cmd => cmd.name));
+      logger.error('Existing commands fetched from Discord:', existingCommands.map(cmd => cmd.name));
+      logger.error('Full error details:', error);
+    } else {
+      logger.error(`Error registering slash commands: ${error}`);
+    }
   }
 }
 
