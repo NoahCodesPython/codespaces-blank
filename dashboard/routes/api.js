@@ -15,6 +15,10 @@ const CustomCommand = require('../../src/models/CustomCommand');
 const AltDetector = require('../../src/models/AltDetector');
 const Reminder = require('../../src/models/Reminder');
 
+// Import Axios for API requests
+const axios = require('axios');
+const BOT_API_BASE_URL = process.env.BOT_API_BASE_URL || 'http://localhost:4000/api';
+
 /**
  * Get guild channels
  * @route GET /api/guilds/:id/channels
@@ -23,50 +27,16 @@ router.get('/guilds/:id/channels', hasGuildPermission, async (req, res) => {
   try {
     const guildId = req.params.id;
     const typeFilter = req.query.type || 'all';
-    
-    // Check if the bot is in the guild
-    const guild = client.guilds.cache.get(guildId);
-    if (!guild) {
-      return res.status(404).json({
-        success: false,
-        error: 'Guild not found'
-      });
-    }
-    
-    // Get all channels in the guild
-    const channels = guild.channels.cache.map(channel => {
-      return {
-        id: channel.id,
-        name: channel.name,
-        type: channel.type
-      };
+
+    // Fetch channels from bot API
+    const response = await axios.get(`${BOT_API_BASE_URL}/guilds/${guildId}/channels`, {
+      params: { type: typeFilter },
     });
-    
-    // Filter channels by type if specified
-    let filteredChannels = channels;
-    if (typeFilter !== 'all') {
-      const typeMap = {
-        'text': 0,      // GUILD_TEXT
-        'voice': 2,     // GUILD_VOICE
-        'category': 4   // GUILD_CATEGORY
-      };
-      
-      const discordType = typeMap[typeFilter];
-      if (discordType !== undefined) {
-        filteredChannels = channels.filter(channel => channel.type === discordType);
-      }
-    }
-    
-    res.json({
-      success: true,
-      channels: filteredChannels
-    });
+
+    res.json(response.data);
   } catch (err) {
-    console.error('Error fetching guild channels:', err);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch channels'
-    });
+    console.error('Error fetching guild channels from bot API:', err);
+    res.status(500).json({ success: false, error: 'Failed to fetch channels' });
   }
 });
 
@@ -77,39 +47,14 @@ router.get('/guilds/:id/channels', hasGuildPermission, async (req, res) => {
 router.get('/guilds/:id/roles', hasGuildPermission, async (req, res) => {
   try {
     const guildId = req.params.id;
-    
-    // Check if the bot is in the guild
-    const guild = client.guilds.cache.get(guildId);
-    if (!guild) {
-      return res.status(404).json({
-        success: false,
-        error: 'Guild not found'
-      });
-    }
-    
-    // Get all roles in the guild
-    const roles = guild.roles.cache.map(role => {
-      return {
-        id: role.id,
-        name: role.name,
-        color: role.hexColor,
-        position: role.position
-      };
-    });
-    
-    // Sort roles by position (highest first)
-    const sortedRoles = [...roles].sort((a, b) => b.position - a.position);
-    
-    res.json({
-      success: true,
-      roles: sortedRoles
-    });
+
+    // Fetch roles from bot API
+    const response = await axios.get(`${BOT_API_BASE_URL}/guilds/${guildId}/roles`);
+
+    res.json(response.data);
   } catch (err) {
-    console.error('Error fetching guild roles:', err);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch roles'
-    });
+    console.error('Error fetching guild roles from bot API:', err);
+    res.status(500).json({ success: false, error: 'Failed to fetch roles' });
   }
 });
 
@@ -203,40 +148,45 @@ router.get('/guilds/:id/members', hasGuildPermission, async (req, res) => {
  * Get guild settings
  * @route GET /api/guilds/:id/settings
  */
-router.get('/guilds/:id/settings', hasGuildPermission, async (req, res) => {
+router.get('/guilds/:id/settings', async (req, res) => {
   try {
     const guildId = req.params.id;
-    
-    // Get guild settings from database
-    let guildSettings = await Guild.findOne({ guildId });
-    
-    if (!guildSettings) {
-      // Create default settings if none exist
-      guildSettings = new Guild({
-        guildId,
-        prefix: client.config.prefix,
-        welcome: {
-          enabled: false,
-          channel: null,
-          message: 'Welcome {user} to {server}!'
-        },
-        antiInvite: false,
-        antiLink: false
-      });
-      
-      await guildSettings.save();
-    }
-    
-    res.json({
-      success: true,
-      settings: guildSettings
-    });
+    const response = await axios.get(`${BOT_API_BASE_URL}/guilds/${guildId}/settings`);
+    res.json(response.data);
   } catch (err) {
-    console.error('Error fetching guild settings:', err);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch guild settings'
-    });
+    console.error('Error fetching guild settings from bot API:', err);
+    res.status(500).json({ success: false, error: 'Failed to fetch guild settings' });
+  }
+});
+
+/**
+ * Save server settings
+ * @route POST /api/guilds/:id/settings
+ */
+router.post('/guilds/:id/settings', async (req, res) => {
+  try {
+    const guildId = req.params.id;
+    const { prefix, welcome, antiInvite, antiLink } = req.body;
+
+    // Find or create guild settings in the database
+    let guildSettings = await Guild.findOne({ guildId });
+
+    if (!guildSettings) {
+      guildSettings = new Guild({ guildId });
+    }
+
+    // Update settings
+    guildSettings.prefix = prefix;
+    guildSettings.welcome = welcome;
+    guildSettings.antiInvite = antiInvite;
+    guildSettings.antiLink = antiLink;
+
+    await guildSettings.save();
+
+    res.status(200).json({ message: 'Settings saved successfully.' });
+  } catch (err) {
+    console.error('Error saving server settings:', err);
+    res.status(500).json({ error: 'Failed to save server settings.' });
   }
 });
 
@@ -474,6 +424,48 @@ router.get('/stats', isAuthenticated, async (req, res) => {
       success: false,
       error: 'Failed to fetch bot statistics'
     });
+  }
+});
+
+/**
+ * Get advanced welcome types
+ * @route GET /api/guilds/:id/welcome-types
+ */
+router.get('/guilds/:id/welcome-types', hasGuildPermission, async (req, res) => {
+  try {
+    const guildId = req.params.id;
+
+    // Placeholder for advanced welcome types
+    const welcomeTypes = [
+      { type: 'GIF', description: 'Animated welcome messages' },
+      { type: 'Embed', description: 'Rich embed welcome messages' },
+      { type: 'Text', description: 'Simple text welcome messages' }
+    ];
+
+    res.json({
+      success: true,
+      welcomeTypes
+    });
+  } catch (err) {
+    console.error('Error fetching welcome types:', err);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch welcome types'
+    });
+  }
+});
+
+/**
+ * Get commands from bot API
+ * @route GET /api/commands
+ */
+router.get('/commands', async (req, res) => {
+  try {
+    const response = await axios.get(`${BOT_API_BASE_URL}/commands`);
+    res.json(response.data);
+  } catch (err) {
+    console.error('Error fetching commands from bot API:', err);
+    res.status(500).json({ success: false, error: 'Failed to fetch commands' });
   }
 });
 

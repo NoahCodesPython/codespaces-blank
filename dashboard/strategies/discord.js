@@ -1,5 +1,6 @@
 const passport = require('passport');
 const DiscordStrategy = require('passport-discord').Strategy;
+const axios = require('axios');
 const logger = require('../../src/utils/logger');
 const { User } = require('../../src/models/User');
 
@@ -14,18 +15,27 @@ passport.use(new DiscordStrategy({
   scope: scopes
 }, async (accessToken, refreshToken, profile, done) => {
   try {
+    // Fetch user's guilds from Discord API
+    const guildsResponse = await axios.get('https://discord.com/api/v10/users/@me/guilds', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+
+    const guilds = guildsResponse.data;
+
     // Find or create user in database
     let user = await User.findOne({ discordId: profile.id });
-    
+
     if (!user) {
       user = new User({
         discordId: profile.id,
         username: profile.username,
         discriminator: profile.discriminator,
         avatar: profile.avatar,
-        guilds: profile.guilds
+        guilds
       });
-      
+
       await user.save();
       logger.info(`New user created in database: ${profile.username}#${profile.discriminator}`);
     } else {
@@ -33,16 +43,16 @@ passport.use(new DiscordStrategy({
       user.username = profile.username;
       user.discriminator = profile.discriminator;
       user.avatar = profile.avatar;
-      user.guilds = profile.guilds;
-      
+      user.guilds = guilds;
+
       await user.save();
       logger.debug(`User updated in database: ${profile.username}#${profile.discriminator}`);
     }
-    
+
     // Store tokens in user session
     user.accessToken = accessToken;
     user.refreshToken = refreshToken;
-    
+
     return done(null, user);
   } catch (err) {
     logger.error(`Error in Discord authentication: ${err.message}`);

@@ -144,4 +144,46 @@ router.get('/admin', isAdmin, async (req, res) => {
   }
 });
 
+/**
+ * Commands route
+ * Fetches commands from the bot's API and renders the commands page
+ */
+router.get('/commands', isAuthenticated, async (req, res) => {
+  console.log('Accessing /commands route'); // Debug log
+  try {
+    const axios = require('axios');
+    const BOT_API_BASE_URL = process.env.BOT_API_BASE_URL || 'http://localhost:4000/api';
+
+    // Fetch commands from the bot's API
+    const response = await axios.get(`${BOT_API_BASE_URL}/commands`);
+    const commands = response.data.commands || [];
+
+    // Group commands by category
+    const groupedCommands = commands.reduce((acc, command) => {
+      const category = command.category || 'Uncategorized';
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(command);
+      return acc;
+    }, {});
+
+    console.log('Grouped commands:', groupedCommands); // Debug log
+
+    res.render('pages/commands', {
+      title: 'Commands',
+      commands: groupedCommands // Pass groupedCommands as commands
+    });
+  } catch (err) {
+    console.error('Error fetching commands:', err);
+    res.status(500).render('pages/error', {
+      title: 'Error',
+      error: {
+        status: 500,
+        message: 'Failed to load commands. Please try again later.'
+      }
+    });
+  }
+});
+
 module.exports = router;

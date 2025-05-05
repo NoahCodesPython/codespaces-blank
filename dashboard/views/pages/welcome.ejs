@@ -1,5 +1,8 @@
 <%- include('../partials/header') %>
 
+<% const guildName = guild?.name || 'Unknown Server'; %>
+<% const welcomeSettings = settings?.welcome || { enabled: false, message: 'Welcome {user} to {server}! You are member #{membercount}.' }; %>
+
 <div class="container-fluid py-5">
   <div class="row">
     <!-- Sidebar -->
@@ -11,7 +14,7 @@
         <div class="row mb-4">
           <div class="col-md-12">
             <h1>Welcome System</h1>
-            <p class="text-muted">Configure welcome messages for <%= guild.name %></p>
+            <p class="text-muted">Configure welcome messages for <%= guildName %></p>
           </div>
         </div>
         
@@ -25,11 +28,11 @@
                 <form action="/servers/<%= guild.id %>/welcome" method="POST" data-guild-id="<%= guild.id %>">
                   <div class="form-check form-switch mb-4">
                     <input class="form-check-input" type="checkbox" id="welcomeEnabled" name="welcomeEnabled" 
-                           <%= settings.welcome && settings.welcome.enabled ? 'checked' : '' %>>
+                           <%= welcomeSettings.enabled ? 'checked' : '' %>>
                     <label class="form-check-label" for="welcomeEnabled">Enable Welcome Messages</label>
                   </div>
                   
-                  <div class="welcome-settings <%= settings.welcome && settings.welcome.enabled ? '' : 'd-none' %>">
+                  <div class="welcome-settings <%= welcomeSettings.enabled ? '' : 'd-none' %>">
                     <div class="mb-3">
                       <label for="welcome-channel" class="form-label">Welcome Channel</label>
                       <select class="form-select" id="welcome-channel" name="welcomeChannel" required>
@@ -40,8 +43,19 @@
                     </div>
                     
                     <div class="mb-3 mt-4">
+                      <label for="welcomeType" class="form-label">Welcome Type</label>
+                      <select class="form-select" id="welcomeType" name="welcomeType" required>
+                        <option value="">Select a welcome type</option>
+                        <option value="GIF">GIF - Animated welcome messages</option>
+                        <option value="Embed">Embed - Rich embed welcome messages</option>
+                        <option value="Text">Text - Simple text welcome messages</option>
+                      </select>
+                      <div class="form-text">Choose the type of welcome message to send</div>
+                    </div>
+                    
+                    <div class="mb-3 mt-4">
                       <label for="welcomeMessage" class="form-label">Welcome Message</label>
-                      <textarea class="form-control" id="welcomeMessage" name="welcomeMessage" rows="5" required><%= settings.welcome ? settings.welcome.message : 'Welcome {user} to {server}! You are member #{membercount}.' %></textarea>
+                      <textarea class="form-control" id="welcomeMessage" name="welcomeMessage" rows="5" required><%= welcomeSettings.message %></textarea>
                       <div class="form-text">
                         Available variables:
                         <ul class="mt-2">

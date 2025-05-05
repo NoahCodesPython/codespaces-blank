@@ -15,9 +15,13 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
-  position: relative;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  padding-bottom: 200px; /* Footer height */
+}
+
+main {
+  flex: 1;
 }
 
 .dashboard-body {
@@ -25,10 +29,13 @@ body {
 }
 
 /* Footer */
-.footer {
-  position: absolute;
+footer {
+  position: relative;
   bottom: 0;
   width: 100%;
+  background-color: #f8f9fa;
+  padding: 1rem 0;
+  text-align: center;
 }
 
 /* Hero Section */

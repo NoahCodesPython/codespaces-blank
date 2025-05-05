@@ -98,9 +98,24 @@ router.post('/:id/settings', hasGuildPermission, async (req, res) => {
   try {
     const guildId = req.params.id;
     const { prefix, welcomeEnabled, welcomeChannel, welcomeMessage, antiInvite, antiLink } = req.body;
-    
-    // In a production environment, save these to the database
-    
+
+    const axios = require('axios');
+    const BOT_API_BASE_URL = process.env.BOT_API_BASE_URL || 'http://localhost:4000/api';
+
+    // Send changes to the bot's API
+    const response = await axios.post(`${BOT_API_BASE_URL}/guilds/${guildId}/settings`, {
+      prefix,
+      welcome: {
+        enabled: welcomeEnabled === 'on',
+        channel: welcomeChannel,
+        message: welcomeMessage
+      },
+      antiInvite: antiInvite === 'on',
+      antiLink: antiLink === 'on'
+    });
+
+    console.log('Settings saved successfully:', response.data); // Debug log
+
     // Redirect back to settings page
     res.redirect(`/servers/${guildId}/settings`);
   } catch (err) {
@@ -1315,6 +1330,39 @@ router.post('/:id/logs', hasGuildPermission, async (req, res) => {
       error: {
         status: 500,
         message: 'Failed to save log settings. Please try again later.'
+      }
+    });
+  }
+});
+
+/**
+ * Get bot commands
+ * @route GET /:id/commands
+ */
+router.get('/:id/commands', hasGuildPermission, async (req, res) => {
+  try {
+    const guildId = req.params.id;
+    const guild = req.user.guilds.find(g => g.id === guildId);
+
+    // Fetch commands from the bot's registry
+    const commands = client.slashCommands.map(cmd => ({
+      name: cmd.name,
+      description: cmd.description,
+      options: cmd.options || []
+    }));
+
+    res.render('pages/commands', {
+      title: `${guild.name} - Commands`,
+      guild,
+      commands
+    });
+  } catch (err) {
+    console.error('Error fetching commands:', err);
+    res.status(500).render('pages/error', {
+      title: 'Error',
+      error: {
+        status: 500,
+        message: 'Failed to load commands. Please try again later.'
       }
     });
   }

@@ -12,7 +12,7 @@ module.exports = {
 
     .setName('welcome')
 
-    .setDescription('Manage welcome settings')
+    .setDescription('Configure welcome messages and settings for new members')
 
     .addSubcommand(subcommand =>
 

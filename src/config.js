@@ -162,11 +162,18 @@ const platformConfig = {
   }
 };
 
+// Add a new section for API configuration
+const apiConfig = {
+  port: process.env.API_PORT || 4000, // Default API port
+  allowedOrigins: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:3000'],
+};
+
 // Merge the platform-specific config with the default config
 const platform = defaultConfig.platform;
 const config = {
   ...defaultConfig,
-  ...(platformConfig[platform] || {})
+  ...(platformConfig[platform] || {}),
+  apiConfig
 };
 
 // For debugging purposes

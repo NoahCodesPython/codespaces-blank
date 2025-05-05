@@ -14,6 +14,7 @@ const config = {
 const logger = require('./src/utils/logger');
 const { startKeepAliveServer } = require('./src/utils/keepAlive');
 const { connect } = require('./src/utils/mongoose');
+const { startApiServer } = require('./src/utils/apiServer'); // Import the API server
 
 // Create a new Discord client
 const client = new Client({
@@ -61,6 +62,9 @@ if (config.platform === 'replit' || config.platform === 'glitch') {
   startKeepAliveServer();
 }
 
+// Start the API server
+startApiServer(client);
+
 // Connect to MongoDB
 (async () => {
   try {
@@ -74,18 +78,6 @@ if (config.platform === 'replit' || config.platform === 'glitch') {
     process.exit(1);
   }
 })();
-
-// Start dashboard if enabled
-if (config.dashboardEnabled) {
-  try {
-    const dashboard = require('./dashboard/app');
-    // Pass the client instance to the dashboard
-    dashboard.client = client;
-    logger.info(`Dashboard started on port ${config.dashboardPort}`);
-  } catch (error) {
-    logger.error(`Failed to start dashboard: ${error.message}`);
-  }
-}
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (error) => {

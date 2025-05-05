@@ -22,22 +22,18 @@ module.exports = {
 
   async execute(interaction) {
     try {
+      await interaction.deferReply({ ephemeral: true }); // Acknowledge the interaction immediately
+
       const channel = interaction.options.getChannel('channel') || interaction.channel;
       const message = interaction.options.getString('message');
 
       // Check channel permissions
       if (!channel.permissionsFor(interaction.guild.members.me).has(PermissionFlagsBits.SendMessages)) {
-        return await interaction.reply({
-          content: 'I don\'t have permission to send messages in that channel!',
-          ephemeral: true
-        });
+        return await interaction.editReply('I don\'t have permission to send messages in that channel!');
       }
 
       if (!channel.permissionsFor(interaction.member).has(PermissionFlagsBits.SendMessages)) {
-        return await interaction.reply({
-          content: 'You don\'t have permission to send messages in that channel!',
-          ephemeral: true
-        });
+        return await interaction.editReply('You don\'t have permission to send messages in that channel!');
       }
 
       // Send the message
@@ -45,23 +41,14 @@ module.exports = {
 
       // Send confirmation
       if (channel.id !== interaction.channel.id) {
-        await interaction.reply({
-          content: `Message sent to ${channel}!`,
-          ephemeral: true
-        });
+        await interaction.editReply(`Message sent to ${channel}!`);
       } else {
-        await interaction.reply({
-          content: 'Message sent!',
-          ephemeral: true
-        });
+        await interaction.editReply('Message sent!');
       }
 
     } catch (error) {
       logger.error(`Error in say command: ${error}`);
-      await interaction.reply({
-        content: 'There was an error executing that command!',
-        ephemeral: true
-      });
+      await interaction.editReply('There was an error executing that command!');
     }
   }
 };

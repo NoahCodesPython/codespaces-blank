@@ -9,6 +9,8 @@ const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { Strategy } = require('passport-discord');
+const flash = require('connect-flash');
+const axios = require('axios');
 
 // Load environment variables
 require('dotenv').config();
@@ -71,6 +73,9 @@ app.use(
   })
 );
 
+// Add flash middleware
+app.use(flash());
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
@@ -95,12 +100,24 @@ passport.use(
       callbackURL: process.env.CALLBACK_URL,
       scope: ['identify', 'guilds'],
     },
-    (accessToken, refreshToken, profile, done) => {
-      // Store the access token in the profile object
-      profile.accessToken = accessToken;
-      
-      // Return the user profile
-      return done(null, profile);
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        // Fetch user guilds from Discord API
+        const response = await axios.get('https://discord.com/api/users/@me/guilds', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        // Attach guilds to the profile object
+        profile.guilds = response.data;
+        profile.accessToken = accessToken;
+
+        return done(null, profile);
+      } catch (error) {
+        console.error('Error fetching user guilds:', error);
+        return done(error, null);
+      }
     }
   )
 );
@@ -117,11 +134,19 @@ app.use((req, res, next) => {
   next();
 });
 
+// Make flash messages available to all templates
+app.use((req, res, next) => {
+  res.locals.successMessages = req.flash('success');
+  res.locals.errorMessages = req.flash('error');
+  next();
+});
+
 // Routes
 app.use('/auth', authRoutes);
 app.use('/dashboard', authMiddleware.isAuthenticated, dashboardRoutes);
 app.use('/servers', authMiddleware.isAuthenticated, serversRoutes);
 app.use('/api', authMiddleware.isAuthenticated, apiRoutes);
+app.use('/', dashboardRoutes);
 
 // Home route
 app.get('/', (req, res) => {
@@ -163,9 +188,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start the server
-const server = app.listen(PORT, () => {
-  console.log(`Dashboard running on port ${PORT}`);
-});
-
-module.exports = { app, server };
+module.exports = app;

@@ -12490,6 +12490,7 @@ content[BASE_TYPE_MAX_LENGTH]: Must be 4000 or fewer in length.
 [2025-05-02 14:16:36] info: Rotated bot activity to: 80 servers | /help (Watching)
 [2025-05-02 14:18:36] info: Rotated bot activity to: with 72158 users (Playing)
 [2025-05-02 14:20:36] info: Rotated bot activity to: /help for commands (Listening)
+<<<<<<< HEAD
 [2025-05-02 15:34:05] info: Initializing reminder handler
 [2025-05-02 15:34:05] info: Reminder handler initialized
 [2025-05-02 15:34:05] info: Dashboard started on port 3000
@@ -13167,3 +13168,1691 @@ content[BASE_TYPE_MAX_LENGTH]: Must be 4000 or fewer in length.
 [2025-05-02 17:22:23] info: Rotated bot activity to: 80 servers | /help (Watching)
 [2025-05-02 17:24:23] info: Rotated bot activity to: with 72189 users (Playing)
 [2025-05-02 17:25:12] info: SIGINT received, shutting down...
+=======
+[2025-05-03 11:19:42] info: Initializing reminder handler
+[2025-05-03 11:19:42] info: Reminder handler initialized
+[2025-05-03 11:19:42] info: Dashboard started on port 3000
+[2025-05-03 11:19:42] info: Loading 11 categories...
+[2025-05-03 11:19:42] info: Loading 8 commands from altdetector...
+[2025-05-03 11:19:42] info: Loading 1 events from client...
+[2025-05-03 11:19:42] debug: Registered event handler: ready.js for event: ready
+[2025-05-03 11:19:42] info: Loading 10 commands from applications...
+[2025-05-03 11:19:42] info: Loading 15 events from guild...
+[2025-05-03 11:19:42] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-03 11:19:42] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-03 11:19:42] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-03 11:19:42] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-03 11:19:42] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-03 11:19:42] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-03 11:19:42] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-03 11:19:42] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-03 11:19:42] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-03 11:19:42] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-03 11:19:42] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-03 11:19:42] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-03 11:19:42] debug: Event ready has 1 listener(s)
+[2025-05-03 11:19:42] debug: Event interactionCreate has 1 listener(s)
+[2025-05-03 11:19:42] debug: Event messageCreate has 1 listener(s)
+[2025-05-03 11:19:42] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-03 11:19:42] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-03 11:19:42] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-03 11:19:42] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-03 11:19:42] info: Events loaded successfully!
+[2025-05-03 11:19:42] info: Loading 15 commands from config...
+[2025-05-03 11:19:42] info: Loading 7 commands from economy...
+[2025-05-03 11:19:42] info: Loading 9 commands from fun...
+[2025-05-03 11:19:42] info: Loading 11 commands from information...
+[2025-05-03 11:19:43] info: Loading 5 commands from moderation...
+[2025-05-03 11:19:43] info: Loading 7 commands from owner...
+[2025-05-03 11:19:43] info: Loading 3 commands from reactionrole...
+[2025-05-03 11:19:43] info: Loading 6 commands from ticket...
+[2025-05-03 11:19:43] info: Loading 12 commands from utility...
+[2025-05-03 11:19:43] info: Successfully loaded 93 slash commands!
+[2025-05-03 11:19:43] info: Prepared 93 slash commands for registration.
+[2025-05-03 11:19:43] info: Commands will be registered after the bot logs in.
+[2025-05-03 11:19:43] info: Connected to MongoDB
+[2025-05-03 11:19:46] info: Logged in as Aquire#0674
+[2025-05-03 11:19:46] info: Aquire is serving 80 servers with 72178 users
+[2025-05-03 11:19:46] debug: Default owner already exists in database
+[2025-05-03 11:19:46] info: Started refreshing application (/) commands.
+[2025-05-03 11:19:47] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-03 11:19:47] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-03 11:20:26] debug: Interaction handler execution #1 for interaction 1368185428661764147
+[2025-05-03 11:20:26] debug: Processing interaction: 1368185428661764147, type: 2, welcome
+[2025-05-03 11:20:36] debug: Successfully executed command: welcome
+[2025-05-03 11:21:42] debug: Cleaned up 1 old interactions from cache
+[2025-05-03 11:21:47] info: Rotated bot activity to: with 72178 users (Playing)
+[2025-05-03 11:23:47] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-03 11:25:47] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-03 11:27:47] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-03 11:29:47] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-03 11:31:47] info: Rotated bot activity to: with 72178 users (Playing)
+[2025-05-03 11:32:46] info: SIGINT received, shutting down...
+[2025-05-05 09:16:51] info: Initializing reminder handler
+[2025-05-05 09:16:51] info: Reminder handler initialized
+[2025-05-05 09:16:51] info: Loading 11 categories...
+[2025-05-05 09:16:51] info: Loading 8 commands from altdetector...
+[2025-05-05 09:16:51] info: Loading 1 events from client...
+[2025-05-05 09:16:51] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 09:16:51] info: Loading 10 commands from applications...
+[2025-05-05 09:16:51] info: Loading 15 events from guild...
+[2025-05-05 09:16:52] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 09:16:52] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 09:16:52] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 09:16:52] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 09:16:52] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 09:16:52] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 09:16:52] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 09:16:52] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 09:16:52] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 09:16:52] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 09:16:52] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 09:16:52] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 09:16:52] debug: Event ready has 1 listener(s)
+[2025-05-05 09:16:52] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 09:16:52] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 09:16:52] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 09:16:52] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 09:16:52] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 09:16:52] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 09:16:52] info: Events loaded successfully!
+[2025-05-05 09:16:52] info: Loading 15 commands from config...
+[2025-05-05 09:16:52] info: Loading 7 commands from economy...
+[2025-05-05 09:16:52] info: Loading 9 commands from fun...
+[2025-05-05 09:16:52] info: Loading 11 commands from information...
+[2025-05-05 09:16:52] info: Loading 5 commands from moderation...
+[2025-05-05 09:16:52] info: Loading 7 commands from owner...
+[2025-05-05 09:16:52] info: Loading 3 commands from reactionrole...
+[2025-05-05 09:16:52] info: Loading 6 commands from ticket...
+[2025-05-05 09:16:52] info: Loading 12 commands from utility...
+[2025-05-05 09:16:52] info: Successfully loaded 93 slash commands!
+[2025-05-05 09:16:52] info: Prepared 93 slash commands for registration.
+[2025-05-05 09:16:52] info: Commands will be registered after the bot logs in.
+[2025-05-05 09:16:52] info: Connected to MongoDB
+[2025-05-05 09:16:55] info: Logged in as Aquire#0674
+[2025-05-05 09:16:55] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 09:16:55] debug: Default owner already exists in database
+[2025-05-05 09:16:55] info: Started refreshing application (/) commands.
+[2025-05-05 09:16:56] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 09:16:56] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 09:20:13] info: Initializing reminder handler
+[2025-05-05 09:20:13] info: Reminder handler initialized
+[2025-05-05 09:20:13] info: Dashboard connected to MongoDB
+[2025-05-05 09:20:13] info: Dashboard server running on port 5000
+[2025-05-05 09:20:13] info: Access the dashboard at http://localhost:5000
+[2025-05-05 09:20:13] info: Loading 11 categories...
+[2025-05-05 09:20:13] info: Loading 8 commands from altdetector...
+[2025-05-05 09:20:13] info: Loading 1 events from client...
+[2025-05-05 09:20:13] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 09:20:13] info: Loading 10 commands from applications...
+[2025-05-05 09:20:13] info: Loading 15 events from guild...
+[2025-05-05 09:20:13] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 09:20:13] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 09:20:13] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 09:20:13] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 09:20:13] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 09:20:13] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 09:20:13] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 09:20:13] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 09:20:13] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 09:20:13] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 09:20:13] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 09:20:13] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 09:20:13] debug: Event ready has 1 listener(s)
+[2025-05-05 09:20:13] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 09:20:13] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 09:20:13] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 09:20:13] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 09:20:13] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 09:20:13] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 09:20:13] info: Events loaded successfully!
+[2025-05-05 09:20:13] info: Loading 15 commands from config...
+[2025-05-05 09:20:13] info: Loading 7 commands from economy...
+[2025-05-05 09:20:13] info: Loading 9 commands from fun...
+[2025-05-05 09:20:13] info: Loading 11 commands from information...
+[2025-05-05 09:20:13] info: Loading 5 commands from moderation...
+[2025-05-05 09:20:13] info: Loading 7 commands from owner...
+[2025-05-05 09:20:13] info: Loading 3 commands from reactionrole...
+[2025-05-05 09:20:14] info: Loading 6 commands from ticket...
+[2025-05-05 09:20:14] info: Loading 12 commands from utility...
+[2025-05-05 09:20:14] info: Successfully loaded 93 slash commands!
+[2025-05-05 09:20:14] info: Prepared 93 slash commands for registration.
+[2025-05-05 09:20:14] info: Commands will be registered after the bot logs in.
+[2025-05-05 09:20:14] info: Connected to MongoDB
+[2025-05-05 09:20:17] info: Logged in as Aquire#0674
+[2025-05-05 09:20:17] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 09:20:17] debug: Default owner already exists in database
+[2025-05-05 09:20:17] info: Started refreshing application (/) commands.
+[2025-05-05 09:20:18] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 09:20:18] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 09:20:49] info: SIGINT received, shutting down...
+[2025-05-05 09:32:27] info: Initializing reminder handler
+[2025-05-05 09:32:27] info: Reminder handler initialized
+[2025-05-05 09:32:27] info: Dashboard connected to MongoDB
+[2025-05-05 09:32:27] info: Dashboard server running on port 5000
+[2025-05-05 09:32:27] info: Access the dashboard at http://localhost:5000
+[2025-05-05 09:32:27] info: Loading 11 categories...
+[2025-05-05 09:32:27] info: Loading 8 commands from altdetector...
+[2025-05-05 09:32:27] info: Loading 1 events from client...
+[2025-05-05 09:32:27] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 09:32:27] info: Loading 10 commands from applications...
+[2025-05-05 09:32:27] info: Loading 15 events from guild...
+[2025-05-05 09:32:28] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 09:32:28] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 09:32:28] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 09:32:28] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 09:32:28] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 09:32:28] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 09:32:28] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 09:32:28] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 09:32:28] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 09:32:28] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 09:32:28] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 09:32:28] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 09:32:28] debug: Event ready has 1 listener(s)
+[2025-05-05 09:32:28] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 09:32:28] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 09:32:28] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 09:32:28] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 09:32:28] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 09:32:28] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 09:32:28] info: Events loaded successfully!
+[2025-05-05 09:32:28] info: Loading 15 commands from config...
+[2025-05-05 09:32:28] info: Loading 7 commands from economy...
+[2025-05-05 09:32:28] info: Loading 9 commands from fun...
+[2025-05-05 09:32:28] info: Loading 11 commands from information...
+[2025-05-05 09:32:28] info: Loading 5 commands from moderation...
+[2025-05-05 09:32:28] info: Loading 7 commands from owner...
+[2025-05-05 09:32:28] info: Loading 3 commands from reactionrole...
+[2025-05-05 09:32:28] info: Loading 6 commands from ticket...
+[2025-05-05 09:32:28] info: Loading 12 commands from utility...
+[2025-05-05 09:32:28] info: Successfully loaded 93 slash commands!
+[2025-05-05 09:32:28] info: Prepared 93 slash commands for registration.
+[2025-05-05 09:32:28] info: Commands will be registered after the bot logs in.
+[2025-05-05 09:32:28] info: Connected to MongoDB
+[2025-05-05 09:32:31] info: Logged in as Aquire#0674
+[2025-05-05 09:32:31] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 09:32:31] debug: Default owner already exists in database
+[2025-05-05 09:32:31] info: Started refreshing application (/) commands.
+[2025-05-05 09:32:32] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 09:32:32] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 09:32:51] info: SIGINT received, shutting down...
+[2025-05-05 09:32:54] info: Initializing reminder handler
+[2025-05-05 09:32:54] info: Reminder handler initialized
+[2025-05-05 09:32:54] info: Dashboard connected to MongoDB
+[2025-05-05 09:32:54] info: Dashboard server running on port 5000
+[2025-05-05 09:32:54] info: Access the dashboard at http://localhost:5000
+[2025-05-05 09:32:54] info: Loading 11 categories...
+[2025-05-05 09:32:54] info: Loading 8 commands from altdetector...
+[2025-05-05 09:32:54] info: Loading 1 events from client...
+[2025-05-05 09:32:54] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 09:32:54] info: Loading 10 commands from applications...
+[2025-05-05 09:32:54] info: Loading 15 events from guild...
+[2025-05-05 09:32:54] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 09:32:54] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 09:32:54] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 09:32:54] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 09:32:54] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 09:32:54] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 09:32:54] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 09:32:54] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 09:32:54] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 09:32:54] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 09:32:54] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 09:32:54] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 09:32:54] debug: Event ready has 1 listener(s)
+[2025-05-05 09:32:54] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 09:32:54] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 09:32:54] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 09:32:54] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 09:32:54] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 09:32:54] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 09:32:54] info: Events loaded successfully!
+[2025-05-05 09:32:54] info: Loading 15 commands from config...
+[2025-05-05 09:32:54] info: Loading 7 commands from economy...
+[2025-05-05 09:32:54] info: Loading 9 commands from fun...
+[2025-05-05 09:32:54] info: Loading 11 commands from information...
+[2025-05-05 09:32:55] info: Loading 5 commands from moderation...
+[2025-05-05 09:32:55] info: Loading 7 commands from owner...
+[2025-05-05 09:32:55] info: Loading 3 commands from reactionrole...
+[2025-05-05 09:32:55] info: Loading 6 commands from ticket...
+[2025-05-05 09:32:55] info: Loading 12 commands from utility...
+[2025-05-05 09:32:55] info: Successfully loaded 93 slash commands!
+[2025-05-05 09:32:55] info: Prepared 93 slash commands for registration.
+[2025-05-05 09:32:55] info: Commands will be registered after the bot logs in.
+[2025-05-05 09:32:55] info: Connected to MongoDB
+[2025-05-05 09:32:58] info: Logged in as Aquire#0674
+[2025-05-05 09:32:58] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 09:32:58] debug: Default owner already exists in database
+[2025-05-05 09:32:58] info: Started refreshing application (/) commands.
+[2025-05-05 09:32:58] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 09:32:58] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 09:34:07] info: Initializing reminder handler
+[2025-05-05 09:34:07] info: Reminder handler initialized
+[2025-05-05 09:34:07] info: Loading 11 categories...
+[2025-05-05 09:34:07] info: Loading 8 commands from altdetector...
+[2025-05-05 09:34:07] info: Loading 1 events from client...
+[2025-05-05 09:34:07] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 09:34:07] info: Loading 10 commands from applications...
+[2025-05-05 09:34:07] info: Loading 15 events from guild...
+[2025-05-05 09:34:07] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 09:34:07] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 09:34:07] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 09:34:07] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 09:34:07] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 09:34:07] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 09:34:07] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 09:34:07] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 09:34:07] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 09:34:07] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 09:34:07] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 09:34:07] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 09:34:07] debug: Event ready has 1 listener(s)
+[2025-05-05 09:34:07] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 09:34:07] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 09:34:07] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 09:34:07] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 09:34:07] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 09:34:07] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 09:34:07] info: Events loaded successfully!
+[2025-05-05 09:34:07] info: Loading 15 commands from config...
+[2025-05-05 09:34:07] info: Loading 7 commands from economy...
+[2025-05-05 09:34:07] info: Loading 9 commands from fun...
+[2025-05-05 09:34:07] info: Loading 11 commands from information...
+[2025-05-05 09:34:07] info: Loading 5 commands from moderation...
+[2025-05-05 09:34:07] info: Loading 7 commands from owner...
+[2025-05-05 09:34:07] info: Loading 3 commands from reactionrole...
+[2025-05-05 09:34:07] info: Loading 6 commands from ticket...
+[2025-05-05 09:34:07] info: Loading 12 commands from utility...
+[2025-05-05 09:34:07] info: Successfully loaded 93 slash commands!
+[2025-05-05 09:34:07] info: Prepared 93 slash commands for registration.
+[2025-05-05 09:34:07] info: Commands will be registered after the bot logs in.
+[2025-05-05 09:34:07] info: Connected to MongoDB
+[2025-05-05 09:34:10] info: Logged in as Aquire#0674
+[2025-05-05 09:34:10] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 09:34:10] debug: Default owner already exists in database
+[2025-05-05 09:34:10] info: Started refreshing application (/) commands.
+[2025-05-05 09:34:11] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 09:34:11] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 09:34:58] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 09:36:11] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 09:36:58] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 09:38:11] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 09:38:59] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 09:40:11] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 09:40:52] info: SIGINT received, shutting down...
+[2025-05-05 09:40:54] info: Initializing reminder handler
+[2025-05-05 09:40:54] info: Reminder handler initialized
+[2025-05-05 09:40:54] info: Dashboard connected to MongoDB
+[2025-05-05 09:40:54] info: Dashboard server running on port 5000
+[2025-05-05 09:40:54] info: Access the dashboard at http://localhost:5000
+[2025-05-05 09:40:54] info: Loading 11 categories...
+[2025-05-05 09:40:54] info: Loading 8 commands from altdetector...
+[2025-05-05 09:40:54] info: Loading 1 events from client...
+[2025-05-05 09:40:54] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 09:40:54] info: Loading 10 commands from applications...
+[2025-05-05 09:40:54] info: Loading 15 events from guild...
+[2025-05-05 09:40:54] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 09:40:54] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 09:40:54] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 09:40:54] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 09:40:54] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 09:40:54] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 09:40:54] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 09:40:54] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 09:40:54] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 09:40:54] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 09:40:54] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 09:40:54] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 09:40:54] debug: Event ready has 1 listener(s)
+[2025-05-05 09:40:54] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 09:40:54] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 09:40:54] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 09:40:54] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 09:40:54] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 09:40:54] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 09:40:54] info: Events loaded successfully!
+[2025-05-05 09:40:54] info: Loading 15 commands from config...
+[2025-05-05 09:40:54] info: Loading 7 commands from economy...
+[2025-05-05 09:40:54] info: Loading 9 commands from fun...
+[2025-05-05 09:40:54] info: Loading 11 commands from information...
+[2025-05-05 09:40:54] info: Loading 5 commands from moderation...
+[2025-05-05 09:40:54] info: Loading 7 commands from owner...
+[2025-05-05 09:40:54] info: Loading 3 commands from reactionrole...
+[2025-05-05 09:40:54] info: Loading 6 commands from ticket...
+[2025-05-05 09:40:54] info: Loading 12 commands from utility...
+[2025-05-05 09:40:54] info: Successfully loaded 93 slash commands!
+[2025-05-05 09:40:54] info: Prepared 93 slash commands for registration.
+[2025-05-05 09:40:54] info: Commands will be registered after the bot logs in.
+[2025-05-05 09:40:54] info: Connected to MongoDB
+[2025-05-05 09:40:58] info: Logged in as Aquire#0674
+[2025-05-05 09:40:58] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 09:40:58] debug: Default owner already exists in database
+[2025-05-05 09:40:58] info: Started refreshing application (/) commands.
+[2025-05-05 09:40:59] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 09:40:59] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 09:42:11] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 09:42:59] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 09:44:11] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 09:44:59] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 09:46:11] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 09:46:59] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 09:48:11] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 09:48:59] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 09:50:11] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 09:50:59] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 09:52:11] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 09:52:59] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 09:54:11] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 09:54:50] info: SIGINT received, shutting down...
+[2025-05-05 09:54:52] info: Initializing reminder handler
+[2025-05-05 09:54:52] info: Reminder handler initialized
+[2025-05-05 09:54:52] info: Dashboard connected to MongoDB
+[2025-05-05 09:54:52] info: Dashboard server running on port 5000
+[2025-05-05 09:54:52] info: Access the dashboard at http://localhost:5000
+[2025-05-05 09:54:52] info: Loading 11 categories...
+[2025-05-05 09:54:52] info: Loading 8 commands from altdetector...
+[2025-05-05 09:54:52] info: Loading 1 events from client...
+[2025-05-05 09:54:52] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 09:54:52] info: Loading 10 commands from applications...
+[2025-05-05 09:54:52] info: Loading 15 events from guild...
+[2025-05-05 09:54:52] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 09:54:52] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 09:54:52] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 09:54:52] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 09:54:52] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 09:54:52] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 09:54:52] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 09:54:52] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 09:54:52] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 09:54:52] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 09:54:52] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 09:54:52] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 09:54:52] debug: Event ready has 1 listener(s)
+[2025-05-05 09:54:52] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 09:54:52] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 09:54:52] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 09:54:52] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 09:54:52] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 09:54:52] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 09:54:52] info: Events loaded successfully!
+[2025-05-05 09:54:52] info: Loading 15 commands from config...
+[2025-05-05 09:54:52] info: Loading 7 commands from economy...
+[2025-05-05 09:54:52] info: Loading 9 commands from fun...
+[2025-05-05 09:54:52] info: Loading 11 commands from information...
+[2025-05-05 09:54:52] info: Loading 5 commands from moderation...
+[2025-05-05 09:54:52] info: Loading 7 commands from owner...
+[2025-05-05 09:54:52] info: Loading 3 commands from reactionrole...
+[2025-05-05 09:54:52] info: Loading 6 commands from ticket...
+[2025-05-05 09:54:52] info: Loading 12 commands from utility...
+[2025-05-05 09:54:52] info: Successfully loaded 93 slash commands!
+[2025-05-05 09:54:52] info: Prepared 93 slash commands for registration.
+[2025-05-05 09:54:52] info: Commands will be registered after the bot logs in.
+[2025-05-05 09:54:52] info: Connected to MongoDB
+[2025-05-05 09:54:56] info: Logged in as Aquire#0674
+[2025-05-05 09:54:56] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 09:54:56] debug: Default owner already exists in database
+[2025-05-05 09:54:56] info: Started refreshing application (/) commands.
+[2025-05-05 09:54:56] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 09:54:56] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 09:56:11] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 09:56:56] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 09:58:11] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 09:58:56] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:00:11] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 10:00:56] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 10:02:11] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 10:02:56] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 10:04:11] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 10:04:42] info: SIGINT received, shutting down...
+[2025-05-05 10:04:48] info: Initializing reminder handler
+[2025-05-05 10:04:48] info: Reminder handler initialized
+[2025-05-05 10:04:48] info: Loading 11 categories...
+[2025-05-05 10:04:48] info: Loading 8 commands from altdetector...
+[2025-05-05 10:04:48] info: Loading 1 events from client...
+[2025-05-05 10:04:48] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 10:04:48] info: Loading 10 commands from applications...
+[2025-05-05 10:04:48] info: Loading 15 events from guild...
+[2025-05-05 10:04:48] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 10:04:48] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 10:04:48] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 10:04:48] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 10:04:48] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 10:04:48] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 10:04:48] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 10:04:48] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 10:04:48] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 10:04:48] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 10:04:48] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 10:04:48] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 10:04:48] debug: Event ready has 1 listener(s)
+[2025-05-05 10:04:48] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 10:04:48] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 10:04:48] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 10:04:48] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 10:04:48] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 10:04:48] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 10:04:48] info: Events loaded successfully!
+[2025-05-05 10:04:48] info: Loading 15 commands from config...
+[2025-05-05 10:04:48] info: Loading 7 commands from economy...
+[2025-05-05 10:04:48] info: Loading 9 commands from fun...
+[2025-05-05 10:04:48] info: Loading 11 commands from information...
+[2025-05-05 10:04:48] info: Loading 5 commands from moderation...
+[2025-05-05 10:04:48] info: Loading 7 commands from owner...
+[2025-05-05 10:04:48] info: Loading 3 commands from reactionrole...
+[2025-05-05 10:04:48] info: Loading 6 commands from ticket...
+[2025-05-05 10:04:48] info: Loading 12 commands from utility...
+[2025-05-05 10:04:48] info: Successfully loaded 93 slash commands!
+[2025-05-05 10:04:48] info: Prepared 93 slash commands for registration.
+[2025-05-05 10:04:48] info: Commands will be registered after the bot logs in.
+[2025-05-05 10:04:48] info: Connected to MongoDB
+[2025-05-05 10:04:52] info: Logged in as Aquire#0674
+[2025-05-05 10:04:52] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 10:04:52] debug: Default owner already exists in database
+[2025-05-05 10:04:52] info: Started refreshing application (/) commands.
+[2025-05-05 10:04:53] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 10:04:53] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 10:04:53] info: SIGINT received, shutting down...
+[2025-05-05 10:04:55] info: Initializing reminder handler
+[2025-05-05 10:04:55] info: Reminder handler initialized
+[2025-05-05 10:04:56] info: Dashboard connected to MongoDB
+[2025-05-05 10:04:56] info: Dashboard server running on port 5000
+[2025-05-05 10:04:56] info: Access the dashboard at http://localhost:5000
+[2025-05-05 10:04:56] info: Loading 11 categories...
+[2025-05-05 10:04:56] info: Loading 8 commands from altdetector...
+[2025-05-05 10:04:56] info: Loading 1 events from client...
+[2025-05-05 10:04:56] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 10:04:56] info: Loading 10 commands from applications...
+[2025-05-05 10:04:56] info: Loading 15 events from guild...
+[2025-05-05 10:04:56] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 10:04:56] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 10:04:56] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 10:04:56] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 10:04:56] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 10:04:56] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 10:04:56] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 10:04:56] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 10:04:56] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 10:04:56] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 10:04:56] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 10:04:56] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 10:04:56] debug: Event ready has 1 listener(s)
+[2025-05-05 10:04:56] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 10:04:56] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 10:04:56] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 10:04:56] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 10:04:56] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 10:04:56] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 10:04:56] info: Events loaded successfully!
+[2025-05-05 10:04:56] info: Loading 15 commands from config...
+[2025-05-05 10:04:56] info: Loading 7 commands from economy...
+[2025-05-05 10:04:56] info: Loading 9 commands from fun...
+[2025-05-05 10:04:56] info: Loading 11 commands from information...
+[2025-05-05 10:04:56] info: Loading 5 commands from moderation...
+[2025-05-05 10:04:56] info: Loading 7 commands from owner...
+[2025-05-05 10:04:56] info: Loading 3 commands from reactionrole...
+[2025-05-05 10:04:56] info: Loading 6 commands from ticket...
+[2025-05-05 10:04:56] info: Loading 12 commands from utility...
+[2025-05-05 10:04:56] info: Successfully loaded 93 slash commands!
+[2025-05-05 10:04:56] info: Prepared 93 slash commands for registration.
+[2025-05-05 10:04:56] info: Commands will be registered after the bot logs in.
+[2025-05-05 10:04:56] info: Connected to MongoDB
+[2025-05-05 10:04:58] info: Logged in as Aquire#0674
+[2025-05-05 10:04:58] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 10:04:58] debug: Default owner already exists in database
+[2025-05-05 10:04:58] info: Started refreshing application (/) commands.
+[2025-05-05 10:04:59] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 10:04:59] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 10:06:53] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:06:59] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:08:53] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:08:59] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:10:53] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 10:10:59] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 10:12:53] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 10:12:59] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 10:14:53] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 10:14:59] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 10:15:44] info: SIGINT received, shutting down...
+[2025-05-05 10:15:46] info: Initializing reminder handler
+[2025-05-05 10:15:46] info: Reminder handler initialized
+[2025-05-05 10:15:47] info: Dashboard connected to MongoDB
+[2025-05-05 10:15:47] info: Dashboard server running on port 5000
+[2025-05-05 10:15:47] info: Access the dashboard at http://localhost:5000
+[2025-05-05 10:15:47] info: Loading 11 categories...
+[2025-05-05 10:15:47] info: Loading 8 commands from altdetector...
+[2025-05-05 10:15:47] info: Loading 1 events from client...
+[2025-05-05 10:15:47] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 10:15:47] info: Loading 10 commands from applications...
+[2025-05-05 10:15:47] info: Loading 15 events from guild...
+[2025-05-05 10:15:47] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 10:15:47] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 10:15:47] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 10:15:47] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 10:15:47] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 10:15:47] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 10:15:47] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 10:15:47] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 10:15:47] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 10:15:47] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 10:15:47] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 10:15:47] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 10:15:47] debug: Event ready has 1 listener(s)
+[2025-05-05 10:15:47] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 10:15:47] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 10:15:47] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 10:15:47] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 10:15:47] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 10:15:47] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 10:15:47] info: Events loaded successfully!
+[2025-05-05 10:15:47] info: Loading 15 commands from config...
+[2025-05-05 10:15:47] info: Loading 7 commands from economy...
+[2025-05-05 10:15:47] info: Loading 9 commands from fun...
+[2025-05-05 10:15:47] info: Loading 11 commands from information...
+[2025-05-05 10:15:47] info: Loading 5 commands from moderation...
+[2025-05-05 10:15:47] info: Loading 7 commands from owner...
+[2025-05-05 10:15:47] info: Loading 3 commands from reactionrole...
+[2025-05-05 10:15:47] info: Loading 6 commands from ticket...
+[2025-05-05 10:15:47] info: Loading 12 commands from utility...
+[2025-05-05 10:15:47] info: Successfully loaded 93 slash commands!
+[2025-05-05 10:15:47] info: Prepared 93 slash commands for registration.
+[2025-05-05 10:15:47] info: Commands will be registered after the bot logs in.
+[2025-05-05 10:15:47] info: Connected to MongoDB
+[2025-05-05 10:15:50] info: Logged in as Aquire#0674
+[2025-05-05 10:15:50] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 10:15:50] debug: Default owner already exists in database
+[2025-05-05 10:15:50] info: Started refreshing application (/) commands.
+[2025-05-05 10:15:51] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 10:15:51] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 10:16:53] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:17:51] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:18:53] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:19:51] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:20:53] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 10:21:51] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 10:22:53] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 10:23:51] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 10:24:53] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 10:25:52] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 10:26:30] info: SIGINT received, shutting down...
+[2025-05-05 10:26:32] info: Initializing reminder handler
+[2025-05-05 10:26:32] info: Reminder handler initialized
+[2025-05-05 10:26:32] info: Dashboard connected to MongoDB
+[2025-05-05 10:26:32] info: Dashboard server running on port 5000
+[2025-05-05 10:26:32] info: Access the dashboard at http://localhost:5000
+[2025-05-05 10:26:32] info: Loading 11 categories...
+[2025-05-05 10:26:32] info: Loading 8 commands from altdetector...
+[2025-05-05 10:26:32] info: Loading 1 events from client...
+[2025-05-05 10:26:32] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 10:26:32] info: Loading 10 commands from applications...
+[2025-05-05 10:26:32] info: Loading 15 events from guild...
+[2025-05-05 10:26:32] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 10:26:32] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 10:26:32] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 10:26:32] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 10:26:32] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 10:26:32] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 10:26:32] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 10:26:32] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 10:26:32] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 10:26:32] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 10:26:32] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 10:26:32] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 10:26:32] debug: Event ready has 1 listener(s)
+[2025-05-05 10:26:32] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 10:26:32] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 10:26:32] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 10:26:32] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 10:26:32] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 10:26:32] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 10:26:32] info: Events loaded successfully!
+[2025-05-05 10:26:32] info: Loading 15 commands from config...
+[2025-05-05 10:26:32] info: Loading 7 commands from economy...
+[2025-05-05 10:26:32] info: Loading 9 commands from fun...
+[2025-05-05 10:26:32] info: Loading 11 commands from information...
+[2025-05-05 10:26:32] info: Loading 5 commands from moderation...
+[2025-05-05 10:26:32] info: Loading 7 commands from owner...
+[2025-05-05 10:26:32] info: Loading 3 commands from reactionrole...
+[2025-05-05 10:26:32] info: Loading 6 commands from ticket...
+[2025-05-05 10:26:32] info: Loading 12 commands from utility...
+[2025-05-05 10:26:32] info: Successfully loaded 93 slash commands!
+[2025-05-05 10:26:32] info: Prepared 93 slash commands for registration.
+[2025-05-05 10:26:32] info: Commands will be registered after the bot logs in.
+[2025-05-05 10:26:32] info: Connected to MongoDB
+[2025-05-05 10:26:35] info: Logged in as Aquire#0674
+[2025-05-05 10:26:35] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 10:26:35] debug: Default owner already exists in database
+[2025-05-05 10:26:35] info: Started refreshing application (/) commands.
+[2025-05-05 10:26:36] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 10:26:36] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 10:26:53] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:28:36] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:28:53] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:30:36] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:30:53] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 10:32:29] info: SIGINT received, shutting down...
+[2025-05-05 10:32:31] info: Initializing reminder handler
+[2025-05-05 10:32:31] info: Reminder handler initialized
+[2025-05-05 10:32:31] info: Dashboard connected to MongoDB
+[2025-05-05 10:32:31] info: Dashboard server running on port 5000
+[2025-05-05 10:32:31] info: Access the dashboard at http://localhost:5000
+[2025-05-05 10:32:31] info: Loading 11 categories...
+[2025-05-05 10:32:31] info: Loading 8 commands from altdetector...
+[2025-05-05 10:32:31] info: Loading 1 events from client...
+[2025-05-05 10:32:31] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 10:32:31] info: Loading 10 commands from applications...
+[2025-05-05 10:32:31] info: Loading 15 events from guild...
+[2025-05-05 10:32:31] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 10:32:31] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 10:32:31] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 10:32:31] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 10:32:31] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 10:32:31] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 10:32:31] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 10:32:31] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 10:32:31] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 10:32:31] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 10:32:31] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 10:32:31] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 10:32:31] debug: Event ready has 1 listener(s)
+[2025-05-05 10:32:31] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 10:32:31] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 10:32:31] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 10:32:31] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 10:32:31] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 10:32:31] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 10:32:31] info: Events loaded successfully!
+[2025-05-05 10:32:31] info: Loading 15 commands from config...
+[2025-05-05 10:32:31] info: Loading 7 commands from economy...
+[2025-05-05 10:32:31] info: Loading 9 commands from fun...
+[2025-05-05 10:32:31] info: Loading 11 commands from information...
+[2025-05-05 10:32:31] info: Loading 5 commands from moderation...
+[2025-05-05 10:32:31] info: Loading 7 commands from owner...
+[2025-05-05 10:32:31] info: Loading 3 commands from reactionrole...
+[2025-05-05 10:32:31] info: Loading 6 commands from ticket...
+[2025-05-05 10:32:31] info: Loading 12 commands from utility...
+[2025-05-05 10:32:31] info: Successfully loaded 93 slash commands!
+[2025-05-05 10:32:31] info: Prepared 93 slash commands for registration.
+[2025-05-05 10:32:31] info: Commands will be registered after the bot logs in.
+[2025-05-05 10:32:32] info: Connected to MongoDB
+[2025-05-05 10:32:35] info: Logged in as Aquire#0674
+[2025-05-05 10:32:35] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 10:32:35] debug: Default owner already exists in database
+[2025-05-05 10:32:35] info: Started refreshing application (/) commands.
+[2025-05-05 10:32:36] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 10:32:36] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 10:32:53] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 10:34:36] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:34:38] info: SIGINT received, shutting down...
+[2025-05-05 10:34:43] info: SIGINT received, shutting down...
+[2025-05-05 10:35:16] info: Initializing reminder handler
+[2025-05-05 10:35:16] info: Reminder handler initialized
+[2025-05-05 10:35:16] info: Loading 11 categories...
+[2025-05-05 10:35:16] info: Loading 8 commands from altdetector...
+[2025-05-05 10:35:16] info: Loading 1 events from client...
+[2025-05-05 10:35:16] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 10:35:16] info: Loading 10 commands from applications...
+[2025-05-05 10:35:16] info: Loading 15 events from guild...
+[2025-05-05 10:35:16] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 10:35:16] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 10:35:16] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 10:35:16] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 10:35:16] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 10:35:16] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 10:35:16] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 10:35:16] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 10:35:16] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 10:35:16] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 10:35:16] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 10:35:16] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 10:35:16] debug: Event ready has 1 listener(s)
+[2025-05-05 10:35:16] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 10:35:16] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 10:35:16] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 10:35:16] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 10:35:16] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 10:35:16] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 10:35:16] info: Events loaded successfully!
+[2025-05-05 10:35:16] info: Loading 15 commands from config...
+[2025-05-05 10:35:16] info: Loading 7 commands from economy...
+[2025-05-05 10:35:16] info: Loading 9 commands from fun...
+[2025-05-05 10:35:16] info: Loading 11 commands from information...
+[2025-05-05 10:35:16] info: Loading 5 commands from moderation...
+[2025-05-05 10:35:16] info: Loading 7 commands from owner...
+[2025-05-05 10:35:16] info: Loading 3 commands from reactionrole...
+[2025-05-05 10:35:16] info: Loading 6 commands from ticket...
+[2025-05-05 10:35:16] info: Loading 12 commands from utility...
+[2025-05-05 10:35:16] info: Successfully loaded 93 slash commands!
+[2025-05-05 10:35:16] info: Prepared 93 slash commands for registration.
+[2025-05-05 10:35:16] info: Commands will be registered after the bot logs in.
+[2025-05-05 10:35:16] info: Connected to MongoDB
+[2025-05-05 10:35:20] info: Logged in as Aquire#0674
+[2025-05-05 10:35:20] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 10:35:20] debug: Default owner already exists in database
+[2025-05-05 10:35:20] info: Started refreshing application (/) commands.
+[2025-05-05 10:35:20] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 10:35:20] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 10:35:22] info: Initializing reminder handler
+[2025-05-05 10:35:22] info: Reminder handler initialized
+[2025-05-05 10:35:22] info: Dashboard connected to MongoDB
+[2025-05-05 10:35:22] info: Dashboard server running on port 5000
+[2025-05-05 10:35:22] info: Access the dashboard at http://localhost:5000
+[2025-05-05 10:35:22] info: Loading 11 categories...
+[2025-05-05 10:35:22] info: Loading 8 commands from altdetector...
+[2025-05-05 10:35:22] info: Loading 1 events from client...
+[2025-05-05 10:35:22] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 10:35:22] info: Loading 10 commands from applications...
+[2025-05-05 10:35:22] info: Loading 15 events from guild...
+[2025-05-05 10:35:22] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 10:35:22] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 10:35:22] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 10:35:22] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 10:35:22] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 10:35:22] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 10:35:22] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 10:35:22] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 10:35:22] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 10:35:22] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 10:35:22] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 10:35:22] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 10:35:22] debug: Event ready has 1 listener(s)
+[2025-05-05 10:35:22] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 10:35:22] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 10:35:22] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 10:35:22] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 10:35:22] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 10:35:22] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 10:35:22] info: Events loaded successfully!
+[2025-05-05 10:35:22] info: Loading 15 commands from config...
+[2025-05-05 10:35:22] info: Loading 7 commands from economy...
+[2025-05-05 10:35:22] info: Loading 9 commands from fun...
+[2025-05-05 10:35:22] info: Loading 11 commands from information...
+[2025-05-05 10:35:22] info: Loading 5 commands from moderation...
+[2025-05-05 10:35:22] info: Loading 7 commands from owner...
+[2025-05-05 10:35:22] info: Loading 3 commands from reactionrole...
+[2025-05-05 10:35:22] info: Loading 6 commands from ticket...
+[2025-05-05 10:35:22] info: Loading 12 commands from utility...
+[2025-05-05 10:35:22] info: Successfully loaded 93 slash commands!
+[2025-05-05 10:35:22] info: Prepared 93 slash commands for registration.
+[2025-05-05 10:35:22] info: Commands will be registered after the bot logs in.
+[2025-05-05 10:35:22] info: Connected to MongoDB
+[2025-05-05 10:35:25] info: Logged in as Aquire#0674
+[2025-05-05 10:35:25] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 10:35:25] debug: Default owner already exists in database
+[2025-05-05 10:35:25] info: Started refreshing application (/) commands.
+[2025-05-05 10:35:26] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 10:35:26] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 10:37:20] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:37:26] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:39:20] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:39:26] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:41:20] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 10:41:26] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 10:43:20] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 10:43:26] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 10:43:47] info: SIGINT received, shutting down...
+[2025-05-05 10:43:53] info: Initializing reminder handler
+[2025-05-05 10:43:53] info: Reminder handler initialized
+[2025-05-05 10:43:53] info: Dashboard connected to MongoDB
+[2025-05-05 10:43:53] info: Dashboard server running on port 5000
+[2025-05-05 10:43:53] info: Access the dashboard at http://localhost:5000
+[2025-05-05 10:43:53] info: Loading 11 categories...
+[2025-05-05 10:43:53] info: Loading 8 commands from altdetector...
+[2025-05-05 10:43:53] info: Loading 1 events from client...
+[2025-05-05 10:43:53] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 10:43:53] info: Loading 10 commands from applications...
+[2025-05-05 10:43:53] info: Loading 15 events from guild...
+[2025-05-05 10:43:53] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 10:43:53] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 10:43:53] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 10:43:53] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 10:43:53] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 10:43:53] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 10:43:53] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 10:43:53] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 10:43:53] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 10:43:53] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 10:43:53] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 10:43:53] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 10:43:53] debug: Event ready has 1 listener(s)
+[2025-05-05 10:43:53] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 10:43:53] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 10:43:53] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 10:43:53] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 10:43:53] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 10:43:53] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 10:43:53] info: Events loaded successfully!
+[2025-05-05 10:43:53] info: Loading 15 commands from config...
+[2025-05-05 10:43:53] info: Loading 7 commands from economy...
+[2025-05-05 10:43:54] info: Loading 9 commands from fun...
+[2025-05-05 10:43:54] info: Loading 11 commands from information...
+[2025-05-05 10:43:54] info: Loading 5 commands from moderation...
+[2025-05-05 10:43:54] info: Loading 7 commands from owner...
+[2025-05-05 10:43:54] info: Loading 3 commands from reactionrole...
+[2025-05-05 10:43:54] info: Loading 6 commands from ticket...
+[2025-05-05 10:43:54] info: Loading 12 commands from utility...
+[2025-05-05 10:43:54] info: Successfully loaded 93 slash commands!
+[2025-05-05 10:43:54] info: Prepared 93 slash commands for registration.
+[2025-05-05 10:43:54] info: Commands will be registered after the bot logs in.
+[2025-05-05 10:43:54] info: Connected to MongoDB
+[2025-05-05 10:43:57] info: Logged in as Aquire#0674
+[2025-05-05 10:43:57] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 10:43:57] debug: Default owner already exists in database
+[2025-05-05 10:43:57] info: Started refreshing application (/) commands.
+[2025-05-05 10:43:58] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 10:43:58] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 10:45:20] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 10:45:58] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:47:20] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:47:58] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:49:20] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:49:58] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 10:51:20] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 10:51:58] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 10:53:20] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 10:53:38] info: SIGINT received, shutting down...
+[2025-05-05 10:53:42] info: Initializing reminder handler
+[2025-05-05 10:53:42] info: Reminder handler initialized
+[2025-05-05 10:53:42] info: Dashboard connected to MongoDB
+[2025-05-05 10:53:42] info: Dashboard server running on port 5000
+[2025-05-05 10:53:42] info: Access the dashboard at http://localhost:5000
+[2025-05-05 10:53:42] info: Loading 11 categories...
+[2025-05-05 10:53:43] info: Loading 8 commands from altdetector...
+[2025-05-05 10:53:43] info: Loading 1 events from client...
+[2025-05-05 10:53:43] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 10:53:43] info: Loading 10 commands from applications...
+[2025-05-05 10:53:43] info: Loading 15 events from guild...
+[2025-05-05 10:53:43] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 10:53:43] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 10:53:43] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 10:53:43] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 10:53:43] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 10:53:43] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 10:53:43] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 10:53:43] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 10:53:43] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 10:53:43] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 10:53:43] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 10:53:43] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 10:53:43] debug: Event ready has 1 listener(s)
+[2025-05-05 10:53:43] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 10:53:43] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 10:53:43] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 10:53:43] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 10:53:43] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 10:53:43] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 10:53:43] info: Events loaded successfully!
+[2025-05-05 10:53:43] info: Loading 15 commands from config...
+[2025-05-05 10:53:43] info: Loading 7 commands from economy...
+[2025-05-05 10:53:43] info: Loading 9 commands from fun...
+[2025-05-05 10:53:43] info: Loading 11 commands from information...
+[2025-05-05 10:53:43] info: Loading 5 commands from moderation...
+[2025-05-05 10:53:43] info: Loading 7 commands from owner...
+[2025-05-05 10:53:43] info: Loading 3 commands from reactionrole...
+[2025-05-05 10:53:43] info: Loading 6 commands from ticket...
+[2025-05-05 10:53:43] info: Loading 12 commands from utility...
+[2025-05-05 10:53:43] info: Successfully loaded 93 slash commands!
+[2025-05-05 10:53:43] info: Prepared 93 slash commands for registration.
+[2025-05-05 10:53:43] info: Commands will be registered after the bot logs in.
+[2025-05-05 10:53:43] info: Connected to MongoDB
+[2025-05-05 10:53:47] info: Logged in as Aquire#0674
+[2025-05-05 10:53:47] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 10:53:47] debug: Default owner already exists in database
+[2025-05-05 10:53:47] info: Started refreshing application (/) commands.
+[2025-05-05 10:53:47] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 10:53:47] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 10:55:20] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 10:55:47] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:57:11] info: SIGINT received, shutting down...
+[2025-05-05 10:57:16] info: Initializing reminder handler
+[2025-05-05 10:57:16] info: Reminder handler initialized
+[2025-05-05 10:57:16] info: Dashboard connected to MongoDB
+[2025-05-05 10:57:16] info: Dashboard server running on port 5000
+[2025-05-05 10:57:16] info: Access the dashboard at http://localhost:5000
+[2025-05-05 10:57:16] info: Loading 11 categories...
+[2025-05-05 10:57:16] info: Loading 8 commands from altdetector...
+[2025-05-05 10:57:16] info: Loading 1 events from client...
+[2025-05-05 10:57:16] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 10:57:16] info: Loading 10 commands from applications...
+[2025-05-05 10:57:16] info: Loading 15 events from guild...
+[2025-05-05 10:57:16] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 10:57:16] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 10:57:16] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 10:57:16] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 10:57:16] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 10:57:16] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 10:57:16] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 10:57:16] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 10:57:16] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 10:57:16] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 10:57:16] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 10:57:16] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 10:57:16] debug: Event ready has 1 listener(s)
+[2025-05-05 10:57:16] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 10:57:16] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 10:57:16] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 10:57:16] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 10:57:16] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 10:57:16] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 10:57:16] info: Events loaded successfully!
+[2025-05-05 10:57:16] info: Loading 15 commands from config...
+[2025-05-05 10:57:16] info: Loading 7 commands from economy...
+[2025-05-05 10:57:16] info: Loading 9 commands from fun...
+[2025-05-05 10:57:16] info: Loading 11 commands from information...
+[2025-05-05 10:57:16] info: Loading 5 commands from moderation...
+[2025-05-05 10:57:16] info: Loading 7 commands from owner...
+[2025-05-05 10:57:16] info: Loading 3 commands from reactionrole...
+[2025-05-05 10:57:16] info: Loading 6 commands from ticket...
+[2025-05-05 10:57:16] info: Loading 12 commands from utility...
+[2025-05-05 10:57:16] info: Successfully loaded 93 slash commands!
+[2025-05-05 10:57:16] info: Prepared 93 slash commands for registration.
+[2025-05-05 10:57:16] info: Commands will be registered after the bot logs in.
+[2025-05-05 10:57:17] info: Connected to MongoDB
+[2025-05-05 10:57:20] info: Logged in as Aquire#0674
+[2025-05-05 10:57:20] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 10:57:20] debug: Default owner already exists in database
+[2025-05-05 10:57:20] info: Started refreshing application (/) commands.
+[2025-05-05 10:57:20] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:57:21] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 10:57:21] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 10:59:20] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 10:59:21] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 10:59:23] info: SIGINT received, shutting down...
+[2025-05-05 10:59:26] info: Initializing reminder handler
+[2025-05-05 10:59:26] info: Reminder handler initialized
+[2025-05-05 10:59:26] info: Dashboard connected to MongoDB
+[2025-05-05 10:59:26] info: Dashboard server running on port 5000
+[2025-05-05 10:59:26] info: Access the dashboard at http://localhost:5000
+[2025-05-05 10:59:26] info: Loading 11 categories...
+[2025-05-05 10:59:26] info: Loading 8 commands from altdetector...
+[2025-05-05 10:59:26] info: Loading 1 events from client...
+[2025-05-05 10:59:26] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 10:59:26] info: Loading 10 commands from applications...
+[2025-05-05 10:59:26] info: Loading 15 events from guild...
+[2025-05-05 10:59:26] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 10:59:26] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 10:59:26] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 10:59:26] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 10:59:26] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 10:59:26] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 10:59:26] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 10:59:26] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 10:59:26] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 10:59:26] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 10:59:26] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 10:59:26] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 10:59:26] debug: Event ready has 1 listener(s)
+[2025-05-05 10:59:26] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 10:59:26] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 10:59:26] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 10:59:26] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 10:59:26] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 10:59:26] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 10:59:26] info: Events loaded successfully!
+[2025-05-05 10:59:26] info: Loading 15 commands from config...
+[2025-05-05 10:59:26] info: Loading 7 commands from economy...
+[2025-05-05 10:59:26] info: Loading 9 commands from fun...
+[2025-05-05 10:59:26] info: Loading 11 commands from information...
+[2025-05-05 10:59:26] info: Loading 5 commands from moderation...
+[2025-05-05 10:59:26] info: Loading 7 commands from owner...
+[2025-05-05 10:59:26] info: Loading 3 commands from reactionrole...
+[2025-05-05 10:59:26] info: Loading 6 commands from ticket...
+[2025-05-05 10:59:26] info: Loading 12 commands from utility...
+[2025-05-05 10:59:26] info: Successfully loaded 93 slash commands!
+[2025-05-05 10:59:26] info: Prepared 93 slash commands for registration.
+[2025-05-05 10:59:26] info: Commands will be registered after the bot logs in.
+[2025-05-05 10:59:27] info: Connected to MongoDB
+[2025-05-05 10:59:30] info: Logged in as Aquire#0674
+[2025-05-05 10:59:30] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 10:59:30] debug: Default owner already exists in database
+[2025-05-05 10:59:30] info: Started refreshing application (/) commands.
+[2025-05-05 10:59:31] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 10:59:31] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:01:20] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 11:01:31] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:03:20] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 11:03:31] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:05:20] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 11:05:31] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 11:07:20] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:07:31] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 11:08:44] info: SIGINT received, shutting down...
+[2025-05-05 11:08:47] info: Initializing reminder handler
+[2025-05-05 11:08:47] info: Reminder handler initialized
+[2025-05-05 11:08:47] info: Dashboard connected to MongoDB
+[2025-05-05 11:08:47] info: Dashboard server running on port 5000
+[2025-05-05 11:08:47] info: Access the dashboard at http://localhost:5000
+[2025-05-05 11:08:47] info: Loading 11 categories...
+[2025-05-05 11:08:47] info: Loading 8 commands from altdetector...
+[2025-05-05 11:08:47] info: Loading 1 events from client...
+[2025-05-05 11:08:47] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 11:08:47] info: Loading 10 commands from applications...
+[2025-05-05 11:08:47] info: Loading 15 events from guild...
+[2025-05-05 11:08:47] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 11:08:47] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 11:08:47] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 11:08:47] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 11:08:47] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 11:08:47] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 11:08:47] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 11:08:47] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 11:08:47] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 11:08:47] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 11:08:47] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 11:08:47] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 11:08:47] debug: Event ready has 1 listener(s)
+[2025-05-05 11:08:47] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 11:08:47] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 11:08:47] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 11:08:47] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 11:08:47] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 11:08:47] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 11:08:47] info: Events loaded successfully!
+[2025-05-05 11:08:47] info: Loading 15 commands from config...
+[2025-05-05 11:08:47] info: Loading 7 commands from economy...
+[2025-05-05 11:08:47] info: Loading 9 commands from fun...
+[2025-05-05 11:08:47] info: Loading 11 commands from information...
+[2025-05-05 11:08:47] info: Loading 5 commands from moderation...
+[2025-05-05 11:08:47] info: Loading 7 commands from owner...
+[2025-05-05 11:08:47] info: Loading 3 commands from reactionrole...
+[2025-05-05 11:08:47] info: Loading 6 commands from ticket...
+[2025-05-05 11:08:47] info: Loading 12 commands from utility...
+[2025-05-05 11:08:47] info: Successfully loaded 93 slash commands!
+[2025-05-05 11:08:47] info: Prepared 93 slash commands for registration.
+[2025-05-05 11:08:47] info: Commands will be registered after the bot logs in.
+[2025-05-05 11:08:47] info: Connected to MongoDB
+[2025-05-05 11:08:51] info: Logged in as Aquire#0674
+[2025-05-05 11:08:51] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 11:08:51] debug: Default owner already exists in database
+[2025-05-05 11:08:51] info: Started refreshing application (/) commands.
+[2025-05-05 11:08:52] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 11:08:52] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:09:20] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:10:52] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:11:20] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 11:11:35] info: SIGINT received, shutting down...
+[2025-05-05 11:11:39] info: Initializing reminder handler
+[2025-05-05 11:11:39] info: Reminder handler initialized
+[2025-05-05 11:11:39] info: Dashboard connected to MongoDB
+[2025-05-05 11:11:39] info: Dashboard server running on port 5000
+[2025-05-05 11:11:39] info: Access the dashboard at http://localhost:5000
+[2025-05-05 11:11:39] info: Loading 11 categories...
+[2025-05-05 11:11:39] info: Loading 1 events from client...
+[2025-05-05 11:11:39] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 11:11:39] info: Loading 8 commands from altdetector...
+[2025-05-05 11:11:39] info: Loading 15 events from guild...
+[2025-05-05 11:11:39] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 11:11:39] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 11:11:39] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 11:11:39] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 11:11:39] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 11:11:39] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 11:11:39] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 11:11:39] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 11:11:39] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 11:11:39] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 11:11:39] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 11:11:39] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 11:11:39] debug: Event ready has 1 listener(s)
+[2025-05-05 11:11:39] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 11:11:39] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 11:11:39] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 11:11:39] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 11:11:39] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 11:11:39] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 11:11:39] info: Events loaded successfully!
+[2025-05-05 11:11:39] info: Loading 10 commands from applications...
+[2025-05-05 11:11:39] info: Loading 15 commands from config...
+[2025-05-05 11:11:39] info: Loading 7 commands from economy...
+[2025-05-05 11:11:39] info: Loading 9 commands from fun...
+[2025-05-05 11:11:39] info: Loading 11 commands from information...
+[2025-05-05 11:11:39] info: Loading 5 commands from moderation...
+[2025-05-05 11:11:39] info: Loading 7 commands from owner...
+[2025-05-05 11:11:39] info: Loading 3 commands from reactionrole...
+[2025-05-05 11:11:39] info: Loading 6 commands from ticket...
+[2025-05-05 11:11:39] info: Loading 12 commands from utility...
+[2025-05-05 11:11:39] info: Successfully loaded 93 slash commands!
+[2025-05-05 11:11:39] info: Prepared 93 slash commands for registration.
+[2025-05-05 11:11:39] info: Commands will be registered after the bot logs in.
+[2025-05-05 11:11:39] info: Connected to MongoDB
+[2025-05-05 11:11:41] info: SIGINT received, shutting down...
+[2025-05-05 11:11:42] info: Logged in as Aquire#0674
+[2025-05-05 11:11:42] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 11:11:43] debug: Default owner already exists in database
+[2025-05-05 11:11:43] info: Started refreshing application (/) commands.
+[2025-05-05 11:11:43] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 11:11:43] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:11:48] info: Initializing reminder handler
+[2025-05-05 11:11:48] info: Reminder handler initialized
+[2025-05-05 11:11:48] info: Loading 11 categories...
+[2025-05-05 11:11:48] info: Loading 8 commands from altdetector...
+[2025-05-05 11:11:48] info: Loading 1 events from client...
+[2025-05-05 11:11:48] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 11:11:48] info: Loading 10 commands from applications...
+[2025-05-05 11:11:48] info: Loading 15 events from guild...
+[2025-05-05 11:11:48] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 11:11:48] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 11:11:48] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 11:11:48] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 11:11:48] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 11:11:48] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 11:11:48] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 11:11:48] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 11:11:48] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 11:11:48] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 11:11:48] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 11:11:48] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 11:11:48] debug: Event ready has 1 listener(s)
+[2025-05-05 11:11:48] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 11:11:48] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 11:11:48] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 11:11:48] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 11:11:48] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 11:11:48] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 11:11:48] info: Events loaded successfully!
+[2025-05-05 11:11:48] info: Loading 15 commands from config...
+[2025-05-05 11:11:48] info: Loading 7 commands from economy...
+[2025-05-05 11:11:48] info: Loading 9 commands from fun...
+[2025-05-05 11:11:48] info: Loading 11 commands from information...
+[2025-05-05 11:11:48] info: Loading 5 commands from moderation...
+[2025-05-05 11:11:48] info: Loading 7 commands from owner...
+[2025-05-05 11:11:48] info: Loading 3 commands from reactionrole...
+[2025-05-05 11:11:48] info: Loading 6 commands from ticket...
+[2025-05-05 11:11:48] info: Loading 12 commands from utility...
+[2025-05-05 11:11:48] info: Successfully loaded 93 slash commands!
+[2025-05-05 11:11:48] info: Prepared 93 slash commands for registration.
+[2025-05-05 11:11:48] info: Commands will be registered after the bot logs in.
+[2025-05-05 11:11:48] info: Connected to MongoDB
+[2025-05-05 11:11:52] info: Logged in as Aquire#0674
+[2025-05-05 11:11:52] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 11:11:52] debug: Default owner already exists in database
+[2025-05-05 11:11:52] info: Started refreshing application (/) commands.
+[2025-05-05 11:11:52] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 11:11:52] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:13:27] info: SIGINT received, shutting down...
+[2025-05-05 11:13:33] info: Initializing reminder handler
+[2025-05-05 11:13:33] info: Reminder handler initialized
+[2025-05-05 11:13:33] info: Dashboard connected to MongoDB
+[2025-05-05 11:13:33] info: Dashboard server running on port 5000
+[2025-05-05 11:13:33] info: Access the dashboard at http://localhost:5000
+[2025-05-05 11:13:33] info: Loading 11 categories...
+[2025-05-05 11:13:33] info: Loading 8 commands from altdetector...
+[2025-05-05 11:13:33] info: Loading 1 events from client...
+[2025-05-05 11:13:33] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 11:13:33] info: Loading 10 commands from applications...
+[2025-05-05 11:13:33] info: Loading 15 events from guild...
+[2025-05-05 11:13:33] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 11:13:33] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 11:13:33] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 11:13:33] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 11:13:33] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 11:13:33] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 11:13:33] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 11:13:33] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 11:13:33] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 11:13:33] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 11:13:33] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 11:13:33] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 11:13:33] debug: Event ready has 1 listener(s)
+[2025-05-05 11:13:33] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 11:13:33] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 11:13:33] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 11:13:33] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 11:13:33] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 11:13:33] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 11:13:33] info: Events loaded successfully!
+[2025-05-05 11:13:33] info: Loading 15 commands from config...
+[2025-05-05 11:13:33] info: Loading 7 commands from economy...
+[2025-05-05 11:13:33] info: Loading 9 commands from fun...
+[2025-05-05 11:13:33] info: Loading 11 commands from information...
+[2025-05-05 11:13:33] info: Loading 5 commands from moderation...
+[2025-05-05 11:13:33] info: Loading 7 commands from owner...
+[2025-05-05 11:13:33] info: Loading 3 commands from reactionrole...
+[2025-05-05 11:13:33] info: Loading 6 commands from ticket...
+[2025-05-05 11:13:33] info: Loading 12 commands from utility...
+[2025-05-05 11:13:33] info: Successfully loaded 93 slash commands!
+[2025-05-05 11:13:33] info: Prepared 93 slash commands for registration.
+[2025-05-05 11:13:33] info: Commands will be registered after the bot logs in.
+[2025-05-05 11:13:33] info: Connected to MongoDB
+[2025-05-05 11:13:37] info: Logged in as Aquire#0674
+[2025-05-05 11:13:37] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 11:13:37] debug: Default owner already exists in database
+[2025-05-05 11:13:37] info: Started refreshing application (/) commands.
+[2025-05-05 11:13:38] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 11:13:38] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:13:52] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:15:38] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:15:52] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:17:38] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:17:52] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 11:18:43] info: SIGINT received, shutting down...
+[2025-05-05 11:18:47] info: Initializing reminder handler
+[2025-05-05 11:18:47] info: Reminder handler initialized
+[2025-05-05 11:18:47] info: Dashboard connected to MongoDB
+[2025-05-05 11:18:47] info: Dashboard server running on port 5000
+[2025-05-05 11:18:47] info: Access the dashboard at http://localhost:5000
+[2025-05-05 11:18:47] info: Loading 11 categories...
+[2025-05-05 11:18:47] info: Loading 8 commands from altdetector...
+[2025-05-05 11:18:47] info: Loading 1 events from client...
+[2025-05-05 11:18:47] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 11:18:47] info: Loading 10 commands from applications...
+[2025-05-05 11:18:47] info: Loading 15 events from guild...
+[2025-05-05 11:18:47] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 11:18:47] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 11:18:47] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 11:18:47] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 11:18:47] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 11:18:48] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 11:18:48] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 11:18:48] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 11:18:48] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 11:18:48] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 11:18:48] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 11:18:48] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 11:18:48] debug: Event ready has 1 listener(s)
+[2025-05-05 11:18:48] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 11:18:48] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 11:18:48] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 11:18:48] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 11:18:48] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 11:18:48] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 11:18:48] info: Events loaded successfully!
+[2025-05-05 11:18:48] info: Loading 15 commands from config...
+[2025-05-05 11:18:48] info: Loading 7 commands from economy...
+[2025-05-05 11:18:48] info: Loading 9 commands from fun...
+[2025-05-05 11:18:48] info: Loading 11 commands from information...
+[2025-05-05 11:18:48] info: Loading 5 commands from moderation...
+[2025-05-05 11:18:48] info: Loading 7 commands from owner...
+[2025-05-05 11:18:48] info: Loading 3 commands from reactionrole...
+[2025-05-05 11:18:48] info: Loading 6 commands from ticket...
+[2025-05-05 11:18:48] info: Loading 12 commands from utility...
+[2025-05-05 11:18:48] info: Successfully loaded 93 slash commands!
+[2025-05-05 11:18:48] info: Prepared 93 slash commands for registration.
+[2025-05-05 11:18:48] info: Commands will be registered after the bot logs in.
+[2025-05-05 11:18:48] info: Connected to MongoDB
+[2025-05-05 11:18:51] info: Logged in as Aquire#0674
+[2025-05-05 11:18:51] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 11:18:51] debug: Default owner already exists in database
+[2025-05-05 11:18:51] info: Started refreshing application (/) commands.
+[2025-05-05 11:18:52] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 11:18:52] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:19:52] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 11:20:40] info: SIGINT received, shutting down...
+[2025-05-05 11:20:43] info: Initializing reminder handler
+[2025-05-05 11:20:43] info: Reminder handler initialized
+[2025-05-05 11:20:43] info: Dashboard connected to MongoDB
+[2025-05-05 11:20:43] info: Dashboard server running on port 5000
+[2025-05-05 11:20:43] info: Access the dashboard at http://localhost:5000
+[2025-05-05 11:20:43] info: Loading 11 categories...
+[2025-05-05 11:20:43] info: Loading 8 commands from altdetector...
+[2025-05-05 11:20:43] info: Loading 1 events from client...
+[2025-05-05 11:20:43] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 11:20:43] info: Loading 10 commands from applications...
+[2025-05-05 11:20:43] info: Loading 15 events from guild...
+[2025-05-05 11:20:43] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 11:20:43] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 11:20:43] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 11:20:43] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 11:20:43] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 11:20:43] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 11:20:43] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 11:20:43] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 11:20:43] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 11:20:43] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 11:20:43] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 11:20:43] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 11:20:43] debug: Event ready has 1 listener(s)
+[2025-05-05 11:20:43] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 11:20:43] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 11:20:43] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 11:20:43] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 11:20:43] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 11:20:43] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 11:20:43] info: Events loaded successfully!
+[2025-05-05 11:20:43] info: Loading 15 commands from config...
+[2025-05-05 11:20:43] info: Loading 7 commands from economy...
+[2025-05-05 11:20:43] info: Loading 9 commands from fun...
+[2025-05-05 11:20:43] info: Loading 11 commands from information...
+[2025-05-05 11:20:43] info: Loading 5 commands from moderation...
+[2025-05-05 11:20:43] info: Loading 7 commands from owner...
+[2025-05-05 11:20:43] info: Loading 3 commands from reactionrole...
+[2025-05-05 11:20:43] info: Loading 6 commands from ticket...
+[2025-05-05 11:20:43] info: Loading 12 commands from utility...
+[2025-05-05 11:20:43] info: Successfully loaded 93 slash commands!
+[2025-05-05 11:20:43] info: Prepared 93 slash commands for registration.
+[2025-05-05 11:20:43] info: Commands will be registered after the bot logs in.
+[2025-05-05 11:20:43] info: Connected to MongoDB
+[2025-05-05 11:20:45] info: Logged in as Aquire#0674
+[2025-05-05 11:20:45] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 11:20:45] debug: Default owner already exists in database
+[2025-05-05 11:20:45] info: Started refreshing application (/) commands.
+[2025-05-05 11:20:46] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 11:20:46] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:21:52] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 11:22:46] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:23:52] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:24:46] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:25:52] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:26:46] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 11:27:52] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 11:28:46] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 11:29:52] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 11:30:30] debug: Interaction handler execution #1 for interaction 1368912742181900338
+[2025-05-05 11:30:30] debug: Interaction handler execution #1 for interaction 1368912742181900338
+[2025-05-05 11:30:30] debug: Processing interaction: 1368912742181900338, type: 2, say
+[2025-05-05 11:30:30] debug: Processing interaction: 1368912742181900338, type: 2, say
+[2025-05-05 11:30:31] error: Error in say command: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-05-05 11:30:31] error: Error in say command: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-05-05 11:30:32] error: Error executing command say: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-05-05 11:30:32] error: Error executing command say: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-05-05 11:30:46] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 11:31:43] debug: Cleaned up 1 old interactions from cache
+[2025-05-05 11:31:48] debug: Cleaned up 1 old interactions from cache
+[2025-05-05 11:31:52] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 11:32:46] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:33:52] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:34:46] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:35:52] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:36:46] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 11:37:52] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 11:38:46] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 11:39:52] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 11:40:40] info: SIGINT received, shutting down...
+[2025-05-05 11:40:42] info: Initializing reminder handler
+[2025-05-05 11:40:42] info: Reminder handler initialized
+[2025-05-05 11:40:42] info: Dashboard connected to MongoDB
+[2025-05-05 11:40:42] info: Dashboard server running on port 5000
+[2025-05-05 11:40:42] info: Access the dashboard at http://localhost:5000
+[2025-05-05 11:40:42] info: Loading 11 categories...
+[2025-05-05 11:40:42] info: Loading 8 commands from altdetector...
+[2025-05-05 11:40:42] info: Loading 1 events from client...
+[2025-05-05 11:40:42] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 11:40:42] info: Loading 10 commands from applications...
+[2025-05-05 11:40:42] info: Loading 15 events from guild...
+[2025-05-05 11:40:42] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 11:40:42] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 11:40:42] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 11:40:42] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 11:40:42] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 11:40:42] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 11:40:42] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 11:40:42] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 11:40:42] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 11:40:42] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 11:40:42] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 11:40:42] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 11:40:42] debug: Event ready has 1 listener(s)
+[2025-05-05 11:40:42] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 11:40:42] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 11:40:42] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 11:40:42] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 11:40:42] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 11:40:42] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 11:40:42] info: Events loaded successfully!
+[2025-05-05 11:40:42] info: Loading 15 commands from config...
+[2025-05-05 11:40:42] info: Loading 7 commands from economy...
+[2025-05-05 11:40:42] info: Loading 9 commands from fun...
+[2025-05-05 11:40:42] info: Loading 12 commands from information...
+[2025-05-05 11:40:42] info: Loading 5 commands from moderation...
+[2025-05-05 11:40:42] info: Loading 7 commands from owner...
+[2025-05-05 11:40:42] info: Loading 3 commands from reactionrole...
+[2025-05-05 11:40:42] info: Loading 6 commands from ticket...
+[2025-05-05 11:40:42] info: Loading 12 commands from utility...
+[2025-05-05 11:40:42] info: Successfully loaded 94 slash commands!
+[2025-05-05 11:40:42] info: Prepared 94 slash commands for registration.
+[2025-05-05 11:40:42] info: Commands will be registered after the bot logs in.
+[2025-05-05 11:40:42] info: Connected to MongoDB
+[2025-05-05 11:40:46] info: Logged in as Aquire#0674
+[2025-05-05 11:40:46] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 11:40:46] debug: Default owner already exists in database
+[2025-05-05 11:40:46] info: Started refreshing application (/) commands.
+[2025-05-05 11:40:47] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 11:40:47] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:41:52] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 11:42:47] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:43:52] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:44:47] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:45:10] info: SIGINT received, shutting down...
+[2025-05-05 11:45:13] info: Initializing reminder handler
+[2025-05-05 11:45:13] info: Reminder handler initialized
+[2025-05-05 11:45:13] info: Dashboard connected to MongoDB
+[2025-05-05 11:45:13] info: Dashboard server running on port 5000
+[2025-05-05 11:45:13] info: Access the dashboard at http://localhost:5000
+[2025-05-05 11:45:13] info: Loading 11 categories...
+[2025-05-05 11:45:13] info: Loading 8 commands from altdetector...
+[2025-05-05 11:45:13] info: Loading 1 events from client...
+[2025-05-05 11:45:13] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 11:45:13] info: Loading 10 commands from applications...
+[2025-05-05 11:45:13] info: Loading 15 events from guild...
+[2025-05-05 11:45:13] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 11:45:13] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 11:45:13] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 11:45:13] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 11:45:13] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 11:45:13] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 11:45:13] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 11:45:13] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 11:45:13] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 11:45:13] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 11:45:13] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 11:45:13] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 11:45:13] debug: Event ready has 1 listener(s)
+[2025-05-05 11:45:13] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 11:45:13] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 11:45:13] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 11:45:13] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 11:45:13] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 11:45:13] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 11:45:13] info: Events loaded successfully!
+[2025-05-05 11:45:13] info: Loading 15 commands from config...
+[2025-05-05 11:45:13] info: Loading 7 commands from economy...
+[2025-05-05 11:45:13] info: Loading 9 commands from fun...
+[2025-05-05 11:45:13] info: Loading 12 commands from information...
+[2025-05-05 11:45:13] info: Loading 5 commands from moderation...
+[2025-05-05 11:45:13] info: Loading 7 commands from owner...
+[2025-05-05 11:45:13] info: Loading 3 commands from reactionrole...
+[2025-05-05 11:45:13] info: Loading 6 commands from ticket...
+[2025-05-05 11:45:13] info: Loading 12 commands from utility...
+[2025-05-05 11:45:13] info: Successfully loaded 94 slash commands!
+[2025-05-05 11:45:13] info: Prepared 94 slash commands for registration.
+[2025-05-05 11:45:13] info: Commands will be registered after the bot logs in.
+[2025-05-05 11:45:13] info: Connected to MongoDB
+[2025-05-05 11:45:17] info: Logged in as Aquire#0674
+[2025-05-05 11:45:17] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 11:45:17] debug: Default owner already exists in database
+[2025-05-05 11:45:17] info: Started refreshing application (/) commands.
+[2025-05-05 11:45:17] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 11:45:17] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:45:52] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:47:17] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:47:52] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 11:49:17] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:49:52] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 11:51:17] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 11:51:52] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 11:53:17] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 11:53:52] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:54:13] info: SIGINT received, shutting down...
+[2025-05-05 11:54:17] info: Initializing reminder handler
+[2025-05-05 11:54:17] info: Reminder handler initialized
+[2025-05-05 11:54:17] info: Dashboard connected to MongoDB
+[2025-05-05 11:54:17] info: Dashboard server running on port 5000
+[2025-05-05 11:54:17] info: Access the dashboard at http://localhost:5000
+[2025-05-05 11:54:17] info: Loading 11 categories...
+[2025-05-05 11:54:17] info: Loading 8 commands from altdetector...
+[2025-05-05 11:54:17] info: Loading 1 events from client...
+[2025-05-05 11:54:17] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 11:54:17] info: Loading 10 commands from applications...
+[2025-05-05 11:54:17] info: Loading 15 events from guild...
+[2025-05-05 11:54:17] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 11:54:17] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 11:54:17] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 11:54:17] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 11:54:17] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 11:54:17] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 11:54:17] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 11:54:17] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 11:54:17] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 11:54:17] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 11:54:17] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 11:54:17] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 11:54:17] debug: Event ready has 1 listener(s)
+[2025-05-05 11:54:17] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 11:54:17] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 11:54:17] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 11:54:17] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 11:54:17] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 11:54:17] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 11:54:17] info: Events loaded successfully!
+[2025-05-05 11:54:17] info: Loading 15 commands from config...
+[2025-05-05 11:54:17] info: Loading 7 commands from economy...
+[2025-05-05 11:54:17] info: Loading 9 commands from fun...
+[2025-05-05 11:54:17] info: Loading 12 commands from information...
+[2025-05-05 11:54:17] info: Loading 5 commands from moderation...
+[2025-05-05 11:54:17] info: Loading 7 commands from owner...
+[2025-05-05 11:54:17] info: Loading 3 commands from reactionrole...
+[2025-05-05 11:54:17] info: Loading 6 commands from ticket...
+[2025-05-05 11:54:17] info: Loading 12 commands from utility...
+[2025-05-05 11:54:17] info: Successfully loaded 94 slash commands!
+[2025-05-05 11:54:17] info: Prepared 94 slash commands for registration.
+[2025-05-05 11:54:17] info: Commands will be registered after the bot logs in.
+[2025-05-05 11:54:18] info: Connected to MongoDB
+[2025-05-05 11:54:21] info: Logged in as Aquire#0674
+[2025-05-05 11:54:21] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 11:54:21] debug: Default owner already exists in database
+[2025-05-05 11:54:21] info: Started refreshing application (/) commands.
+[2025-05-05 11:54:21] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 11:54:21] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:55:52] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 11:56:13] info: SIGINT received, shutting down...
+[2025-05-05 11:56:16] info: Initializing reminder handler
+[2025-05-05 11:56:16] info: Reminder handler initialized
+[2025-05-05 11:56:16] info: Dashboard connected to MongoDB
+[2025-05-05 11:56:16] info: Dashboard server running on port 5000
+[2025-05-05 11:56:16] info: Access the dashboard at http://localhost:5000
+[2025-05-05 11:56:16] info: Loading 11 categories...
+[2025-05-05 11:56:16] info: Loading 8 commands from altdetector...
+[2025-05-05 11:56:16] info: Loading 1 events from client...
+[2025-05-05 11:56:16] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 11:56:16] info: Loading 10 commands from applications...
+[2025-05-05 11:56:16] info: Loading 15 events from guild...
+[2025-05-05 11:56:16] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 11:56:16] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 11:56:16] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 11:56:16] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 11:56:16] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 11:56:16] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 11:56:16] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 11:56:16] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 11:56:16] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 11:56:16] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 11:56:16] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 11:56:16] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 11:56:16] debug: Event ready has 1 listener(s)
+[2025-05-05 11:56:16] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 11:56:16] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 11:56:16] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 11:56:16] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 11:56:16] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 11:56:16] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 11:56:16] info: Events loaded successfully!
+[2025-05-05 11:56:16] info: Loading 15 commands from config...
+[2025-05-05 11:56:16] info: Loading 7 commands from economy...
+[2025-05-05 11:56:16] info: Loading 9 commands from fun...
+[2025-05-05 11:56:16] info: Loading 12 commands from information...
+[2025-05-05 11:56:16] info: Loading 5 commands from moderation...
+[2025-05-05 11:56:16] info: Loading 7 commands from owner...
+[2025-05-05 11:56:16] info: Loading 3 commands from reactionrole...
+[2025-05-05 11:56:16] info: Loading 6 commands from ticket...
+[2025-05-05 11:56:16] info: Loading 12 commands from utility...
+[2025-05-05 11:56:16] info: Successfully loaded 94 slash commands!
+[2025-05-05 11:56:16] info: Prepared 94 slash commands for registration.
+[2025-05-05 11:56:16] info: Commands will be registered after the bot logs in.
+[2025-05-05 11:56:16] info: Connected to MongoDB
+[2025-05-05 11:56:19] info: Logged in as Aquire#0674
+[2025-05-05 11:56:19] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 11:56:19] debug: Default owner already exists in database
+[2025-05-05 11:56:19] info: Started refreshing application (/) commands.
+[2025-05-05 11:56:20] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 11:56:20] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:57:52] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 11:58:20] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 11:59:06] info: SIGINT received, shutting down...
+[2025-05-05 11:59:09] info: Initializing reminder handler
+[2025-05-05 11:59:09] info: Reminder handler initialized
+[2025-05-05 11:59:09] info: Dashboard connected to MongoDB
+[2025-05-05 11:59:09] info: Dashboard server running on port 5000
+[2025-05-05 11:59:09] info: Access the dashboard at http://localhost:5000
+[2025-05-05 11:59:09] info: Loading 11 categories...
+[2025-05-05 11:59:09] info: Loading 8 commands from altdetector...
+[2025-05-05 11:59:09] info: Loading 1 events from client...
+[2025-05-05 11:59:09] debug: Registered event handler: ready.js for event: ready
+[2025-05-05 11:59:09] info: Loading 10 commands from applications...
+[2025-05-05 11:59:09] info: Loading 15 events from guild...
+[2025-05-05 11:59:09] debug: Registered event handler: interactionCreate.js for event: interactionCreate
+[2025-05-05 11:59:09] debug: Registered event handler: messageCreate.js for event: messageCreate
+[2025-05-05 11:59:09] debug: Skipping duplicate handler: afkMessage.js for event: messageCreate
+[2025-05-05 11:59:09] debug: Skipping duplicate handler: autoResponseHandler.js for event: messageCreate
+[2025-05-05 11:59:09] debug: Skipping duplicate handler: customCommandHandler.js for event: messageCreate
+[2025-05-05 11:59:09] debug: Registered event handler: guildMemberAdd.js for event: guildMemberAdd
+[2025-05-05 11:59:09] debug: Skipping duplicate handler: inviteFilter.js for event: messageCreate
+[2025-05-05 11:59:09] debug: Skipping duplicate handler: linkFilter.js for event: messageCreate
+[2025-05-05 11:59:09] debug: Registered event handler: messageReactionAdd.js for event: messageReactionAdd
+[2025-05-05 11:59:09] debug: Registered event handler: messageReactionRemove.js for event: messageReactionRemove
+[2025-05-05 11:59:09] debug: Registered event handler: tempVCHandler.js for event: voiceStateUpdate
+[2025-05-05 11:59:09] debug: Event shardDisconnect has 1 listener(s)
+[2025-05-05 11:59:09] debug: Event ready has 1 listener(s)
+[2025-05-05 11:59:09] debug: Event interactionCreate has 1 listener(s)
+[2025-05-05 11:59:09] debug: Event messageCreate has 1 listener(s)
+[2025-05-05 11:59:09] debug: Event guildMemberAdd has 1 listener(s)
+[2025-05-05 11:59:09] debug: Event messageReactionAdd has 1 listener(s)
+[2025-05-05 11:59:09] debug: Event messageReactionRemove has 1 listener(s)
+[2025-05-05 11:59:09] debug: Event voiceStateUpdate has 1 listener(s)
+[2025-05-05 11:59:09] info: Events loaded successfully!
+[2025-05-05 11:59:09] info: Loading 15 commands from config...
+[2025-05-05 11:59:09] info: Loading 7 commands from economy...
+[2025-05-05 11:59:09] info: Loading 9 commands from fun...
+[2025-05-05 11:59:09] info: Loading 12 commands from information...
+[2025-05-05 11:59:09] info: Loading 5 commands from moderation...
+[2025-05-05 11:59:09] info: Loading 7 commands from owner...
+[2025-05-05 11:59:09] info: Loading 3 commands from reactionrole...
+[2025-05-05 11:59:09] info: Loading 6 commands from ticket...
+[2025-05-05 11:59:09] info: Loading 12 commands from utility...
+[2025-05-05 11:59:10] info: Successfully loaded 94 slash commands!
+[2025-05-05 11:59:10] info: Prepared 94 slash commands for registration.
+[2025-05-05 11:59:10] info: Commands will be registered after the bot logs in.
+[2025-05-05 11:59:10] info: Connected to MongoDB
+[2025-05-05 11:59:12] info: Logged in as Aquire#0674
+[2025-05-05 11:59:12] info: Aquire is serving 80 servers with 72261 users
+[2025-05-05 11:59:12] debug: Default owner already exists in database
+[2025-05-05 11:59:12] info: Started refreshing application (/) commands.
+[2025-05-05 11:59:13] error: Error registering slash commands: DiscordAPIError[50240]: You cannot remove this app's Entry Point command in a bulk update operation. Please include the Entry Point command in your update request or delete it separately.
+[2025-05-05 11:59:13] info: Initial bot activity set to: 80 servers | /help (3)
+[2025-05-05 11:59:52] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 12:01:13] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 12:01:52] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 12:02:01] debug: Interaction handler execution #2 for interaction 1368920673757433876
+[2025-05-05 12:02:01] debug: Interaction handler execution #1 for interaction 1368920673757433876
+[2025-05-05 12:02:01] debug: Processing interaction: 1368920673757433876, type: 2, ping
+[2025-05-05 12:02:01] debug: Processing interaction: 1368920673757433876, type: 2, ping
+[2025-05-05 12:02:02] error: Error executing command ping: DiscordAPIError[10062]: Unknown interaction
+[2025-05-05 12:02:02] debug: Successfully executed command: ping
+[2025-05-05 12:02:32] debug: Interaction handler execution #3 for interaction 1368920804200546314
+[2025-05-05 12:02:32] debug: Processing interaction: 1368920804200546314, type: 2, say
+[2025-05-05 12:02:32] debug: Interaction handler execution #2 for interaction 1368920804200546314
+[2025-05-05 12:02:32] debug: Processing interaction: 1368920804200546314, type: 2, say
+[2025-05-05 12:02:33] error: Error in say command: DiscordAPIError[10062]: Unknown interaction
+[2025-05-05 12:02:33] debug: Successfully executed command: say
+[2025-05-05 12:02:34] error: Error executing command say: DiscordAPIError[40060]: Interaction has already been acknowledged.
+[2025-05-05 12:03:09] debug: Cleaned up 1 old interactions from cache
+[2025-05-05 12:03:13] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 12:03:48] debug: Cleaned up 2 old interactions from cache
+[2025-05-05 12:03:52] info: Rotated bot activity to: with 72261 users (Playing)
+[2025-05-05 12:04:09] debug: Cleaned up 1 old interactions from cache
+[2025-05-05 12:05:13] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 12:05:52] info: Rotated bot activity to: /help for commands (Listening)
+[2025-05-05 12:07:13] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+[2025-05-05 12:07:52] info: Rotated bot activity to: Made by Noah Osmont (Competing)
+[2025-05-05 12:09:13] info: Rotated bot activity to: 80 servers | /help (Watching)
+[2025-05-05 12:09:52] info: Rotated bot activity to: Providing premium Discord services (Streaming)
+>>>>>>> 43a7f66 (Fix say command interaction handling and remove filter/search from commands page)
