@@ -73,6 +73,29 @@ module.exports = {
       // Log minimal interaction info
       logger.debug(`Processing interaction: ${interaction.id}, type: ${interaction.type}, ${interaction.commandName || interaction.customId || "unknown"}`);
       
+      // Validate guildID before processing
+      const guildID = interaction.guildId;
+      if (!guildID) {
+        logger.error(`Invalid guildID: ${guildID}. Skipping interaction.`);
+        logger.debug(`Full interaction details: ${JSON.stringify(interaction, null, 2)}`);
+        return;
+      }
+
+      // Example: Handle guild data in the database
+      try {
+        const existingGuild = await Guild.findOne({ guildID });
+        if (!existingGuild) {
+          await Guild.create({ guildID });
+          logger.info(`New guild added to the database: ${guildID}`);
+        }
+      } catch (error) {
+        if (error.code === 11000) {
+          logger.error(`Duplicate guildID detected: ${guildID}`);
+        } else {
+          logger.error(`Error handling guild data: ${error.message}`);
+        }
+      }
+      
       // HANDLE SLASH COMMANDS (ApplicationCommand - type 2)
       if (interaction.type === InteractionType.ApplicationCommand) {
         // Get the command from the client.slashCommands collection
