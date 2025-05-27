@@ -61,7 +61,7 @@ async function generateWelcomeGif(user, guild, messageTemplate, backgroundURL) {
     console.log('Fetching avatar URL:', avatarURL);
 
     console.log('Fetching background image buffer');
-    const backgroundBuffer = await fetchImageBuffer(backgroundURL || 'https://media.tenor.com/nG8mRUjHvhoAAAAC/galaxy.gif');
+    const backgroundBuffer = await fetchImageBuffer(backgroundURL || 'https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnk1NG1uMnF5NHNnZDUwZzNrdHQ0ejNwdmhvZ25jN2Y1NmNha2FnciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cKztHK8yKmSrjjPyAg/giphy.gif');
 
     console.log('Extracting frames from background GIF');
     const gifFrames = await sharp(backgroundBuffer, { animated: true }).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
