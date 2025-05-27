@@ -202,7 +202,7 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const guildId = '<%= guild.id %>';
+    const guildID = '<%= guild.id %>';
     
     // Toggle alt settings visibility
     const enabledSwitch = document.getElementById('enabled');
@@ -221,7 +221,7 @@
     // Fetch and populate channels for mod log
     const modLogChannelSelect = document.getElementById('mod-log-channel');
     if (modLogChannelSelect) {
-      fetchGuildChannels(guildId, 'text').then(channels => {
+      fetchGuildChannels(guildID, 'text').then(channels => {
         populateChannelSelect(modLogChannelSelect, channels);
         
         // Set the currently selected mod log channel
@@ -237,7 +237,7 @@
     const bypassRolesSelect = document.getElementById('bypassRoles');
     
     if (notifyRoleSelect || bypassRolesSelect) {
-      fetchGuildRoles(guildId).then(roles => {
+      fetchGuildRoles(guildID).then(roles => {
         if (notifyRoleSelect) {
           populateRoleSelect(notifyRoleSelect, roles);
           

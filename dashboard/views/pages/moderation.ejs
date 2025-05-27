@@ -204,12 +204,12 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const guildId = '<%= guild.id %>';
+    const guildID = '<%= guild.id %>';
     
     // Fetch and populate channels for mod log
     const modLogChannelSelect = document.getElementById('mod-log-channel');
     if (modLogChannelSelect) {
-      fetchGuildChannels(guildId, 'text').then(channels => {
+      fetchGuildChannels(guildID, 'text').then(channels => {
         populateChannelSelect(modLogChannelSelect, channels);
         
         // Set the currently selected mod log channel
@@ -223,7 +223,7 @@
     // Fetch and populate exempt channels
     const exemptChannelsSelect = document.getElementById('exempt-channels');
     if (exemptChannelsSelect) {
-      fetchGuildChannels(guildId, 'text').then(channels => {
+      fetchGuildChannels(guildID, 'text').then(channels => {
         populateChannelSelect(exemptChannelsSelect, channels);
         
         // Set the currently selected exempt channels
@@ -241,7 +241,7 @@
     // Fetch and populate exempt roles
     const exemptRolesSelect = document.getElementById('exempt-roles');
     if (exemptRolesSelect) {
-      fetchGuildRoles(guildId).then(roles => {
+      fetchGuildRoles(guildID).then(roles => {
         populateRoleSelect(exemptRolesSelect, roles);
         
         // Set the currently selected exempt roles

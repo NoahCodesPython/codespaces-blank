@@ -59,9 +59,8 @@ function hasGuildPermission(req, res, next) {
     return res.redirect('/auth/login');
   }
   
-  const guildId = req.params.id;
-  
-  if (!guildId) {
+  const guildID = req.params.id;
+  if (!guildID) {
     return res.status(400).render('pages/error', {
       title: 'Error',
       error: {
@@ -73,7 +72,7 @@ function hasGuildPermission(req, res, next) {
   
   // Check if user has access to the guild
   const userGuilds = req.user.guilds || [];
-  const guild = userGuilds.find(g => g.id === guildId);
+  const guild = userGuilds.find(g => g.id === guildID);
   
   if (!guild) {
     return res.status(403).render('pages/error', {

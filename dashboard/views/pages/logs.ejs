@@ -355,7 +355,7 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const guildId = '<%= guild.id %>';
+    const guildID = '<%= guild.id %>';
     
     // Toggle log settings visibility
     const enabledSwitch = document.getElementById('enabled');
@@ -391,7 +391,7 @@
     const ignoredChannelsSelect = document.getElementById('ignoredChannels');
     
     if (logChannelSelect || modLogChannelSelect || ignoredChannelsSelect) {
-      fetchGuildChannels(guildId, 'text').then(channels => {
+      fetchGuildChannels(guildID, 'text').then(channels => {
         if (logChannelSelect) {
           populateChannelSelect(logChannelSelect, channels);
           
@@ -431,7 +431,7 @@
     // Fetch and populate roles
     const ignoredRolesSelect = document.getElementById('ignoredRoles');
     if (ignoredRolesSelect) {
-      fetchGuildRoles(guildId).then(roles => {
+      fetchGuildRoles(guildID).then(roles => {
         populateRoleSelect(ignoredRolesSelect, roles);
         
         // Set the currently selected ignored roles

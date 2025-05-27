@@ -235,12 +235,12 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const guildId = '<%= guild.id %>';
+    const guildID = '<%= guild.id %>';
     
     // Fetch and populate channels
     const channelSelect = document.getElementById('channel');
     if (channelSelect) {
-      fetchGuildChannels(guildId, 'text').then(channels => {
+      fetchGuildChannels(guildID, 'text').then(channels => {
         populateChannelSelect(channelSelect, channels);
       });
     }
@@ -248,7 +248,7 @@
     // Fetch and populate role selects
     const roleSelects = document.querySelectorAll('.role-select');
     if (roleSelects.length > 0) {
-      fetchGuildRoles(guildId).then(roles => {
+      fetchGuildRoles(guildID).then(roles => {
         roleSelects.forEach(select => {
           populateRoleSelect(select, roles);
         });
@@ -290,7 +290,7 @@
         
         // Populate the new role select
         const newRoleSelect = reactionRoleItem.querySelector('.role-select');
-        fetchGuildRoles(guildId).then(roles => {
+        fetchGuildRoles(guildID).then(roles => {
           populateRoleSelect(newRoleSelect, roles);
         });
         
@@ -382,7 +382,7 @@
         // Fetch menu details
         menuDetailsContainer.innerHTML = 'Loading...';
         
-        fetch(`/api/guilds/${guildId}/reaction-roles/${menuId}`)
+        fetch(`/api/guilds/${guildID}/reaction-roles/${menuId}`)
           .then(response => response.json())
           .then(data => {
             if (data.success) {
@@ -419,7 +419,7 @@
                   </div>
                   
                   <div class="d-flex justify-content-center">
-                    <a href="https://discord.com/channels/${guildId}/${menu.channelId}/${menu.messageId}" 
+                    <a href="https://discord.com/channels/${guildID}/${menu.channelId}/${menu.messageId}"
                        target="_blank" class="btn btn-sm btn-primary">
                       <i class="fas fa-external-link-alt me-1"></i> View in Discord
                     </a>

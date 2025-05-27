@@ -259,7 +259,7 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const guildId = '<%= guild.id %>';
+    const guildID = '<%= guild.id %>';
     
     // Toggle ticket settings visibility
     const enabledSwitch = document.getElementById('enabled');
@@ -280,7 +280,7 @@
     const ticketLogChannelSelect = document.getElementById('ticket-log-channel');
     
     if (ticketCategorySelect) {
-      fetchGuildChannels(guildId, 'category').then(categories => {
+      fetchGuildChannels(guildID, 'category').then(categories => {
         populateChannelSelect(ticketCategorySelect, categories);
         
         // Set the currently selected category
@@ -292,7 +292,7 @@
     }
     
     if (ticketLogChannelSelect) {
-      fetchGuildChannels(guildId, 'text').then(channels => {
+      fetchGuildChannels(guildID, 'text').then(channels => {
         populateChannelSelect(ticketLogChannelSelect, channels);
         
         // Set the currently selected log channel
@@ -306,7 +306,7 @@
     // Fetch and populate support roles
     const supportRolesSelect = document.getElementById('supportRoles');
     if (supportRolesSelect) {
-      fetchGuildRoles(guildId).then(roles => {
+      fetchGuildRoles(guildID).then(roles => {
         populateRoleSelect(supportRolesSelect, roles);
         
         // Set the currently selected support roles

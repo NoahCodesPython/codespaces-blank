@@ -16,12 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Fetch and populate Discord channels for server settings
-  const guildId = document.querySelector('form[data-guild-id]')?.dataset?.guildId;
-  if (guildId) {
+  const guildID = document.querySelector('form[data-guild-id]')?.dataset?.guildID;
+  if (guildID) {
     // For welcome channel selector
     const welcomeChannelSelect = document.getElementById('welcome-channel');
     if (welcomeChannelSelect) {
-      fetchGuildChannels(guildId, 'text').then(channels => {
+      fetchGuildChannels(guildID, 'text').then(channels => {
         populateChannelSelect(welcomeChannelSelect, channels);
       });
     }
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // For temp VC channel selector
     const tempVcChannelSelect = document.getElementById('temp-vc-channel');
     if (tempVcChannelSelect) {
-      fetchGuildChannels(guildId, 'voice').then(channels => {
+      fetchGuildChannels(guildID, 'voice').then(channels => {
         populateChannelSelect(tempVcChannelSelect, channels);
       });
     }
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // For temp VC category selector
     const tempVcCategorySelect = document.getElementById('temp-vc-category');
     if (tempVcCategorySelect) {
-      fetchGuildChannels(guildId, 'category').then(categories => {
+      fetchGuildChannels(guildID, 'category').then(categories => {
         populateChannelSelect(tempVcCategorySelect, categories);
       });
     }
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // For suggestion channel selector
     const suggestionChannelSelect = document.getElementById('suggestion-channel');
     if (suggestionChannelSelect) {
-      fetchGuildChannels(guildId, 'text').then(channels => {
+      fetchGuildChannels(guildID, 'text').then(channels => {
         populateChannelSelect(suggestionChannelSelect, channels);
       });
     }
@@ -66,13 +66,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /**
  * Fetch guild channels from API
- * @param {string} guildId - The Discord guild ID
+ * @param {string} guildID - The Discord guild ID
  * @param {string} type - The type of channel ('text', 'voice', 'category', or 'all')
  * @returns {Promise<Array>} - Array of channel objects
  */
-async function fetchGuildChannels(guildId, type = 'all') {
+async function fetchGuildChannels(guildID, type = 'all') {
   try {
-    const response = await fetch(`/api/guilds/${guildId}/channels?type=${type}`);
+    const response = await fetch(`/api/guilds/${guildID}/channels?type=${type}`);
     if (!response.ok) {
       throw new Error('Failed to fetch channels');
     }
@@ -119,12 +119,12 @@ function populateChannelSelect(selectElement, channels) {
 
 /**
  * Fetch guild roles from API
- * @param {string} guildId - The Discord guild ID
+ * @param {string} guildID - The Discord guild ID
  * @returns {Promise<Array>} - Array of role objects
  */
-async function fetchGuildRoles(guildId) {
+async function fetchGuildRoles(guildID) {
   try {
-    const response = await fetch(`/api/guilds/${guildId}/roles`);
+    const response = await fetch(`/api/guilds/${guildID}/roles`);
     if (!response.ok) {
       throw new Error('Failed to fetch roles');
     }
