@@ -1,6 +1,7 @@
 const { Events, InteractionType, ComponentType, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
 const logger = require('../../utils/logger');
 const config = require('../../config');
+const Guild = require('../../models/Guild');
 
 // Import specific handlers for better organization
 const { handleTicketCreate } = require('./handlers/ticketButtonHandler');
@@ -75,9 +76,12 @@ module.exports = {
       
       // Validate guildID before processing
       const guildID = interaction.guildId;
-      if (!guildID) {
+      // Log database operation for debugging
+      logger.debug(`Attempting to find or create guild with ID: ${guildID}`);
+
+      // Ensure guildID is not null or undefined
+      if (!guildID || guildID === 'null') {
         logger.error(`Invalid guildID: ${guildID}. Skipping interaction.`);
-        logger.debug(`Full interaction details: ${JSON.stringify(interaction, null, 2)}`);
         return;
       }
 
