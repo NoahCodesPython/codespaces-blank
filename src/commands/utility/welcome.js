@@ -144,7 +144,7 @@ module.exports = {
         user, // Pass the user object directly
         guild,
         data.welcomeMessage,
-        data.welcomeBackground || 'https://media.tenor.com/nG8mRUjHvhoAAAAC/galaxy.gif'
+        data.welcomeBackground || 'https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnk1NG1uMnF5NHNnZDUwZzNrdHQ0ejNwdmhvZ25jN2Y1NmNha2FnciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cKztHK8yKmSrjjPyAg/giphy.gif'
       );
 
       const attachment = new AttachmentBuilder(gifBuffer, { name: 'welcome.gif' });
