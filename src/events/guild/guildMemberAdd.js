@@ -1,8 +1,6 @@
 const { Events, AttachmentBuilder } = require('discord.js');
 
-const { createCanvas, loadImage, registerFont } = require('canvas');
-
-const GIFEncoder = require('gif-encoder-2');
+const { registerFont } = require('canvas');
 
 const AltDetector = require('../../models/AltDetector');
 
@@ -17,6 +15,9 @@ const axios = require('axios');
 const path = require('path');
 
 const fs = require('fs');
+
+const { generateWelcomeGif } = require('../../utils/generateWelcomeGif');
+
 
 // Register font
 
@@ -84,90 +85,22 @@ module.exports = {
 
       if (!welcomeChannel) return;
 
-      const canvasWidth = 800;
+      const gifBuffer = await generateWelcomeGif(
+        member.user,
+        member.guild,
+        guildSettings.welcomeMessage,
+        guildSettings.welcomeBackground || 'https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnk1NG1uMnF5NHNnZDUwZzNrdHQ0ejNwdmhvZ25jN2Y1NmNha2FnciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cKztHK8yKmSrjjPyAg/giphy.gif'
+      );
 
-      const canvasHeight = 250;
-
-      const encoder = new GIFEncoder(canvasWidth, canvasHeight);
-
-      encoder.setDelay(100);
-
-      encoder.setRepeat(0);
-
-      encoder.start();
-
-      const canvas = createCanvas(canvasWidth, canvasHeight);
-
-      const ctx = canvas.getContext('2d');
-
-      const backgroundUrl = guildSettings.welcomeBackground || 'https://i.imgur.com/zvWTUVu.jpg';
-
-      const bgImage = await loadImage((await axios.get(backgroundUrl, { responseType: 'arraybuffer' })).data);
-
-      const avatarImage = await loadImage(member.user.displayAvatarURL({ extension: 'png', size: 128 }));
-
-      const frames = 10;
-
-      for (let i = 0; i < frames; i++) {
-
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-        ctx.drawImage(bgImage, 0, 0, canvasWidth, canvasHeight);
-
-        // Glowing Avatar effect
-
-        ctx.save();
-
-        ctx.beginPath();
-
-        ctx.arc(125, 125, 60, 0, Math.PI * 2);
-
-        ctx.closePath();
-
-        ctx.clip();
-
-        ctx.drawImage(avatarImage, 65, 65, 120, 120);
-
-        ctx.restore();
-
-        // Wavy Welcome Text
-
-        const wave = Math.sin(i * 0.5) * 5;
-
-        ctx.font = 'bold 36px "Open Sans"';
-
-        ctx.fillStyle = '#ffffff';
-
-        ctx.fillText(`Welcome ${member.user.username}`, 220, 120 + wave);
-
-        ctx.font = '28px "Open Sans"';
-
-        ctx.fillStyle = '#dddddd';
-
-        ctx.fillText(`to ${member.guild.name}!`, 220, 170 - wave);
-
-        encoder.addFrame(ctx);
-
-      }
-
-      encoder.finish();
-
-      const buffer = encoder.out.getData();
-
-      const attachment = new AttachmentBuilder(buffer, { name: 'welcome.gif' });
+      const attachment = new AttachmentBuilder(gifBuffer, { name: 'welcome.gif' });
 
       const message = guildSettings.welcomeMessage
-
         .replace('{user}', `<@${member.id}>`)
-
         .replace('{server}', member.guild.name);
 
       await welcomeChannel.send({
-
         content: message,
-
         files: [attachment],
-
       });
 
     } catch (error) {
